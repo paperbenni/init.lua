@@ -4,17 +4,18 @@ require('impatient')
 
 vim.cmd([[
 
-set number
-set mouse=a
+set inccommand=split
+" somehow works in tmux now...
+if has("termguicolors")
+        set termguicolors
+endif
+
+
+
 let mapleader = " "
 map <SPACE> <leader>
 
-set tabline
-set cursorline
-set relativenumber
-set smartcase
 set ignorecase
-set scrolloff=6
 set tabstop=4 shiftwidth=4 expandtab
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
@@ -47,24 +48,26 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-function! VimwikiLinkHandler(link)
-  if a:link =~# '^txt:'
-    try
-      " chop off the leading file: - see :h expr-[:] for syntax:
-      execute ':split ' . a:link[4:]
-      return 1
-    catch
-      echo "Failed opening file in vim."
-    endtry
-  endif
-  return 0
-endfunction
+let g:neovide_cursor_vfx_mode = "sonicboom"
 
 ]])
 
+vim.opt.number  = true
+vim.opt.lazyredraw  = true
+vim.opt.cursorline  = true
+vim.opt.relativenumber = true
+vim.opt.smartcase = true
+
+vim.opt.hidden = true
+
+vim.opt.inccommand = "split"
+vim.opt.mouse = "a"
+vim.opt.scrolloff = 6
 
 
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
+
+
 
 -- require 'mycmp'
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
@@ -72,23 +75,28 @@ require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 require'mytelescope'
 require'mylsp'
 
-require('neoscroll').setup()
+vim.cmd([[
+    let g:coq_settings = { 'display': { 'pum.kind_context': [' |', '|'], 'icons.mode': 'short', 'pum.source_context': [' ', ' '] } }
+]])
+
+require'mywiki'
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 
 require("nvim-tree").setup()
+require("nvim-autopairs").setup {}
+
 
 require 'bufferline'.setup {}
 require('lualine').setup {
     options = {
-        theme = 'tokyonight',
+        theme = 'onedark',
         icons_enabled = true
     }
 }
 
-vim.opt.termguicolors = true
-vim.cmd "colorscheme tokyonight"
+vim.cmd "colorscheme onedark"
 
 vim.cmd "COQnow --shut-up"

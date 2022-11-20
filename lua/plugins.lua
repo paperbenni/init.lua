@@ -23,7 +23,12 @@ require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
 
-    use 'lewis6991/gitsigns.nvim'
+    use {
+        'lewis6991/gitsigns.nvim',
+        config = function()
+            require('gitsigns').setup()
+        end
+    }
 
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-ui'
@@ -31,13 +36,14 @@ require('packer').startup(function(use)
     use { 'paperbenni/vimwiki', branch = 'dev' }
     use 'paperbenni/Calendar.vim'
     use 'michal-h21/vim-zettel'
-    use 'karb94/neoscroll.nvim'
+    use 'psliwka/vim-smoothie'
 
     use 'lervag/vimtex'
 
     use 'mhinz/vim-startify'
     use 'machakann/vim-highlightedyank'
     use 'folke/tokyonight.nvim'
+    use 'joshdick/onedark.vim'
     use 'j-hui/fidget.nvim'
 
     use {
@@ -72,10 +78,7 @@ require('packer').startup(function(use)
     use 'akinsho/bufferline.nvim'
     use 'hoob3rt/lualine.nvim'
 
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
+    use "windwp/nvim-autopairs"
 
 end)
 
