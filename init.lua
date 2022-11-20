@@ -1,4 +1,5 @@
 require('plugins')
+require('impatient')
 
 
 vim.cmd([[
@@ -19,17 +20,32 @@ set tabstop=4 shiftwidth=4 expandtab
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
 set encoding=UTF-8
 
+set hidden
+
 command Explore :NvimTreeToggle
+command! Lighttheme colorscheme tokyonight-day | set background=light
 
 map <SPACE> <leader>
 nnoremap <leader>a :Startify<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
+nnoremap <leader>f :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>g :Gcd<CR>
+nnoremap <leader>n :tabnew<CR>
 
 " additional mode switching
 
 inoremap <special> kj <ESC> 
 inoremap <special> jk <ESC>:
 tnoremap <special> jk <C-\><C-n>
+
+" move line up/down with alt j/k
+nnoremap <A-j> :m .+1<CR>==
+nnoremap <A-k> :m .-2<CR>==
+inoremap <A-j> <Esc>:m .+1<CR>==gi
+inoremap <A-k> <Esc>:m .-2<CR>==gi
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
 
 function! VimwikiLinkHandler(link)
   if a:link =~# '^txt:'
@@ -46,66 +62,33 @@ endfunction
 
 ]])
 
-require("mason").setup()
-require("mason-lspconfig").setup()
 
-require "fidget".setup {}
 
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 -- require 'mycmp'
-
 -- local capabilities = require('cmp_nvim_lsp').default_capabilities()
-local coq = require("coq")
-local capabilities = coq.lsp_ensure_capabilities()
 
-require 'lspconfig'.rust_analyzer.setup {
-    capabilities = capabilities
-}
-require 'lspconfig'.clangd.setup {
-    capabilities = capabilities
-}
-require 'lspconfig'.pyright.setup {
-    capabilities = capabilities
-}
+require'mytelescope'
+require'mylsp'
 
-require'lspconfig'.bashls.setup{}
-
-require'lspconfig'.volar.setup{
-  capabilities = capabilities
-}
-
-require 'lspconfig'.sumneko_lua.setup {
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            runtime = {
-                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                version = 'LuaJIT',
-            },
-            diagnostics = {
-                -- Get the language server to recognize the `vim` global
-                globals = { 'vim' },
-            },
-            workspace = {
-                -- Make the server aware of Neovim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-                enable = false,
-            },
-        },
-    },
-}
+require('neoscroll').setup()
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.opt.termguicolors = true
 
 require("nvim-tree").setup()
 
+require 'bufferline'.setup {}
+require('lualine').setup {
+    options = {
+        theme = 'tokyonight',
+        icons_enabled = true
+    }
+}
+
+vim.opt.termguicolors = true
 vim.cmd "colorscheme tokyonight"
 
 vim.cmd "COQnow --shut-up"
