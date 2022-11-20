@@ -52,17 +52,34 @@ let g:neovide_cursor_vfx_mode = "sonicboom"
 
 ]])
 
-vim.opt.number  = true
-vim.opt.lazyredraw  = true
-vim.opt.cursorline  = true
-vim.opt.relativenumber = true
-vim.opt.smartcase = true
+local opt = vim.opt
 
-vim.opt.hidden = true
+opt.number  = true
+opt.lazyredraw  = true
+opt.cursorline  = true
+opt.relativenumber = true
+opt.smartcase = true
 
-vim.opt.inccommand = "split"
-vim.opt.mouse = "a"
-vim.opt.scrolloff = 6
+opt.hidden = true
+
+opt.inccommand = "split"
+opt.mouse = "a"
+opt.scrolloff = 6
+opt.foldenable = false
+
+
+opt.list = true
+opt.listchars:append "eol:↴"
+
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+require("indent_blankline").setup {
+    -- for example, context is off by default, use this to turn it on
+    show_current_context = true,
+    show_current_context_start = true,
+    show_end_of_line = true
+}
 
 
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }

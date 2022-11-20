@@ -22,6 +22,8 @@ require('packer').startup(function(use)
     use 'tpope/vim-eunuch'
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
+    use "lukas-reineke/indent-blankline.nvim"
+
 
     use {
         'lewis6991/gitsigns.nvim',
