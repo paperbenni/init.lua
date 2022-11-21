@@ -12,6 +12,7 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+My_completion_engine = 'mycoq'
 
 require('packer').startup(function(use)
     use 'lewis6991/impatient.nvim'
@@ -22,7 +23,9 @@ require('packer').startup(function(use)
     use 'tpope/vim-eunuch'
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
+
     use "lukas-reineke/indent-blankline.nvim"
+    use 'mattn/emmet-vim'
 
 
     use {
@@ -63,12 +66,23 @@ require('packer').startup(function(use)
     use { 'nvim-telescope/telescope-fzf-native.nvim',
         run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
-    -- use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
-    -- use 'saadparwaiz1/cmp_luasnip'
 
-    use { 'ms-jpq/coq_nvim', branch = 'coq' }
-    use { 'ms-jpq/coq.artifacts', branch = 'artifacts' }
-    use { 'ms-jpq/coq.thirdparty', branch = '3p' }
+    if My_completion_engine == 'mycmp'
+    then
+        use 'hrsh7th/cmp-nvim-lsp'
+        use 'hrsh7th/cmp-buffer'
+        use 'hrsh7th/cmp-path'
+        use 'hrsh7th/nvim-cmp'
+
+        use({ "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" })
+        use 'saadparwaiz1/cmp_luasnip'
+    elseif My_completion_engine == 'mycoq' then
+        use { 'ms-jpq/coq_nvim', branch = 'coq' }
+        use { 'ms-jpq/coq.artifacts', branch = 'artifacts' }
+        use { 'ms-jpq/coq.thirdparty', branch = '3p' }
+    end
+
+
 
     use {
         'nvim-tree/nvim-tree.lua',

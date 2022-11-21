@@ -15,13 +15,10 @@ endif
 let mapleader = " "
 map <SPACE> <leader>
 
-set ignorecase
 set tabstop=4 shiftwidth=4 expandtab
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
 set encoding=UTF-8
-
-set hidden
 
 command Explore :NvimTreeToggle
 command! Lighttheme colorscheme tokyonight-day | set background=light
@@ -49,16 +46,18 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 let g:neovide_cursor_vfx_mode = "sonicboom"
+let g:user_emmet_expandabbr_key = '<leader>,'
 
 ]])
 
 local opt = vim.opt
 
-opt.number  = true
-opt.lazyredraw  = true
-opt.cursorline  = true
+opt.number         = true
+opt.lazyredraw     = true
+opt.cursorline     = true
 opt.relativenumber = true
-opt.smartcase = true
+opt.ignorecase     = true
+opt.smartcase      = true
 
 opt.hidden = true
 
@@ -71,34 +70,50 @@ opt.foldenable = false
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-require("indent_blankline").setup {
-    -- for example, context is off by default, use this to turn it on
-    show_current_context = true,
-    show_current_context_start = true,
-}
+-- require("indent_blankline").setup {
+--     -- for example, context is off by default, use this to turn it on
+--     show_current_context = true,
+--     show_current_context_start = true,
+-- }
 
 
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 
 
--- require 'mycmp'
--- local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
-require'mytelescope'
-require'mylsp'
+require 'mytelescope'
+require 'mylsp'
 
-vim.cmd([[
-    let g:coq_settings = { 'display': { 'pum.kind_context': [' |', '|'], 'icons.mode': 'short', 'pum.source_context': [' ', ' '] } }
-]])
+require 'mywiki'
 
-require'mywiki'
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+-- l to expand tree item
+-- local on_tree_attach = function(_, bufnr)
+--     local bufopts = { noremap = true, silent = true, buffer = bufnr }
+--     local nt_api = require 'nvim-tree.api'
+--     vim.keymap.set('n', 'l', nt_api.node.open.edit, bufopts)
+-- end
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+    -- on_attach = on_tree_attach,
+    view = {
+        mappings = {
+            list = {
+                { key = "l", action = "edit" }
+            }
+        }
+    },
+    renderer = {
+        indent_markers = {
+            enable = true
+        }
+    }
+})
+
 require("nvim-autopairs").setup {}
 
 
@@ -112,4 +127,7 @@ require('lualine').setup {
 
 vim.cmd "colorscheme onedark"
 
-vim.cmd "COQnow --shut-up"
+if My_completion_engine == "mycoq"
+then
+    vim.cmd "COQnow --shut-up"
+end

@@ -2,11 +2,12 @@ require("mason").setup()
 require("mason-lspconfig").setup()
 
 require "fidget".setup {}
-local capabilities =
-require 'coq'.lsp_ensure_capabilities()
 
+local capabilities = require(My_completion_engine)
 
-local on_attach = function(client, bufnr)
+-- print(vim.inspect(capabilities))
+
+local on_attach = function(_, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -50,6 +51,11 @@ lspconfig.bashls.setup {
 }
 
 lspconfig.volar.setup {
+    capabilities = capabilities,
+    on_attach = on_attach
+}
+
+lspconfig.gopls.setup{
     capabilities = capabilities,
     on_attach = on_attach
 }
