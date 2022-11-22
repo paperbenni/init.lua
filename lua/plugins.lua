@@ -26,6 +26,7 @@ require('packer').startup(function(use)
 
     use "lukas-reineke/indent-blankline.nvim"
     use 'mattn/emmet-vim'
+    use 'jose-elias-alvarez/null-ls.nvim'
 
 
     use {
