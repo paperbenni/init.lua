@@ -46,7 +46,7 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 let g:neovide_cursor_vfx_mode = "sonicboom"
-let g:user_emmet_expandabbr_key = '<leader>,'
+let g:user_emmet_expandabbr_key = '<C-,>'
 
 ]])
 
