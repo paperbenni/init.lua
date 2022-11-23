@@ -28,6 +28,7 @@ require('packer').startup(function(use)
     use 'mattn/emmet-vim'
     use 'jose-elias-alvarez/null-ls.nvim'
 
+    use { "folke/which-key.nvim" }
 
     use {
         'lewis6991/gitsigns.nvim',
@@ -50,6 +51,7 @@ require('packer').startup(function(use)
     use 'machakann/vim-highlightedyank'
     use 'folke/tokyonight.nvim'
     use 'joshdick/onedark.vim'
+    use { "catppuccin/nvim", as = "catppuccin" }
     use 'j-hui/fidget.nvim'
 
     use {
@@ -58,6 +60,7 @@ require('packer').startup(function(use)
         "neovim/nvim-lspconfig",
     }
     use 'nvim-treesitter/nvim-treesitter'
+    -- use 'nvim-treesitter/nvim-treesitter-context'
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',

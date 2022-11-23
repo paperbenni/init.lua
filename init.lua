@@ -124,6 +124,7 @@ null_ls.setup({
 
 require("nvim-autopairs").setup {}
 
+require("which-key").setup()
 
 require 'bufferline'.setup {}
 require('lualine').setup {
