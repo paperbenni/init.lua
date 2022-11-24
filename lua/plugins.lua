@@ -29,6 +29,7 @@ require('packer').startup(function(use)
     use 'jose-elias-alvarez/null-ls.nvim'
 
     use { "folke/which-key.nvim" }
+    use "norcalli/nvim-colorizer.lua"
 
     use {
         'lewis6991/gitsigns.nvim',

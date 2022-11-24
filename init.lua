@@ -46,7 +46,7 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
 let g:neovide_cursor_vfx_mode = "sonicboom"
-let g:user_emmet_expandabbr_key = '<C-,>'
+" let g:user_emmet_expandabbr_key = '<C-,>'
 
 ]])
 
@@ -119,12 +119,14 @@ local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.prettier,
     },
 })
 
 require("nvim-autopairs").setup {}
 
 require("which-key").setup()
+require("colorizer").setup()
 
 require 'bufferline'.setup {}
 require('lualine').setup {
