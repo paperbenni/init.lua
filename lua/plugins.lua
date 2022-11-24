@@ -46,10 +46,14 @@ require('packer').startup(function(use)
     if not potato
     then
         use 'j-hui/fidget.nvim'
+        use "norcalli/nvim-colorizer.lua"
+        use { "folke/which-key.nvim" }
         use 'psliwka/vim-smoothie'
         use 'machakann/vim-highlightedyank'
         use 'lewis6991/gitsigns.nvim'
     end
+
+    use { "catppuccin/nvim", as = "catppuccin" }
 
     use {
         "williamboman/mason.nvim",
@@ -57,6 +61,7 @@ require('packer').startup(function(use)
         "neovim/nvim-lspconfig",
     }
     use 'nvim-treesitter/nvim-treesitter'
+    -- use 'nvim-treesitter/nvim-treesitter-context'
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',

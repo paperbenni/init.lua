@@ -58,6 +58,8 @@ lspconfig.bashls.setup {
 }
 
 
+lspconfig.tailwindcss.setup{}
+
 lspconfig.gopls.setup {
     capabilities = capabilities,
     on_attach = on_attach
@@ -94,4 +96,20 @@ then
         },
     }
 end
+
+-- lspconfig.tsserver.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach
+-- }
+
+-- lspconfig.html.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach
+-- }
+
+-- lspconfig.astro.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach
+
+-- }
 
