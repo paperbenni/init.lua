@@ -52,13 +52,32 @@ lspconfig.bashls.setup {
 
 lspconfig.volar.setup {
     capabilities = capabilities,
+    filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
     on_attach = on_attach
 }
 
-lspconfig.gopls.setup{
+lspconfig.tailwindcss.setup{}
+
+lspconfig.gopls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
+
+-- lspconfig.tsserver.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach
+-- }
+
+-- lspconfig.html.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach
+-- }
+
+-- lspconfig.astro.setup{
+--     capabilities = capabilities,
+--     on_attach = on_attach
+
+-- }
 
 lspconfig.sumneko_lua.setup {
     capabilities = capabilities,
@@ -84,5 +103,3 @@ lspconfig.sumneko_lua.setup {
         },
     },
 }
-
-
