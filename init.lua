@@ -84,6 +84,8 @@ require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 if not potato
 then
     require('gitsigns').setup()
+    require("which-key").setup()
+    require("colorizer").setup()
 end
 
 
@@ -124,14 +126,13 @@ local null_ls = require("null-ls")
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.prettier,
     },
 })
 
 require("nvim-autopairs").setup {}
 
-require("which-key").setup()
-require("colorizer").setup()
 
 require 'bufferline'.setup {}
 require('lualine').setup {
