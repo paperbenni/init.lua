@@ -11,6 +11,7 @@ local ensure_packer = function()
 end
 
 local packer_bootstrap = ensure_packer()
+local potato = require("mypotato")
 
 My_completion_engine = 'mycoq'
 
@@ -29,28 +30,26 @@ require('packer').startup(function(use)
     use 'jose-elias-alvarez/null-ls.nvim'
 
 
-    use {
-        'lewis6991/gitsigns.nvim',
-        config = function()
-            require('gitsigns').setup()
-        end
-    }
-
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-ui'
 
     use { 'paperbenni/vimwiki', branch = 'dev' }
     use 'paperbenni/Calendar.vim'
     use 'michal-h21/vim-zettel'
-    use 'psliwka/vim-smoothie'
 
     use 'lervag/vimtex'
 
     use 'mhinz/vim-startify'
-    use 'machakann/vim-highlightedyank'
     use 'folke/tokyonight.nvim'
     use 'joshdick/onedark.vim'
-    use 'j-hui/fidget.nvim'
+
+    if not potato
+    then
+        use 'j-hui/fidget.nvim'
+        use 'psliwka/vim-smoothie'
+        use 'machakann/vim-highlightedyank'
+        use 'lewis6991/gitsigns.nvim'
+    end
 
     use {
         "williamboman/mason.nvim",

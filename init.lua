@@ -1,6 +1,7 @@
 require('plugins')
 require('impatient')
 
+local potato=require('mypotato')
 
 vim.cmd([[
 
@@ -80,6 +81,10 @@ opt.foldexpr = "nvim_treesitter#foldexpr()"
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 
 
+if not potato
+then
+    require('gitsigns').setup()
+end
 
 
 require 'mytelescope'
