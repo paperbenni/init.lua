@@ -68,6 +68,11 @@ check_dependencies() {
 	checkcommand luarocks
     checkcommand sqlite3
 	checkcommand node
+    if ! python3 -m venv --help &> /dev/null
+    then
+        echo "please install python venv"
+        exit 1
+    fi
 	# TODO check node version
 }
 
