@@ -20,9 +20,10 @@ checkcommand() {
 }
 
 backup_config() {
-	cd || exit 1
+	pushd "$HOME" || exit 1
 	mv .config/nvim .config/"$(date '+%y%m%d%H%M%S')"_nvim_backup 2>/dev/null
 	mkdir -p .config/nvim
+    popd || exit 1
 }
 
 check_nix_install() {

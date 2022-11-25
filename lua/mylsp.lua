@@ -31,7 +31,7 @@ local on_attach = function(_, bufnr)
     -- end, bufopts)
     -- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
     vim.keymap.set('n', '<leader><F2>', vim.lsp.buf.rename, bufopts)
-    -- vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+    vim.keymap.set('n', '<leader>x', vim.lsp.buf.code_action, bufopts)
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>F', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
@@ -58,10 +58,14 @@ lspconfig.bashls.setup {
 }
 
 
-lspconfig.tailwindcss.setup{
+lspconfig.tailwindcss.setup {
     capabilities = capabilities,
     on_attach = on_attach,
-    filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" }
+    filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir",
+        "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade",
+        "leaf", "liquid", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss",
+        "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript",
+        "typescriptreact", "vue", "svelte" }
 }
 
 lspconfig.gopls.setup {
@@ -99,6 +103,36 @@ then
             },
         },
     }
+
+
+    -- local ltxpaths = {
+    --     vim.fn.stdpath("config") .. "/spell/ltex.dictionary.en-US.txt",
+    --     vim.fn.expand("%:p:h") .. "/.vscode/ltex.dictionary.en-US.txt",
+    -- }
+
+    -- local words = {}
+    -- for _, path in ipairs(ltxpaths) do
+    --     local f = io.open(path)
+    --     if f then
+    --         for word in f:lines() do
+    --             table.insert(words, word)
+    --         end
+    --         f:close()
+    --     end
+    -- end
+
+    -- lspconfig.ltex.setup {
+    --     capabilities = capabilities,
+    --     on_attach = on_attach,
+    --     settings = {
+    --         ltex = {
+    --             dictionary = {
+    --                 ['en-US'] = words,
+    --                 ['en-GB'] = words,
+    --             },
+    --         },
+    --     }
+    -- }
 end
 
 -- lspconfig.tsserver.setup{
@@ -116,4 +150,3 @@ end
 --     on_attach = on_attach
 
 -- }
-
