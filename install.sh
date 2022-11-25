@@ -149,7 +149,7 @@ install_plugins() {
 	# install coq deps
     if ! [ -e "$PLUGINDIR"/coq_nvim/.vars ]
     then
-        $NVIMCMD -c "QOCdeps"
+        $NVIMCMD -c "COQdeps"
     fi
 
 
