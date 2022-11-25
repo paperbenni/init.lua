@@ -4,6 +4,14 @@
 
 NVIMCMD=${nvimcmd:-nvim}
 
+if command -v termux-setup-storage
+then
+    sudo() {
+        $@
+    }
+
+fi
+
 checkcommand() {
 	if ! command -v "$1"; then
 		echo "$1 not found, please install" 1>&2
@@ -32,9 +40,6 @@ check_nix_install() {
 	if ! command -v npm; then
 		nix-env -i nodejs
 	fi
-	if ! command -v "$CURLCMD"; then
-		nix-env -i curl
-	fi
 }
 
 install_providers() {
@@ -56,11 +61,11 @@ install_providers() {
 }
 
 check_dependencies() {
-	checkcommand "$CURLCMD"
 	checkcommand npm
 	checkcommand cmake
 	checkcommand pip
 	checkcommand luarocks
+    checkcommand sqlite3
 	checkcommand node
 	# TODO check node version
 }
@@ -72,6 +77,8 @@ ensure_repo() {
 		if ! [ -e init.lua ]; then
 			git clone https://github.com/paperbenni/init.lua
 		fi
+		cd ~/.cache/paperbenni_nvim/init.lua || exit 1
+		echo "using git cache init.lua"
 		if ! [ -e init.lua ]; then
 			echo "failed to clone config"
 			exit 1
@@ -92,8 +99,11 @@ is_potato() {
 	fi
 
 	MEMAMOUNT="$(free | sed '/^[^A-Z].*/d' | head -1 | grep -o '[0-9]*' | head -1)"
-	if [ -e ~/.config/paperbenni/potato.txt ] || [ "$MEMAMOUNT" -lt "7000000" ]; then
+	if command -v termux-setup-storage || \
+        [ -e ~/.config/paperbenni/potato.txt ] || \
+        [ "$MEMAMOUNT" -lt "7000000" ]; then
 		export POTATO="true"
+        echo "optimizing for low end device"
 		return 0
 	else
 		export NOPOTATO="true"
@@ -125,38 +135,22 @@ install_packer() {
 install_plugins() {
 	echo "installing packer plugins"
 	$NVIMCMD -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-	echo "installing treesitter parser"
 	PLUGINDIR="$HOME"/.local/share/nvim/site/pack/packer/start
-
-	if ! is_potato; then
-		# install all treesitters at once
-		$NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
-	else
-		TREESITTERLIST="$(
-			grep '^list.[a-z0-9]* = {' \
-				"$PLUGINDIR"/nvim-treesitter/lua/nvim-treesitter/parsers.lua |
-				sed 's/^list.//g' | sed 's/ = {$//g'
-		)"
-		echo "installing treesitter plugins one by one"
-		if [ "$(wc -l <<<"$TREESITTERLIST")" -gt 10 ]; then
-			export TREESITTERLIST
-			while IFS= read -r sitter; do
-				if ! [ -e "$PLUGINDIR"/nvim-treesitter/parser/"$sitter".so ]; then
-					$NVIMCMD +'silent! TSInstallSync '"$sitter" +qall &>/dev/null
-				fi
-			done <<<"$TREESITTERLIST"
-		fi
-	fi
-
-	# TODO: install coq deps
+    echo "installing all treesitter plugins, this may take a long time"
+    $NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
 
 	# compile telescope fzf
 	if ! [ -e "$PLUGINDIR"/telescope-fzf-native.nvim/build/libfzf.so ]; then
 		cd "$PLUGINDIR"/telescope-fzf-native.nvim || exit 1
-		cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release &&
-			cmake --build build --config Release &&
-			cmake --install build --prefix build
+        make
 	fi
+
+	# install coq deps
+    if ! [ -e "$PLUGINDIR"/coq_nvim/.vars ]
+    then
+        $NVIMCMD -c "QOCdeps"
+    fi
+
 
 }
 
@@ -167,8 +161,8 @@ main() {
 	# Keep what this function does distribution agnostic!
 
 	backup_config
-	install_packer
 	install_cfg_files
+	install_packer
 	install_plugins
 
 	echo "finished installing paperbenni's neovim config"
