@@ -17,4 +17,3 @@ This is my new (mostly) lua based nvim config
     - [ ] Add color
 - [ ] Fix vim zettel and folding colliding
 
-
