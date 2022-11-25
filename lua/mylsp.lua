@@ -58,7 +58,11 @@ lspconfig.bashls.setup {
 }
 
 
-lspconfig.tailwindcss.setup{}
+lspconfig.tailwindcss.setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+    filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir", "elixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" }
+}
 
 lspconfig.gopls.setup {
     capabilities = capabilities,
