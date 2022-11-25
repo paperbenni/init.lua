@@ -2,6 +2,7 @@ require('plugins')
 require('impatient')
 
 local potato=require('mypotato')
+vim.g.mapleader = " "
 
 vim.cmd([[
 
@@ -12,10 +13,6 @@ if has("termguicolors")
 endif
 
 
-
-let mapleader = " "
-map <SPACE> <leader>
-
 set tabstop=4 shiftwidth=4 expandtab
 
 set guifont=FiraCode\ Nerd\ Font\ Mono:h13
@@ -24,7 +21,6 @@ set encoding=UTF-8
 command Explore :NvimTreeToggle
 command! Lighttheme colorscheme tokyonight-day | set background=light
 
-map <SPACE> <leader>
 nnoremap <leader>a :Startify<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
 nnoremap <leader>f :w<CR>
