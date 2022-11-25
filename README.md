@@ -16,10 +16,11 @@ This is my new (mostly) lua based nvim config
 - [ ] better completion expansion bindings
 - [ ] adjust obs scripts which edit wiki in init.vim
 - [ ] port setup scripts from init.vim
-- [ ] Improve COQ appearance                                                                                                               █
-    - [ ] Brackets are ugly, replace with color separation                                                                                 █
+- [ ] Improve COQ appearance
+    - [ ] Brackets are ugly, replace with color separation
     - [ ] Add color
 - [ ] Fix vim zettel and folding colliding
 - [ ] Fix Whichkey warning
+- [ ] better autocomplete select binding in vimwiki files
 
 

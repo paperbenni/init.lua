@@ -131,14 +131,17 @@ require("nvim-autopairs").setup {}
 
 
 require 'bufferline'.setup {}
+
+local mytheme = require('themes.catppuccin')
+
 require('lualine').setup {
     options = {
-        theme = 'onedark',
+        theme = mytheme.lualinetheme,
         icons_enabled = true
     }
 }
 
-vim.cmd "colorscheme onedark"
+vim.cmd ("colorscheme " .. mytheme.vimtheme)
 
 if My_completion_engine == "mycoq"
 then
