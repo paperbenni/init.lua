@@ -1,7 +1,7 @@
 require('plugins')
 require('impatient')
 
-local potato=require('mypotato')
+local potato = require('mypotato')
 vim.g.mapleader = " "
 
 vim.cmd([[
@@ -119,11 +119,14 @@ require("nvim-tree").setup({
 
 local null_ls = require("null-ls")
 
+local prettier = null_ls.builtins.formatting.prettier
+prettier.disabled_filetypes = { "markdown" }
+
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.prettier,
+        prettier,
     },
 })
 
@@ -141,7 +144,7 @@ require('lualine').setup {
     }
 }
 
-vim.cmd ("colorscheme " .. mytheme.vimtheme)
+vim.cmd("colorscheme " .. mytheme.vimtheme)
 
 if My_completion_engine == "mycoq"
 then
