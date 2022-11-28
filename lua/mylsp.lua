@@ -49,7 +49,10 @@ lspconfig.clangd.setup {
 
 lspconfig.pyright.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    root_dir = function()
+        return vim.fn.getcwd()
+    end,
 }
 
 lspconfig.bashls.setup {

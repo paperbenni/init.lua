@@ -15,7 +15,7 @@ endif
 
 set tabstop=4 shiftwidth=4 expandtab
 
-set guifont=FiraCode\ Nerd\ Font\ Mono:h13
+set guifont=FiraCode\ Nerd\ Font\ Mono:h11
 set encoding=UTF-8
 
 command Explore :NvimTreeToggle
