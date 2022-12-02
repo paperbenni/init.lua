@@ -1,8 +1,14 @@
 require('plugins')
 require('impatient')
 
-local potato=require('mypotato')
+local potato = require('mypotato')
 vim.g.mapleader = " "
+
+vim.api.nvim_create_user_command(
+    'Debug',
+    ":lua require'mydap'",
+    { nargs = 0 }
+)
 
 vim.cmd([[
 
@@ -141,7 +147,7 @@ require('lualine').setup {
     }
 }
 
-vim.cmd ("colorscheme " .. mytheme.vimtheme)
+vim.cmd("colorscheme " .. mytheme.vimtheme)
 
 if My_completion_engine == "mycoq"
 then

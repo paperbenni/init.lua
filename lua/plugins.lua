@@ -51,6 +51,13 @@ require('packer').startup(function(use)
         use 'psliwka/vim-smoothie'
         use 'machakann/vim-highlightedyank'
         use 'lewis6991/gitsigns.nvim'
+
+        -- debugging
+        use 'mfussenegger/nvim-dap'
+        use 'rcarriga/nvim-dap-ui'
+        use 'simrat39/rust-tools.nvim'
+        use 'mfussenegger/nvim-dap-python'
+
     end
 
     use { "catppuccin/nvim", as = "catppuccin" }

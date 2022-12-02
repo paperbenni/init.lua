@@ -37,10 +37,7 @@ local on_attach = function(_, bufnr)
 end
 local lspconfig = require 'lspconfig'
 
-lspconfig.rust_analyzer.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
+
 
 lspconfig.clangd.setup {
     on_attach = on_attach,
@@ -104,6 +101,13 @@ then
         },
     }
 
+    -- fancy rust config with more stuff like debugging
+    local rt = require("rust-tools")
+    rt.setup({
+        server = {
+            on_attach = on_attach,
+        },
+    })
 
     -- local ltxpaths = {
     --     vim.fn.stdpath("config") .. "/spell/ltex.dictionary.en-US.txt",
@@ -133,6 +137,12 @@ then
     --         },
     --     }
     -- }
+else
+    lspconfig.rust_analyzer.setup {
+        on_attach = on_attach,
+        capabilities = capabilities
+    }
+
 end
 
 -- lspconfig.tsserver.setup{
