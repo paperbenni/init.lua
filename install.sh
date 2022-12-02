@@ -188,6 +188,22 @@ install_plugins() {
 
 }
 
+install_dependencies() {
+    
+    # automatically install required
+    # packages when on instantOS
+    if command -v instantinstall
+    then
+        instantinstall npm
+        instantinstall python-pip
+        instantinstall luarocks
+        instantinstall cmake
+        instantinstall sqlite3
+        instantinstall python-virtualenv
+    fi
+
+}
+
 main() {
 	echo "installing paperbenni's neovim config"
 	echo "warning, this will override existing configs"
@@ -204,6 +220,7 @@ main() {
 
 if [ "$0" = "$BASH_SOURCE" ]; then
 	check_nix_install
+    install_dependencies
 	check_dependencies
 	install_providers
 	main "$@"
