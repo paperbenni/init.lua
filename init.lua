@@ -125,11 +125,15 @@ require("nvim-tree").setup({
 
 local null_ls = require("null-ls")
 
+local prettiersource = null_ls.builtins.formatting.prettier
+prettiersource.filetypes = { "javascript", "javascriptreact", "typescriptreact", "vue", "css", "scss",
+    "less", "html", "json", "jsonc", "yaml", "markdown", "markdown.mdx", "graphql", "handlebars" }
+
 null_ls.setup({
     sources = {
         null_ls.builtins.formatting.shfmt,
         null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.prettier,
+        prettiersource,
     },
 })
 
