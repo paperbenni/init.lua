@@ -9,6 +9,7 @@ This is my new (mostly) lua based nvim config
 
 - [X] Find better indentline replacement
 - [ ] More LSP bindings
+- [ ] transfer keymaps to lua
 - [X] l to open in nvimtree
 - [X] h to close in nvimtree
 - [X] disable heavy stuff on raspi, phone and tablet

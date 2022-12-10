@@ -4,11 +4,10 @@
 
 NVIMCMD=${nvimcmd:-nvim}
 
-if command -v termux-setup-storage
-then
-    sudo() {
-        $@
-    }
+if command -v termux-setup-storage; then
+	sudo() {
+		$@
+	}
 
 fi
 
@@ -23,7 +22,7 @@ backup_config() {
 	pushd "$HOME" || exit 1
 	mv .config/nvim .config/"$(date '+%y%m%d%H%M%S')"_nvim_backup 2>/dev/null
 	mkdir -p .config/nvim
-    popd || exit 1
+	popd || exit 1
 }
 
 check_nix_install() {
@@ -66,14 +65,31 @@ check_dependencies() {
 	checkcommand cmake
 	checkcommand pip
 	checkcommand luarocks
-    checkcommand sqlite3
+	checkcommand sqlite3
 	checkcommand node
-    if ! python3 -m venv --help &> /dev/null
-    then
-        echo "please install python venv"
-        exit 1
-    fi
-	# TODO check node version
+	if ! python3 -m venv --help &>/dev/null; then
+		if command -v termux-setup-storage; then
+			pip3 install --upgrade virtualenv
+		elif command -v pacman &>/dev/null; then
+			sudo pacman -S --noconfirm --needed python-virtualenv
+		fi
+		if ! python3 -m venv --help &>/dev/null; then
+			echo "please install python venv"
+		fi
+		exit 1
+	fi
+	NODEVERSION="$(node --version | grep -o '^v[0-9]*\.' | grep -o '[0-9]*')"
+	if ! [ "$NODEVERSION" -eq "$NODEVERSION" ]; then
+		echo "could not determine node version"
+		exit 1
+	fi
+	if ! [ "$NODEVERSION" -gt 16 ]; then
+		echo "node version 16 or newer is required"
+		if command -v apt &>/dev/null; then
+			curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&
+				sudo apt-get install -y nodejs
+		fi
+	fi
 }
 
 ensure_repo() {
@@ -105,11 +121,11 @@ is_potato() {
 	fi
 
 	MEMAMOUNT="$(free | sed '/^[^A-Z].*/d' | head -1 | grep -o '[0-9]*' | head -1)"
-	if command -v termux-setup-storage || \
-        [ -e ~/.config/paperbenni/potato.txt ] || \
-        [ "$MEMAMOUNT" -lt "7000000" ]; then
+	if command -v termux-setup-storage ||
+		[ -e ~/.config/paperbenni/potato.txt ] ||
+		[ "$MEMAMOUNT" -lt "7000000" ]; then
 		export POTATO="true"
-        echo "optimizing for low end device"
+		echo "optimizing for low end device"
 		return 0
 	else
 		export NOPOTATO="true"
@@ -142,21 +158,49 @@ install_plugins() {
 	echo "installing packer plugins"
 	$NVIMCMD -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 	PLUGINDIR="$HOME"/.local/share/nvim/site/pack/packer/start
-    echo "installing all treesitter plugins, this may take a long time"
-    $NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
+	echo "installing all treesitter plugins, this may take a long time"
+	$NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
 
 	# compile telescope fzf
 	if ! [ -e "$PLUGINDIR"/telescope-fzf-native.nvim/build/libfzf.so ]; then
 		cd "$PLUGINDIR"/telescope-fzf-native.nvim || exit 1
-        make
+		make
+	fi
+	if is_potato; then
+		for _ in /home/benjamin/.virtualenvs/debugpy/lib/python3.*/site-packages/debugpy; do
+			echo "debugpy already installed"
+			export DEBUGPYINSTALLED="true"
+			break
+		done
+		if [ -n "$DEBUGPYINSTALLED" ]; then
+			echo "installing debugpy"
+			mkdir ~/.virtualenvs
+			cd ~/.virtualenvs || exit 1
+			python -m venv debugpy
+			debugpy/bin/python -m pip install debugpy
+		fi
 	fi
 
 	# install coq deps
-    if ! [ -e "$PLUGINDIR"/coq_nvim/.vars ]
-    then
-        $NVIMCMD -c "COQdeps"
-    fi
+	if ! [ -e "$PLUGINDIR"/coq_nvim/.vars ]; then
+		$NVIMCMD -c "COQdeps"
+	fi
 
+}
+
+install_dependencies() {
+    
+    # automatically install required
+    # packages when on instantOS
+    if command -v instantinstall
+    then
+        instantinstall npm
+        instantinstall python-pip
+        instantinstall luarocks
+        instantinstall cmake
+        instantinstall sqlite3
+        instantinstall python-virtualenv
+    fi
 
 }
 
@@ -176,6 +220,7 @@ main() {
 
 if [ "$0" = "$BASH_SOURCE" ]; then
 	check_nix_install
+    install_dependencies
 	check_dependencies
 	install_providers
 	main "$@"

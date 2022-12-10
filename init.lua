@@ -4,6 +4,12 @@ require('impatient')
 local potato = require('mypotato')
 vim.g.mapleader = " "
 
+vim.api.nvim_create_user_command(
+    'Debug',
+    ":lua require'mydap'",
+    { nargs = 0 }
+)
+
 vim.cmd([[
 
 set inccommand=split
@@ -119,14 +125,11 @@ require("nvim-tree").setup({
 
 local null_ls = require("null-ls")
 
-local prettier = null_ls.builtins.formatting.prettier
-prettier.disabled_filetypes = { "markdown" }
-
 null_ls.setup({
     sources = {
-        null_ls.builtins.formatting.shfmt,
+        null_ls.builtins.formatting.shfmt.with({ extra_args = { "--indent", "4" } }),
         null_ls.builtins.formatting.black,
-        prettier,
+        null_ls.builtins.formatting.prettier.with({ disabled_filetypes = { "markdown" } })
     },
 })
 
