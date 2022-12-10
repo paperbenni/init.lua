@@ -13,7 +13,11 @@ end
 local packer_bootstrap = ensure_packer()
 local potato = require("mypotato")
 
-My_completion_engine = 'mycoq'
+if potato then
+    My_completion_engine = 'mycoq'
+else
+    My_completion_engine = 'mycmp'
+end
 
 require('packer').startup(function(use)
     use 'lewis6991/impatient.nvim'
@@ -51,6 +55,8 @@ require('packer').startup(function(use)
         use 'psliwka/vim-smoothie'
         use 'machakann/vim-highlightedyank'
         use 'lewis6991/gitsigns.nvim'
+        use 'ray-x/lsp_signature.nvim'
+        use 'github/copilot.vim'
 
         -- debugging
         use 'mfussenegger/nvim-dap'

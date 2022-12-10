@@ -44,7 +44,7 @@ lspconfig.clangd.setup {
     capabilities = capabilities
 }
 
-lspconfig.tsserver.setup{
+lspconfig.tsserver.setup {
     on_attach = on_attach,
     capabilities = capabilities
 }
@@ -61,6 +61,7 @@ lspconfig.bashls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
+
 
 
 lspconfig.tailwindcss.setup {
@@ -107,6 +108,11 @@ then
                 },
             },
         },
+    }
+    lspconfig.emmet_ls.setup {
+        capabilities = capabilities,
+        on_attach = on_attach,
+        filetypes = { "html", "vue", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
     }
 
     -- fancy rust config with more stuff like debugging
