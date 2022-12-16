@@ -37,7 +37,7 @@ require('packer').startup(function(use)
     use 'tpope/vim-dadbod'
     use 'kristijanhusak/vim-dadbod-ui'
 
-    use { 'paperbenni/vimwiki', branch = 'dev' }
+    use { 'vimwiki/vimwiki', branch = 'dev' }
     use 'paperbenni/Calendar.vim'
     use 'michal-h21/vim-zettel'
 
@@ -49,6 +49,7 @@ require('packer').startup(function(use)
 
     if not potato
     then
+        use 'xiyaowong/nvim-transparent'
         use 'j-hui/fidget.nvim'
         use "norcalli/nvim-colorizer.lua"
         use { "folke/which-key.nvim" }
