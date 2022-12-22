@@ -134,7 +134,7 @@ null_ls.setup({
         null_ls.builtins.formatting.shfmt.with({ extra_args = { "--indent", "4" } }),
         null_ls.builtins.formatting.black,
         null_ls.builtins.formatting.rustfmt,
-        null_ls.builtins.formatting.prettier.with({ disabled_filetypes = { "markdown" } })
+        null_ls.builtins.formatting.prettier.with({ disabled_filetypes = { "markdown", "typescript" } })
     },
 })
 
