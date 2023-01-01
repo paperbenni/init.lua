@@ -99,6 +99,7 @@ require 'mytelescope'
 require 'mylsp'
 
 require 'mywiki'
+require 'myneovide'
 
 
 vim.g.loaded_netrw = 1

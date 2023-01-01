@@ -87,6 +87,11 @@ lspconfig.gopls.setup {
     on_attach = on_attach
 }
 
+lspconfig.texlab.setup{
+    capabilities = capabilities,
+    on_attach = on_attach,
+}
+
 if not potato
 then
     lspconfig.volar.setup {
@@ -123,6 +128,7 @@ then
         filetypes = { "html", "vue", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "eruby" }
     }
 
+
     -- fancy rust config with more stuff like debugging
     local rt = require("rust-tools")
     rt.setup({
@@ -130,6 +136,7 @@ then
             on_attach = on_attach,
         },
     })
+
 
     -- local ltxpaths = {
     --     vim.fn.stdpath("config") .. "/spell/ltex.dictionary.en-US.txt",
