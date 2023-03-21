@@ -146,9 +146,12 @@ install_cfg_files() {
     cp -r ./* ~/.config/nvim/
 
     if is_potato; then
-        sed -i '/local ispotato/s/inserthere/true/g' ~/.config/nvim/lua/mypotato.lua
+        echo "machine is a potato"
+        sed -i '/local ispotato/s/inserthere/true/g' "$HOME"/.config/nvim/lua/mypotato.lua
     else
-        sed -i '/local ispotato/s/inserthere/false/g' ~/.config/nvim/lua/mypotato.lua
+        echo "machine is not a potato"
+        # TODO make this work on a mac
+        sed -i '/local ispotato/s/inserthere/false/g' "$HOME"/.config/nvim/lua/mypotato.lua
     fi
 
 }

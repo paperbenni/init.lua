@@ -24,6 +24,8 @@ set tabstop=4 shiftwidth=4 expandtab
 set guifont=FiraCode\ Nerd\ Font\ Mono:h11
 set encoding=UTF-8
 
+set colorcolumn=80
+
 command Explore :NvimTreeToggle
 command! Lighttheme colorscheme tokyonight-day | set background=light
 
@@ -36,7 +38,7 @@ nnoremap <leader>n :tabnew<CR>
 
 " additional mode switching
 
-inoremap <special> kj <ESC> 
+inoremap <special> kj <ESC>
 inoremap <special> jk <ESC>:
 tnoremap <special> jk <C-\><C-n>
 
@@ -53,7 +55,7 @@ let g:neovide_cursor_vfx_mode = "sonicboom"
 
 ]])
 
-local opt = vim.opt
+local opt          = vim.opt
 
 opt.number         = true
 opt.lazyredraw     = true
@@ -62,16 +64,15 @@ opt.relativenumber = true
 opt.ignorecase     = true
 opt.smartcase      = true
 
-opt.hidden = true
+opt.hidden         = true
 
-opt.inccommand = "split"
-opt.mouse = "a"
-opt.scrolloff = 6
-opt.foldenable = false
+opt.inccommand     = "split"
+opt.mouse          = "a"
+opt.scrolloff      = 6
+opt.foldenable     = false
 
-
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldmethod     = "expr"
+opt.foldexpr       = "nvim_treesitter#foldexpr()"
 
 -- require("indent_blankline").setup {
 --     -- for example, context is off by default, use this to turn it on
@@ -88,7 +89,7 @@ then
     require('gitsigns').setup()
     require("which-key").setup()
     require("colorizer").setup()
-    require'mycopilot'
+    require 'mycopilot'
 
     -- this one is mostly annoying
     -- require "lsp_signature".setup()
