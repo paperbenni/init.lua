@@ -8,6 +8,7 @@ ismacos() {
     uname | grep -q 'Darwin'
 }
 
+# fake access to root, setup works without root on termux
 if command -v termux-setup-storage; then
     sudo() {
         $@

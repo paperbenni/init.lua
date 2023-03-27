@@ -70,6 +70,15 @@ require('packer').startup(function(use)
         use 'ray-x/lsp_signature.nvim'
         use 'github/copilot.vim'
 
+        use {
+            "SmiteshP/nvim-navbuddy",
+            requires = {
+                "neovim/nvim-lspconfig",
+                "SmiteshP/nvim-navic",
+                "MunifTanjim/nui.nvim"
+            }
+        }
+
         -- debugging
         use 'mfussenegger/nvim-dap'
         use 'rcarriga/nvim-dap-ui'

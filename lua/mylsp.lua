@@ -1,21 +1,27 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
+local navbuddy
 
 local potato = require('mypotato')
 
 if not potato
 then
     require "fidget".setup {}
+    navbuddy = require("nvim-navbuddy")
 end
 
 local capabilities = require(My_completion_engine)
 
 -- print(vim.inspect(capabilities))
 
-local on_attach = function(_, bufnr)
+local on_attach = function(client, bufnr)
     -- Enable completion triggered by <c-x><c-o>
     vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+    if not potato
+    then
+        navbuddy.attach(client, bufnr)
+    end
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -34,6 +40,7 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', '<leader>x', vim.lsp.buf.code_action, bufopts)
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     vim.keymap.set('n', '<space>F', function() vim.lsp.buf.format { async = true } end, bufopts)
+    vim.keymap.set('n', '<space>N', require("nvim-navbuddy").open, bufopts)
 end
 local lspconfig = require 'lspconfig'
 
