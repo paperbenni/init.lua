@@ -29,6 +29,17 @@ require('packer').startup(function(use)
     use 'tpope/vim-surround'
     use 'tpope/vim-repeat'
 
+    use {
+        "folke/zen-mode.nvim",
+        config = function()
+            require("zen-mode").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
     use "lukas-reineke/indent-blankline.nvim"
     use 'mattn/emmet-vim'
     use 'jose-elias-alvarez/null-ls.nvim'
@@ -64,7 +75,6 @@ require('packer').startup(function(use)
         use 'rcarriga/nvim-dap-ui'
         use 'simrat39/rust-tools.nvim'
         use 'mfussenegger/nvim-dap-python'
-
     end
 
     use { "catppuccin/nvim", as = "catppuccin" }
@@ -83,7 +93,8 @@ require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
     use { 'nvim-telescope/telescope-fzf-native.nvim',
-        run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+        run =
+        'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
 
 
     if My_completion_engine == 'mycmp'
@@ -110,13 +121,12 @@ require('packer').startup(function(use)
         requires = {
             'nvim-tree/nvim-web-devicons', -- optional, for file icons
         },
-        tag = 'nightly' -- optional, updated every week. (see issue #1193)
+        tag = 'nightly'                    -- optional, updated every week. (see issue #1193)
     }
     use 'akinsho/bufferline.nvim'
     use 'hoob3rt/lualine.nvim'
 
     use "windwp/nvim-autopairs"
-
 end)
 
 
