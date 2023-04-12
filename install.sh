@@ -145,14 +145,20 @@ install_cfg_files() {
     [ -e ~/.config/nvim ] || mkdir -p ~/.config/nvim
 
     cp -r ./* ~/.config/nvim/
+    POTATOFILE="$HOME"/.config/nvim/lua/mypotato.lua
 
-    if is_potato; then
+    if ismacos
+    then
+    echo '
+local ispotato = false
+return ispotato' > "$POTATOFILE"
+    
+    elif is_potato; then
         echo "machine is a potato"
-        sed -i '/local ispotato/s/inserthere/true/g' "$HOME"/.config/nvim/lua/mypotato.lua
+        sed -i '/local ispotato/s/inserthere/true/g' "$POTATOFILE"
     else
         echo "machine is not a potato"
-        # TODO make this work on a mac
-        sed -i '/local ispotato/s/inserthere/false/g' "$HOME"/.config/nvim/lua/mypotato.lua
+        sed -i '/local ispotato/s/inserthere/false/g' "$POTATOFILE"
     fi
 
 }
