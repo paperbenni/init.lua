@@ -28,4 +28,5 @@ nnoremap <leader>th <cmd>Telescope help_tags<cr>
 nnoremap <leader>tr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>ts <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
 nnoremap <leader>r <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap <leader>tq <cmd>Telescope quickfix<cr>
 ]])

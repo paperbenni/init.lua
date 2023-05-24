@@ -35,6 +35,10 @@ nnoremap <leader>f :w<CR>
 nnoremap <leader>q :q<CR>
 nnoremap <leader>g :Gcd<CR>
 nnoremap <leader>n :tabnew<CR>
+
+nnoremap <leader>vn :cnext<CR>
+nnoremap <leader>vp :cprevious<CR>
+
 noremap glk <Plug>VimwikiToggleListItem
 
 " additional mode switching
