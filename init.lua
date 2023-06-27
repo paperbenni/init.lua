@@ -87,6 +87,7 @@ opt.foldexpr       = "nvim_treesitter#foldexpr()"
 
 
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
+require("hardtime").setup()
 
 
 if not potato
@@ -108,6 +109,7 @@ require 'mywiki'
 require 'myneovide'
 
 
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -126,6 +128,11 @@ require("nvim-tree").setup({
                 { key = "l", action = "edit" }
             }
         }
+    },
+    update_focused_file = {
+        enable = true,
+        update_root = true,
+
     },
     renderer = {
         indent_markers = {

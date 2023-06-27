@@ -61,7 +61,10 @@ require('packer').startup(function(use)
     if not potato
     then
         use 'xiyaowong/nvim-transparent'
-        use 'j-hui/fidget.nvim'
+        use {
+            'j-hui/fidget.nvim',
+            tag = 'legacy'
+        }
         use "norcalli/nvim-colorizer.lua"
         use { "folke/which-key.nvim" }
         use 'psliwka/vim-smoothie'
@@ -69,6 +72,8 @@ require('packer').startup(function(use)
         use 'lewis6991/gitsigns.nvim'
         use 'ray-x/lsp_signature.nvim'
         use 'github/copilot.vim'
+        use 'jvgrootveld/telescope-zoxide'
+        use "m4xshen/hardtime.nvim"
 
         use {
             "SmiteshP/nvim-navbuddy",
