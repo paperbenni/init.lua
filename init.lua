@@ -12,7 +12,6 @@ vim.api.nvim_create_user_command(
 
 vim.cmd([[
 
-set inccommand=split
 " somehow works in tmux now...
 if has("termguicolors")
         set termguicolors
@@ -87,7 +86,7 @@ opt.foldexpr       = "nvim_treesitter#foldexpr()"
 
 
 require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
-require("hardtime").setup()
+-- require("hardtime").setup()
 
 
 if not potato
