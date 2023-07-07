@@ -44,7 +44,7 @@ require("lazy").setup({
     'paperbenni/Calendar.vim',
     'michal-h21/vim-zettel',
 
-    'lervag/vimtex',
+    { 'lervag/vimtex',   event = 'BufRead *.tex' },
 
     'mhinz/vim-startify',
 
@@ -54,7 +54,7 @@ require("lazy").setup({
 
     'nvim-treesitter/nvim-treesitter',
 
-    { "catppuccin/nvim",   name = "catppuccin" },
+    { "catppuccin/nvim", name = "catppuccin" },
 
     {
         'nvim-telescope/telescope.nvim',
@@ -71,7 +71,7 @@ require("lazy").setup({
         }
     },
 
-    { 'j-hui/fidget.nvim', tag = 'legacy',     enabled = not potato, },
+    { 'j-hui/fidget.nvim',             tag = 'legacy',      enabled = not potato, },
     {
         "folke/which-key.nvim",
         enabled = not potato,
@@ -143,9 +143,12 @@ require("lazy").setup({
 
     { 'mfussenegger/nvim-dap',         enabled = not potato },
     { 'rcarriga/nvim-dap-ui',          enabled = not potato },
-    { 'simrat39/rust-tools.nvim',      enabled = not potato },
-    { 'mfussenegger/nvim-dap-python',  enabled = not potato },
+    {
+        'simrat39/rust-tools.nvim',
+        enabled = not potato,
+        event = "BufRead *.rs",
+    },
+    { 'mfussenegger/nvim-dap-python', enabled = not potato },
 
 
 })
-
