@@ -25,7 +25,7 @@ set encoding=UTF-8
 
 set colorcolumn=80
 
-command Explore :NvimTreeToggle
+" command Explore :NvimTreeToggle
 command! Lighttheme colorscheme tokyonight-day | set background=light
 
 nnoremap <leader>a :Startify<CR>

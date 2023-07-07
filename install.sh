@@ -163,17 +163,10 @@ return ispotato' > "$POTATOFILE"
 
 }
 
-install_packer() {
-    [ -e ~/.local/share/nvim/site/pack/packer/start/packer.nvim ] || {
-        echo "installing packer.nvim"
-        git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-    }
-}
-
 install_plugins() {
-    echo "installing packer plugins"
-    $NVIMCMD -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-    PLUGINDIR="$HOME"/.local/share/nvim/site/pack/packer/start
+    echo "installing lazy plugins"
+    $NVIMCMD --headless "+Lazy! install" +qa
+    PLUGINDIR="$HOME"/.local/share/nvim/lazy
     echo "installing all treesitter plugins, this may take a long time"
     $NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
 
@@ -235,7 +228,6 @@ main() {
 
     backup_config
     install_cfg_files
-    install_packer
     install_plugins
 
     echo "finished installing paperbenni's neovim config"

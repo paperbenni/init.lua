@@ -5,5 +5,4 @@ source install.sh
 
 backup_config
 install_cfg_files
-nvim -c PackerInstall
-
+nvim --headless "+Lazy! sync" +qa

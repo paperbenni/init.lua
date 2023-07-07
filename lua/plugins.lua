@@ -109,7 +109,7 @@ require("lazy").setup({
             'hrsh7th/cmp-path',
             'ray-x/cmp-treesitter',
             'rafamadriz/friendly-snippets',
-            { "L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*" },
+            { "L3MON4D3/LuaSnip", tag = "v1.*" },
             'saadparwaiz1/cmp_luasnip'
         }
     },
