@@ -39,12 +39,21 @@ require("lazy").setup({
     'tpope/vim-dadbod',
     'kristijanhusak/vim-dadbod-ui',
 
-    { 'vimwiki/vimwiki',     branch = 'dev' },
+    {
+        'vimwiki/vimwiki',
+        lazy = false,
+        branch = 'dev',
+        module = false,
+        init = function()
+            require "mywiki"
+        end
+    },
+    
 
     'paperbenni/Calendar.vim',
     'michal-h21/vim-zettel',
 
-    { 'lervag/vimtex',   event = 'BufRead *.tex' },
+    { 'lervag/vimtex',       event = 'BufRead *.tex' },
 
     'mhinz/vim-startify',
 
@@ -54,7 +63,7 @@ require("lazy").setup({
 
     'nvim-treesitter/nvim-treesitter',
 
-    { "catppuccin/nvim", name = "catppuccin" },
+    { "catppuccin/nvim",   name = "catppuccin" },
 
     {
         'nvim-telescope/telescope.nvim',
@@ -71,7 +80,7 @@ require("lazy").setup({
         }
     },
 
-    { 'j-hui/fidget.nvim',             tag = 'legacy',      enabled = not potato, },
+    { 'j-hui/fidget.nvim', tag = 'legacy',     enabled = not potato, },
     {
         "folke/which-key.nvim",
         enabled = not potato,
