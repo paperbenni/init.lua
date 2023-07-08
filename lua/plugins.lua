@@ -51,7 +51,7 @@ require("lazy").setup({
     
 
     'paperbenni/Calendar.vim',
-    'michal-h21/vim-zettel',
+    {'michal-h21/vim-zettel', event = 'BufRead *.md'},
 
     { 'lervag/vimtex',       event = 'BufRead *.tex' },
 
@@ -118,7 +118,7 @@ require("lazy").setup({
             'hrsh7th/cmp-path',
             'ray-x/cmp-treesitter',
             'rafamadriz/friendly-snippets',
-            { "L3MON4D3/LuaSnip", tag = "v1.*" },
+            { "L3MON4D3/LuaSnip", tag = "v1.2.1" },
             'saadparwaiz1/cmp_luasnip'
         }
     },
