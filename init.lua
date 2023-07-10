@@ -54,6 +54,14 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+nnoremap <leader>ww <Plug>VimwikiIndex
+nnoremap <leader>wt <Plug>VimwikiTabIndex
+nnoremap <leader>wi <Plug>VimwikiDiaryIndex
+nnoremap <leader>w<leader>w <Plug>VimwikiMakeDiaryNote
+nnoremap <leader>w<leader>y <Plug>VimwikiMakeYesterdayDiaryNote
+nnoremap <leader>w<leader>m <Plug>VimwikiMakeTomorrowDiaryNote
+autocmd FileType markdown nnoremap <buffer> <C-Space> <Plug>VimwikiToggleListItem
+
 let g:neovide_cursor_vfx_mode = "sonicboom"
 " let g:user_emmet_expandabbr_key = '<C-,>'
 
@@ -104,7 +112,6 @@ end
 require 'mytelescope'
 require 'mylsp'
 
-require 'mywiki'
 require 'myneovide'
 
 
