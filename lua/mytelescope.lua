@@ -22,7 +22,10 @@ require('telescope').setup({
 })
 
 require('telescope').load_extension('fzf')
-require('telescope').load_extension('zoxide')
+if not potato
+then
+    require('telescope').load_extension('zoxide')
+end
 
 vim.cmd([[
 nnoremap <leader><SPACE> <cmd>Telescope find_files<cr>
