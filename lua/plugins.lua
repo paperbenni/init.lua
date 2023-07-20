@@ -34,6 +34,7 @@ require("lazy").setup({
     "lukas-reineke/indent-blankline.nvim",
     'mattn/emmet-vim',
     'jose-elias-alvarez/null-ls.nvim',
+    'sbdchd/neoformat',
 
     -- TODO: more lazy loading
     'tpope/vim-dadbod',
