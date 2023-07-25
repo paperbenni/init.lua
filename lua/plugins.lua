@@ -14,73 +14,82 @@ vim.opt.rtp:prepend(lazypath)
 local potato = require("mypotato")
 
 if potato then
-    My_completion_engine = 'mycoq'
+    My_completion_engine = "mycoq"
 else
-    My_completion_engine = 'mycmp'
+    My_completion_engine = "mycmp"
 end
 
 require("lazy").setup({
 
-    'lewis6991/impatient.nvim',
+    "lewis6991/impatient.nvim",
 
-    'tpope/vim-commentary',
-    'tpope/vim-fugitive',
-    'tpope/vim-eunuch',
-    'tpope/vim-surround',
-    'tpope/vim-repeat',
+    "tpope/vim-commentary",
+    "tpope/vim-fugitive",
+    "tpope/vim-eunuch",
+    "tpope/vim-surround",
+    "tpope/vim-repeat",
 
-    { "folke/zen-mode.nvim", opts = {} },
+    { "folke/zen-mode.nvim",   opts = {} },
 
     "lukas-reineke/indent-blankline.nvim",
-    'mattn/emmet-vim',
-    'jose-elias-alvarez/null-ls.nvim',
+    "mattn/emmet-vim",
+    "jose-elias-alvarez/null-ls.nvim",
+    "sbdchd/neoformat",
 
     -- TODO: more lazy loading
-    'tpope/vim-dadbod',
-    'kristijanhusak/vim-dadbod-ui',
+    "tpope/vim-dadbod",
+    "kristijanhusak/vim-dadbod-ui",
 
     {
-        'vimwiki/vimwiki',
+        "folke/trouble.nvim",
+        dependencies = { "nvim-tree/nvim-web-devicons" },
+    },
+    {
+        "vimwiki/vimwiki",
         lazy = false,
-        branch = 'dev',
+        branch = "dev",
         module = false,
         init = function()
-            require "mywiki"
-        end
+            require("mywiki")
+        end,
     },
-    
 
-    'paperbenni/Calendar.vim',
-    {'michal-h21/vim-zettel', event = 'BufRead *.md'},
+    "paperbenni/Calendar.vim",
+    { "michal-h21/vim-zettel", event = "BufRead *.md" },
 
-    { 'lervag/vimtex',       event = 'BufRead *.tex' },
+    { "lervag/vimtex",         event = "BufRead *.tex" },
 
-    'mhinz/vim-startify',
+    "mhinz/vim-startify",
 
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "neovim/nvim-lspconfig",
 
-    'nvim-treesitter/nvim-treesitter',
+    {
+        'kevinhwang91/nvim-ufo',
+        dependencies = { 'kevinhwang91/promise-async' }
+    },
+
+    "nvim-treesitter/nvim-treesitter",
 
     { "catppuccin/nvim",   name = "catppuccin" },
 
     {
-        'nvim-telescope/telescope.nvim',
-        tag = '0.1.2',
+        "nvim-telescope/telescope.nvim",
+        tag = "0.1.2",
         -- or                              , branch = '0.1.x',
         dependencies = {
-            'nvim-lua/plenary.nvim',
+            "nvim-lua/plenary.nvim",
             {
-                'nvim-telescope/telescope-fzf-native.nvim',
+                "nvim-telescope/telescope-fzf-native.nvim",
                 build =
-                'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+                "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
             },
-            { 'jvgrootveld/telescope-zoxide', enabled = not potato }
-        }
+            { "jvgrootveld/telescope-zoxide", enabled = not potato },
+        },
     },
 
-    { 'j-hui/fidget.nvim', tag = 'legacy',     enabled = not potato, },
+    { "j-hui/fidget.nvim", tag = "legacy",     enabled = not potato },
     {
         "folke/which-key.nvim",
         enabled = not potato,
@@ -93,42 +102,41 @@ require("lazy").setup({
             -- your configuration comes here
             -- or leave it empty to use the default settings
             -- refer to the configuration section below
-        }
+        },
     },
 
     {
-        'nvim-tree/nvim-tree.lua',
+        "nvim-tree/nvim-tree.lua",
         dependencies = {
-            'nvim-tree/nvim-web-devicons', -- optional, for file icons
+            "nvim-tree/nvim-web-devicons", -- optional, for file icons
         },
-        tag = 'nightly'                    -- optional, updated every week. (see issue #1193)
+        tag = "nightly",                   -- optional, updated every week. (see issue #1193)
     },
 
-    'akinsho/bufferline.nvim',
-    'hoob3rt/lualine.nvim',
+    "akinsho/bufferline.nvim",
+    "hoob3rt/lualine.nvim",
     "windwp/nvim-autopairs",
 
-
     {
-        'hrsh7th/nvim-cmp',
+        "hrsh7th/nvim-cmp",
         enabled = not potato,
         dependencies = {
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-buffer',
-            'hrsh7th/cmp-path',
-            'ray-x/cmp-treesitter',
-            'rafamadriz/friendly-snippets',
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-path",
+            "ray-x/cmp-treesitter",
+            "rafamadriz/friendly-snippets",
             { "L3MON4D3/LuaSnip", tag = "v1.2.1" },
-            'saadparwaiz1/cmp_luasnip'
-        }
+            "saadparwaiz1/cmp_luasnip",
+        },
     },
     {
-        'ms-jpq/coq_nvim',
+        "ms-jpq/coq_nvim",
         enabled = potato,
         dependencies = {
-            { 'ms-jpq/coq.artifacts',  branch = 'artifacts' },
-            { 'ms-jpq/coq.thirdparty', branch = '3p' },
-        }
+            { "ms-jpq/coq.artifacts",  branch = "artifacts" },
+            { "ms-jpq/coq.thirdparty", branch = "3p" },
+        },
     },
 
     {
@@ -137,27 +145,25 @@ require("lazy").setup({
         dependencies = {
             "neovim/nvim-lspconfig",
             "SmiteshP/nvim-navic",
-            "MunifTanjim/nui.nvim"
-        }
+            "MunifTanjim/nui.nvim",
+        },
     },
 
-    { 'github/copilot.vim',            enabled = not potato },
+    { "github/copilot.vim",            enabled = not potato },
 
-    { 'xiyaowong/nvim-transparent' },
+    { "xiyaowong/nvim-transparent" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },
-    { 'psliwka/vim-smoothie',          enabled = not potato },
-    { 'machakann/vim-highlightedyank', enabled = not potato },
-    { 'lewis6991/gitsigns.nvim',       enabled = not potato },
-    { 'ray-x/lsp_signature.nvim',      enabled = not potato },
+    { "psliwka/vim-smoothie",          enabled = not potato },
+    { "machakann/vim-highlightedyank", enabled = not potato },
+    { "lewis6991/gitsigns.nvim",       enabled = not potato },
+    { "ray-x/lsp_signature.nvim",      enabled = not potato },
 
-    { 'mfussenegger/nvim-dap',         enabled = not potato },
-    { 'rcarriga/nvim-dap-ui',          enabled = not potato },
+    { "mfussenegger/nvim-dap",         enabled = not potato },
+    { "rcarriga/nvim-dap-ui",          enabled = not potato },
     {
-        'simrat39/rust-tools.nvim',
+        "simrat39/rust-tools.nvim",
         enabled = not potato,
         event = "BufRead *.rs",
     },
-    { 'mfussenegger/nvim-dap-python', enabled = not potato },
-
-
+    { "mfussenegger/nvim-dap-python", enabled = not potato },
 })

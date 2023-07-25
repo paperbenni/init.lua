@@ -26,7 +26,7 @@ set encoding=UTF-8
 set colorcolumn=80
 
 " command Explore :NvimTreeToggle
-command! Lighttheme colorscheme tokyonight-day | set background=light
+command! Lighttheme colorscheme catppuccin-latte | set background=light
 
 nnoremap <leader>a :Startify<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
