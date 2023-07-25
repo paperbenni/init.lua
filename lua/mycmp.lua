@@ -41,6 +41,14 @@ local function border(hl_name)
 end
 
 require("luasnip.loaders.from_vscode").lazy_load()
+local luasnip = require('luasnip')
+
+-- delete jump list on mode changes
+luasnip.config.set_config({
+    region_check_events = 'InsertEnter',
+    delete_check_events = 'InsertLeave'
+})
+
 
 local cmp = require 'cmp'
 cmp.setup({
