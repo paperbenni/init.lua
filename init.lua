@@ -28,6 +28,8 @@ set colorcolumn=80
 " command Explore :NvimTreeToggle
 command! Lighttheme colorscheme catppuccin-latte | set background=light
 
+command! Cal Calendar | vertical resize +20
+
 nnoremap <leader>a :Startify<CR>
 nnoremap <leader>e :NvimTreeToggle<CR>
 nnoremap <leader>f :w<CR>
