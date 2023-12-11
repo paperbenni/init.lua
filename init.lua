@@ -114,6 +114,8 @@ require 'mylsp'
 
 require 'myneovide'
 
+require 'myharpoon'
+
 
 
 vim.g.loaded_netrw = 1
