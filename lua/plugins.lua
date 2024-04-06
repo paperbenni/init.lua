@@ -54,20 +54,16 @@ require("lazy").setup({
         end,
     },
     {
+        "vhyrro/luarocks.nvim",
+        priority = 1000,
+        config = true,
+    },
+    {
         "nvim-neorg/neorg",
-        build = ":Neorg sync-parsers",
-        dependencies = {"nvim-lua/plenary.nvim"},
-        config = function()
-            require("neorg").setup {
-                load = {
-                    ["core.defaults"] = {}, -- Loads default behaviour
-                    ["core.concealer"] = {}, -- Adds pretty icons to your documents
-                    ["core.dirman"] = { -- Manages Neorg workspaces
-                        config = {workspaces = {notes = "~/notes"}}
-                    }
-                }
-            }
-        end
+        dependencies = { "luarocks.nvim" },
+        lazy = false,
+        version = "*", -- Pin Neorg to the latest stable release
+        config = true,
     },
 
     "paperbenni/Calendar.vim",
