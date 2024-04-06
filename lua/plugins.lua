@@ -24,6 +24,14 @@ require("lazy").setup({
     "lewis6991/impatient.nvim",
 
     "tpope/vim-commentary",
+    {
+
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+        },
+    },
     "tpope/vim-fugitive",
     "tpope/vim-eunuch",
     "tpope/vim-surround",
@@ -33,7 +41,6 @@ require("lazy").setup({
 
     "lukas-reineke/indent-blankline.nvim",
     "mattn/emmet-vim",
-    "jose-elias-alvarez/null-ls.nvim",
     "sbdchd/neoformat",
 
     -- TODO: more lazy loading
