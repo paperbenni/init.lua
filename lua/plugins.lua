@@ -31,6 +31,7 @@ require("lazy").setup({
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
+        enabled = not potato
     },
     "tpope/vim-fugitive",
     "tpope/vim-eunuch",
@@ -71,6 +72,7 @@ require("lazy").setup({
         lazy = false,
         version = "*", -- Pin Neorg to the latest stable release
         config = true,
+        enabled = not potato
     },
 
     "paperbenni/Calendar.vim",
