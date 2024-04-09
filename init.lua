@@ -151,16 +151,6 @@ require("nvim-tree").setup({
     }
 })
 
-local null_ls = require("null-ls")
-
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.shfmt.with({ extra_args = { "--indent", "4" } }),
-        null_ls.builtins.formatting.black,
-        null_ls.builtins.formatting.rustfmt,
-        null_ls.builtins.formatting.prettier.with({ disabled_filetypes = { "markdown", "typescript" } })
-    },
-})
 
 require("nvim-autopairs").setup {}
 
