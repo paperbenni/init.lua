@@ -1,5 +1,5 @@
 require('plugins')
-vim.loader.enable()
+-- vim.loader.enable()
 
 local potato = require('mypotato')
 vim.g.mapleader = " "
@@ -130,30 +130,7 @@ vim.g.loaded_netrwPlugin = 1
 --     vim.keymap.set('n', 'l', nt_api.node.open.edit, bufopts)
 -- end
 
-require("nvim-tree").setup({
-    -- on_attach = on_tree_attach,
-    view = {
-        mappings = {
-            list = {
-                { key = "l", action = "edit" }
-            }
-        }
-    },
-    update_focused_file = {
-        enable = true,
-        update_root = true,
-
-    },
-    renderer = {
-        indent_markers = {
-            enable = true
-        }
-    }
-})
-
-
 require("nvim-autopairs").setup {}
-
 
 require 'bufferline'.setup {}
 

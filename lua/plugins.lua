@@ -125,11 +125,36 @@ require("lazy").setup({
 
     {
         "nvim-tree/nvim-tree.lua",
+        version = "*",
+        lazy = false,
         dependencies = {
-            "nvim-tree/nvim-web-devicons", -- optional, for file icons
+            "nvim-tree/nvim-web-devicons",
         },
-        tag = "nightly",                   -- optional, updated every week. (see issue #1193)
-    },
+        config = function()
+            require("nvim-tree").setup {
+
+                -- on_attach = on_tree_attach,
+                view = {
+                    mappings = {
+                        list = {
+                            { key = "l", action = "edit" }
+                        }
+                    }
+                },
+                update_focused_file = {
+                    enable = true,
+                    update_root = true,
+
+                },
+                renderer = {
+                    indent_markers = {
+                        enable = true
+                    }
+                }
+
+            }
+        end,
+    }
 
     "akinsho/bufferline.nvim",
     "hoob3rt/lualine.nvim",
