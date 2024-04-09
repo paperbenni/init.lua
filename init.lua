@@ -1,5 +1,5 @@
 require('plugins')
-require('impatient')
+vim.loader.enable()
 
 local potato = require('mypotato')
 vim.g.mapleader = " "
