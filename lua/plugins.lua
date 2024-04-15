@@ -154,7 +154,7 @@ require("lazy").setup({
 
             }
         end,
-    }
+    },
 
     "akinsho/bufferline.nvim",
     "hoob3rt/lualine.nvim",
