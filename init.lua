@@ -123,13 +123,6 @@ require 'myneovide'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- l to expand tree item
--- local on_tree_attach = function(_, bufnr)
---     local bufopts = { noremap = true, silent = true, buffer = bufnr }
---     local nt_api = require 'nvim-tree.api'
---     vim.keymap.set('n', 'l', nt_api.node.open.edit, bufopts)
--- end
-
 require("nvim-autopairs").setup {}
 
 require 'bufferline'.setup {}

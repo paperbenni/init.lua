@@ -19,6 +19,9 @@ else
     My_completion_engine = "mycmp"
 end
 
+
+
+
 require("lazy").setup({
 
     "tpope/vim-commentary",
@@ -133,14 +136,7 @@ require("lazy").setup({
         config = function()
             require("nvim-tree").setup {
 
-                -- on_attach = on_tree_attach,
-                view = {
-                    mappings = {
-                        list = {
-                            { key = "l", action = "edit" }
-                        }
-                    }
-                },
+                on_attach = require("mytree"),
                 update_focused_file = {
                     enable = true,
                     update_root = true,
