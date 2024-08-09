@@ -33,9 +33,6 @@ backup_config() {
 check_nix_install() {
     if ! command -v nix-env; then return 1; fi
 
-    if ! command -v pip2 && ! python2 -c "import neovim"; then
-        nix-env -i -E 'f: with import <nixpkgs> { }; (python2.withPackages(ps: [ ps.pynvim ] ))'
-    fi
     if ! command -v pip3 && ! python3 -c "import neovim"; then
         nix-env -i -E 'f: with import <nixpkgs> { }; (python3.withPackages(ps: [ ps.pynvim ] ))'
     fi
