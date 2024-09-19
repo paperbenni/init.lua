@@ -30,13 +30,6 @@ command! Lighttheme colorscheme catppuccin-latte | set background=light
 
 command! Cal Calendar | vertical resize +20
 
-nnoremap <leader>a :Startify<CR>
-nnoremap <leader>e :NvimTreeToggle<CR>
-nnoremap <leader>f :w<CR>
-nnoremap <leader>q :q<CR>
-nnoremap <leader>g :Gcd<CR>
-nnoremap <leader>n :tabnew<CR>
-
 nnoremap <leader>vn :cnext<CR>
 nnoremap <leader>vp :cprevious<CR>
 
@@ -68,6 +61,12 @@ let g:neovide_cursor_vfx_mode = "sonicboom"
 " let g:user_emmet_expandabbr_key = '<C-,>'
 
 ]])
+
+vim.keymap.set( 'n', '<leader>a', ":Startify<CR>")
+vim.keymap.set('n', '<leader>f', ':w<CR>')
+vim.keymap.set('n', '<leader>q', ':q<CR>')
+vim.keymap.set('n', '<leader>g', ':Gcd<CR>')
+vim.keymap.set('n', '<leader>n', ':tabnew<CR>')
 
 local opt          = vim.opt
 

@@ -12,6 +12,8 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local potato = require("mypotato")
+-- switch between oil nvim and nvimtree
+local oily = true
 
 if potato then
     My_completion_engine = "mycoq"
@@ -110,7 +112,7 @@ require("lazy").setup({
         },
     },
 
-    { "j-hui/fidget.nvim",  enabled = not potato },
+    { "j-hui/fidget.nvim", enabled = not potato },
     {
         "folke/which-key.nvim",
         enabled = not potato,
@@ -127,15 +129,32 @@ require("lazy").setup({
     },
 
     {
+        'stevearc/oil.nvim',
+        enabled = oily,
+        ---@module 'oil'
+        ---@type oil.SetupOpts
+        opts = {},
+        -- Optional dependencies
+        dependencies = { { "echasnovski/mini.icons", opts = {} } },
+        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
+        config = function()
+            vim.api.nvim_set_keymap('n', '<leader>O', ':Oil<CR>', { noremap = true, silent = true })
+        end
+    },
+    {
         "nvim-tree/nvim-tree.lua",
         version = "*",
+        enables = not oily,
         lazy = false,
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
         config = function()
             require("nvim-tree").setup {
-
+                vim.api.nvim_set_keymap('n',
+                    '<leader>e', ':NvimTreeToggle<CR>',
+                    { noremap = true, silent = true }
+                ),
                 on_attach = require("mytree"),
                 update_focused_file = {
                     enable = true,
