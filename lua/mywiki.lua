@@ -33,3 +33,17 @@ endfunction
 let g:zettel_format = "%y%m%d-%H%M-%title"
 
 ]])
+
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'markdown',
+    callback = function()
+        -- Enable wrapping
+        vim.opt_local.wrap = true
+
+        -- Set text width to 80 characters
+        vim.opt_local.textwidth = 80
+
+        -- Optionally, if you want soft line breaks at 80 characters but no hard break:
+        vim.opt_local.linebreak = true
+    end,
+})

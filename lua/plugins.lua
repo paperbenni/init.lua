@@ -12,8 +12,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local potato = require("mypotato")
--- switch between oil nvim and nvimtree
-local oily = true
 
 if potato then
     My_completion_engine = "mycoq"
@@ -127,50 +125,37 @@ require("lazy").setup({
             -- refer to the configuration section below
         },
     },
-
-    {
-        'stevearc/oil.nvim',
-        enabled = oily,
-        ---@module 'oil'
-        ---@type oil.SetupOpts
-        opts = {},
-        -- Optional dependencies
-        dependencies = { { "echasnovski/mini.icons", opts = {} } },
-        -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
-        config = function()
-            vim.api.nvim_set_keymap('n', '<leader>O', ':Oil<CR>', { noremap = true, silent = true })
-        end
-    },
+    --{
+    --    'stevearc/oil.nvim',
+    --    ---@module 'oil'
+    --    ---@type oil.SetupOpts
+    --    opts = {},
+    --    enabled = oily,
+    --    -- Optional dependencies
+    --    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    --},
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
-        enables = not oily,
+        -- enabled = true,
         lazy = false,
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        config = function()
-            require("nvim-tree").setup {
-                vim.api.nvim_set_keymap('n',
-                    '<leader>e', ':NvimTreeToggle<CR>',
-                    { noremap = true, silent = true }
-                ),
-                on_attach = require("mytree"),
-                update_focused_file = {
-                    enable = true,
-                    update_root = true,
+        opts = {
+            on_attach = require("mytree"),
+            update_focused_file = {
+                enable = true,
+                update_root = true,
 
-                },
-                renderer = {
-                    indent_markers = {
-                        enable = true
-                    }
+            },
+            renderer = {
+                indent_markers = {
+                    enable = true
                 }
-
             }
-        end,
+        },
     },
-
     "akinsho/bufferline.nvim",
     "hoob3rt/lualine.nvim",
     "windwp/nvim-autopairs",
