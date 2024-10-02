@@ -50,8 +50,9 @@ require("lazy").setup({
     "kristijanhusak/vim-dadbod-ui",
 
     {
-        "folke/trouble.nvim",
-        dependencies = { "nvim-tree/nvim-web-devicons" },
+      "folke/trouble.nvim",
+      opts = {}, -- for default options, refer to the configuration section for custom setup.
+      cmd = "Trouble",
     },
     {
         "vimwiki/vimwiki",
