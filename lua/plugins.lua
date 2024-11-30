@@ -76,20 +76,20 @@ require("lazy").setup({
         config = true,
         enabled = not potato
     },
-    {
-      "folke/flash.nvim",
-      event = "VeryLazy",
-      ---@type Flash.Config
-      opts = {},
-      -- stylua: ignore
-      keys = {
-        { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-        { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-        { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-        { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-        { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-      },
-    },
+    --{
+    --  "folke/flash.nvim",
+    --  event = "VeryLazy",
+    --  ---@type Flash.Config
+    --  opts = {},
+    --  -- stylua: ignore
+    --  keys = {
+    --    { "<c-s>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+    --    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+    --    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+    --    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    --    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    --  },
+    --},
     "paperbenni/Calendar.vim",
     { "michal-h21/vim-zettel", event = "BufRead *.md" },
 
@@ -105,7 +105,14 @@ require("lazy").setup({
         'kevinhwang91/nvim-ufo',
         dependencies = { 'kevinhwang91/promise-async' }
     },
-
+    {
+        'chomosuke/typst-preview.nvim',
+        ft = 'typst',
+        version = '1.*',
+        config = function()
+            require 'typst-preview'.setup {}
+        end,
+    },
     "nvim-treesitter/nvim-treesitter",
 
     { "catppuccin/nvim",   name = "catppuccin" },
@@ -172,7 +179,13 @@ require("lazy").setup({
     },
     "akinsho/bufferline.nvim",
     "hoob3rt/lualine.nvim",
-    "windwp/nvim-autopairs",
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
+        -- use opts = {} for passing setup options
+        -- this is equivalent to setup({}) function
+    },
 
     {
         "hrsh7th/nvim-cmp",
@@ -206,7 +219,20 @@ require("lazy").setup({
         },
     },
 
-    { "github/copilot.vim",            enabled = not potato },
+    -- { "github/copilot.vim",            enabled = not potato },
+    {
+      "supermaven-inc/supermaven-nvim",
+      config = function()
+        require("supermaven-nvim").setup({
+            keymaps = {
+                accept_suggestion = "<C-j>",
+                clear_suggestion = "<C-e>",
+                accept_word = "<C-M-j>",
+            }
+
+        })
+      end,
+    },
 
     { "xiyaowong/nvim-transparent" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },

@@ -105,7 +105,7 @@ then
     require('gitsigns').setup()
     require("which-key").setup()
     require("colorizer").setup()
-    require 'mycopilot'
+    -- require 'mycopilot'
     require 'myharpoon'
 
     -- this one is mostly annoying
