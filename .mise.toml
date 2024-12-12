@@ -1,3 +1,5 @@
 [tools]
-python = "3.12"
+python = "3.13"
 node = "lts"
+go = "latest"
+neovim = "latest"
