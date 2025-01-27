@@ -85,9 +85,16 @@ lspconfig.terraformls.setup{
     on_attach = on_attach
 }
 
-lspconfig.yamlls.setup{
+lspconfig.yamlls.setup {
     capabilities = capabilities,
-    on_attach = on_attach
+    on_attach = on_attach,
+    settings = {
+        yaml = {
+            schemas = {
+                ["https://raw.githubusercontent.com/canonical/cloud-init/main/cloudinit/config/schemas/versions.schema.cloud-config.json"] = "user-data.yml"
+            }
+        }
+    }
 }
 
 lspconfig.jdtls.setup{
