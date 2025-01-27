@@ -37,17 +37,16 @@ require("lazy").setup({
     "tpope/vim-fugitive",
     "tpope/vim-eunuch",
     "tpope/vim-surround",
-    "tpope/vim-repeat",
+    { "tpope/vim-repeat",   event = "VeryLazy" },
 
     { "folke/zen-mode.nvim",   opts = {} },
 
     "lukas-reineke/indent-blankline.nvim",
     "mattn/emmet-vim",
-    "sbdchd/neoformat",
+    { "sbdchd/neoformat", cmd = "Neoformat" },
 
-    -- TODO: more lazy loading
-    "tpope/vim-dadbod",
-    "kristijanhusak/vim-dadbod-ui",
+    { "tpope/vim-dadbod", cmd = { "DB", "DBUI" } },
+    { "kristijanhusak/vim-dadbod-ui", cmd = "DBUI" },
 
     {
       "folke/trouble.nvim",
@@ -90,7 +89,7 @@ require("lazy").setup({
     --    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     --  },
     --},
-    "paperbenni/Calendar.vim",
+    { "paperbenni/Calendar.vim", cmd = { "Calendar", "CalendarH", "CalendarT" } },
     { "michal-h21/vim-zettel", event = "BufRead *.md" },
 
     { "lervag/vimtex",         event = "BufRead *.tex" },
@@ -234,7 +233,7 @@ require("lazy").setup({
       end,
     },
 
-    { "xiyaowong/nvim-transparent" },
+    { "xiyaowong/nvim-transparent" , event = "VeryLazy" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },
     { "psliwka/vim-smoothie",          enabled = not potato },
     { "machakann/vim-highlightedyank", enabled = not potato },
