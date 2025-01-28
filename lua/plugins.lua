@@ -35,6 +35,7 @@ require("lazy").setup({
         enabled = not potato
     },
     "tpope/vim-fugitive",
+    "Vigemus/iron.nvim",
     "tpope/vim-eunuch",
     "tpope/vim-surround",
     { "tpope/vim-repeat",   event = "VeryLazy" },

@@ -62,13 +62,24 @@ lspconfig.ts_ls.setup {
     capabilities = capabilities
 }
 
-lspconfig.pyright.setup {
+-- lspconfig.pyright.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     root_dir = function()
+--         return vim.fn.getcwd()
+--     end,
+-- }
+
+
+
+lspconfig.pylsp.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     root_dir = function()
         return vim.fn.getcwd()
     end,
 }
+
 
 lspconfig.bashls.setup {
     capabilities = capabilities,
