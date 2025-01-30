@@ -115,7 +115,6 @@ end
 
 require 'mytelescope'
 require 'mylsp'
-require 'myiron'
 
 require 'myneovide'
 

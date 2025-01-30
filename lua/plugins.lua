@@ -35,7 +35,12 @@ require("lazy").setup({
         enabled = not potato
     },
     "tpope/vim-fugitive",
-    "Vigemus/iron.nvim",
+    { "Vigemus/iron.nvim",
+        cmd = "IronRepl",
+        config = function()
+            require("myiron")
+        end
+    },
     "tpope/vim-eunuch",
     "tpope/vim-surround",
     { "tpope/vim-repeat",   event = "VeryLazy" },
@@ -43,7 +48,7 @@ require("lazy").setup({
     { "folke/zen-mode.nvim",   opts = {} },
 
     "lukas-reineke/indent-blankline.nvim",
-    "mattn/emmet-vim",
+    { "mattn/emmet-vim" , event = "InsertEnter"},
     { "sbdchd/neoformat", cmd = "Neoformat" },
 
     { "tpope/vim-dadbod", cmd = { "DB", "DBUI" } },
@@ -119,7 +124,7 @@ require("lazy").setup({
 
     {
         "nvim-telescope/telescope.nvim",
-        tag = "0.1.6",
+        tag = "0.1.8",
         -- or                              , branch = '0.1.x',
         dependencies = {
             "nvim-lua/plenary.nvim",
