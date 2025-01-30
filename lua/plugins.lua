@@ -28,11 +28,16 @@ require("lazy").setup({
     {
 
         "ThePrimeagen/harpoon",
+        event = "VeryLazy",
         branch = "harpoon2",
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        enabled = not potato
+        enabled = not potato,
+        config = function()
+            require("myharpoon")
+        end
+
     },
     "tpope/vim-fugitive",
     { "Vigemus/iron.nvim",
@@ -98,9 +103,12 @@ require("lazy").setup({
     { "paperbenni/Calendar.vim", cmd = { "Calendar", "CalendarH", "CalendarT" } },
     { "michal-h21/vim-zettel", event = "BufRead *.md" },
 
-    { "lervag/vimtex",         event = "BufRead *.tex" },
+    {
+        "lervag/vimtex",
+        lazy = false,
+    },
 
-    "mhinz/vim-startify",
+    { "mhinz/vim-startify" },
 
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -195,6 +203,7 @@ require("lazy").setup({
     {
         "hrsh7th/nvim-cmp",
         enabled = not potato,
+        event = { "InsertEnter", "CmdlineEnter" },
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -207,6 +216,7 @@ require("lazy").setup({
     },
     {
         "ms-jpq/coq_nvim",
+        branch = "coq",
         enabled = potato,
         dependencies = {
             { "ms-jpq/coq.artifacts",  branch = "artifacts" },
@@ -241,8 +251,8 @@ require("lazy").setup({
 
     { "xiyaowong/nvim-transparent" , event = "VeryLazy" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },
-    { "psliwka/vim-smoothie",          enabled = not potato },
-    { "machakann/vim-highlightedyank", enabled = not potato },
+    { "psliwka/vim-smoothie",          enabled = not potato, event = "VeryLazy" },
+    { "machakann/vim-highlightedyank", enabled = not potato, event = "VeryLazy" },
     { "lewis6991/gitsigns.nvim",       enabled = not potato },
     { "ray-x/lsp_signature.nvim",      enabled = not potato },
 
@@ -253,5 +263,9 @@ require("lazy").setup({
         enabled = not potato,
         event = "BufRead *.rs",
     },
-    { "mfussenegger/nvim-dap-python", enabled = not potato },
+    {
+        "mfussenegger/nvim-dap-python",
+        enabled = not potato,
+        ft = "python"
+    },
 })

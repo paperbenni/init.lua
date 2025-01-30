@@ -106,8 +106,6 @@ then
     require("which-key").setup()
     require("colorizer").setup()
     -- require 'mycopilot'
-    require 'myharpoon'
-
     -- this one is mostly annoying
     -- require "lsp_signature".setup()
 end
