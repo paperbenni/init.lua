@@ -46,11 +46,7 @@ check_nix_install() {
 
 install_providers() {
     echo "installing neovim providers"
-    for x in 2 3; do
-        if ! python$x -c "import neovim"; then
-            sudo pip$x install neovim pynvim
-        fi
-    done
+    # TODO: install python3 neovim
     if ! command -v nvim; then
         if ! npm list -g | grep 'neovim'; then
             sudo npm install -g neovim
@@ -64,7 +60,6 @@ install_providers() {
 
 check_dependencies() {
     checkcommand npm
-    checkcommand cmake
     checkcommand pip
     checkcommand luarocks
     checkcommand sqlite3
@@ -202,14 +197,12 @@ install_dependencies() {
         instantinstall npm
         instantinstall python-pip
         instantinstall luarocks
-        instantinstall cmake
         instantinstall sqlite3
         instantinstall python-virtualenv
     fi
 
     if ismacos; then
         brew install python
-        brew install cmake
         brew install luarocks
         brew install sqlite
         pip install virtualenv
