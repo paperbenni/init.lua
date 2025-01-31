@@ -13,11 +13,9 @@ vim.opt.rtp:prepend(lazypath)
 
 local potato = require("mypotato")
 
-if potato then
-    My_completion_engine = "mycoq"
-else
-    My_completion_engine = "mycmp"
-end
+-- My_completion_engine = "mycoq"
+-- My_completion_engine = "mycmp"
+My_completion_engine = "myblink"
 
 
 
@@ -28,16 +26,11 @@ require("lazy").setup({
     {
 
         "ThePrimeagen/harpoon",
-        event = "VeryLazy",
         branch = "harpoon2",
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
-        enabled = not potato,
-        config = function()
-            require("myharpoon")
-        end
-
+        enabled = not potato
     },
     "tpope/vim-fugitive",
     { "Vigemus/iron.nvim",
@@ -53,7 +46,7 @@ require("lazy").setup({
     { "folke/zen-mode.nvim",   opts = {} },
 
     "lukas-reineke/indent-blankline.nvim",
-    { "mattn/emmet-vim" , event = "InsertEnter"},
+    -- { "mattn/emmet-vim" , event = "InsertEnter"},
     { "sbdchd/neoformat", cmd = "Neoformat" },
 
     { "tpope/vim-dadbod", cmd = { "DB", "DBUI" } },
@@ -103,12 +96,9 @@ require("lazy").setup({
     { "paperbenni/Calendar.vim", cmd = { "Calendar", "CalendarH", "CalendarT" } },
     { "michal-h21/vim-zettel", event = "BufRead *.md" },
 
-    {
-        "lervag/vimtex",
-        lazy = false,
-    },
+    { "lervag/vimtex",         event = "BufRead *.tex" },
 
-    { "mhinz/vim-startify" },
+    "mhinz/vim-startify",
 
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -202,8 +192,7 @@ require("lazy").setup({
 
     {
         "hrsh7th/nvim-cmp",
-        enabled = not potato,
-        event = { "InsertEnter", "CmdlineEnter" },
+        enabled = (My_completion_engine == "mycmp"),
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
@@ -216,23 +205,62 @@ require("lazy").setup({
     },
     {
         "ms-jpq/coq_nvim",
-        branch = "coq",
-        enabled = potato,
+        enabled = (My_completion_engine == "mycoq"),
         dependencies = {
             { "ms-jpq/coq.artifacts",  branch = "artifacts" },
             { "ms-jpq/coq.thirdparty", branch = "3p" },
         },
     },
-
     {
-        "SmiteshP/nvim-navbuddy",
-        enabled = not potato,
+        "saghen/blink.cmp",
+        enabled = (My_completion_engine == "myblink"),
         dependencies = {
-            "neovim/nvim-lspconfig",
-            "SmiteshP/nvim-navic",
-            "MunifTanjim/nui.nvim",
+            'rafamadriz/friendly-snippets',
         },
+        version = "*",
+        --@module 'blink.cmp'
+        --@type blink.cmp.config
+        opts = {
+            keymap = {
+                preset = 'default',
+                ['<Tab>'] = {
+                  function(cmp)
+                    if cmp.snippet_active() then return cmp.accept()
+                    else return cmp.select_next() end
+                  end,
+                  'snippet_forward',
+                  'fallback'
+                },
+                -- ['<CR>'] = { 'accept', 'fallback' },
+                -- only enable CR if not on cmdline
+                ['<CR>'] = { 'accept', 'fallback' },
+                ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
+                cmdline = {
+                    preset = 'default'
+                }
+            },
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = 'mono'
+            },
+            sources = {
+                default = { 'lsp', 'path', 'snippets', 'buffer' },
+            },
+            signature = { enabled = true },
+        },
+        opts_extend = { "sources.default" }
     },
+
+
+    -- {
+    --     "SmiteshP/nvim-navbuddy",
+    --     enabled = not potato,
+    --     dependencies = {
+    --         "neovim/nvim-lspconfig",
+    --         "SmiteshP/nvim-navic",
+    --         "MunifTanjim/nui.nvim",
+    --     },
+    -- },
 
     -- { "github/copilot.vim",            enabled = not potato },
     {
@@ -251,8 +279,8 @@ require("lazy").setup({
 
     { "xiyaowong/nvim-transparent" , event = "VeryLazy" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },
-    { "psliwka/vim-smoothie",          enabled = not potato, event = "VeryLazy" },
-    { "machakann/vim-highlightedyank", enabled = not potato, event = "VeryLazy" },
+    { "psliwka/vim-smoothie",          enabled = not potato },
+    { "machakann/vim-highlightedyank", enabled = not potato },
     { "lewis6991/gitsigns.nvim",       enabled = not potato },
     { "ray-x/lsp_signature.nvim",      enabled = not potato },
 
@@ -263,9 +291,5 @@ require("lazy").setup({
         enabled = not potato,
         event = "BufRead *.rs",
     },
-    {
-        "mfussenegger/nvim-dap-python",
-        enabled = not potato,
-        ft = "python"
-    },
+    { "mfussenegger/nvim-dap-python", enabled = not potato },
 })
