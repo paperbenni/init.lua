@@ -1,4 +1,5 @@
 vim.cmd "set completeopt=menu,menuone,noselect"
+
 local cmp_kinds = {
     Text = '  ',
     Method = '  ',

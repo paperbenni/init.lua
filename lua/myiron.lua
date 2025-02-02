@@ -1,4 +1,6 @@
 local iron = require("iron.core")
+local view = require("iron.view")
+
 
 iron.setup {
   config = {
@@ -12,6 +14,8 @@ iron.setup {
         command = {"zsh"}
       },
       python = {
+        -- pip install ipython
+        -- pip install catppuccin
         command = { "ipython", "--no-autoindent" },  -- or { "ipython", "--no-autoindent" }
         format = require("iron.fts.common").bracketed_paste_python,
         block_deviders = { "# %%", "#%%" },
@@ -25,9 +29,13 @@ iron.setup {
       -- or return a string name such as the following
       -- return "iron"
     end,
+    repl_open_cmd = {
+        view.split.vertical.rightbelow("%40"), -- cmd_1: open a repl to the right
+        view.split.rightbelow("%25")  -- cmd_2: open a repl below
+    }
     -- How the repl window will be displayed
     -- See below for more information
-    -- repl_open_cmd = require('iron.view').bottom(40),
+
   },
   -- Iron doesn't set keymaps by default anymore.
   -- You can set them here or manually add keymaps to the functions in iron.core

@@ -62,17 +62,7 @@ lspconfig.ts_ls.setup {
     capabilities = capabilities
 }
 
--- lspconfig.pyright.setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---     root_dir = function()
---         return vim.fn.getcwd()
---     end,
--- }
-
-
-
-lspconfig.pylsp.setup {
+lspconfig.pyright.setup {
     on_attach = on_attach,
     capabilities = capabilities,
     root_dir = function()
@@ -81,17 +71,27 @@ lspconfig.pylsp.setup {
 }
 
 
+
+-- lspconfig.pylsp.setup {
+--     on_attach = on_attach,
+--     capabilities = capabilities,
+--     root_dir = function()
+--         return vim.fn.getcwd()
+--     end,
+-- }
+
+
 lspconfig.bashls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
 
-lspconfig.sqlls.setup{
+lspconfig.sqlls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
 
-lspconfig.terraformls.setup{
+lspconfig.terraformls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
@@ -108,7 +108,7 @@ lspconfig.yamlls.setup {
     }
 }
 
-lspconfig.jdtls.setup{
+lspconfig.jdtls.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
@@ -123,7 +123,7 @@ lspconfig.jdtls.setup{
 --         "typescriptreact", "vue", "svelte" }
 -- }
 
-lspconfig.svelte.setup{
+lspconfig.svelte.setup {
     capabilities = capabilities,
     on_attach = on_attach
 }
@@ -133,17 +133,14 @@ lspconfig.gopls.setup {
     on_attach = on_attach
 }
 
-lspconfig.texlab.setup{
+lspconfig.texlab.setup {
     capabilities = capabilities,
     on_attach = on_attach,
 }
 
+
 if not potato
 then
-    lspconfig.volar.setup {
-        capabilities = capabilities,
-        on_attach = on_attach
-    }
     lspconfig.lua_ls.setup {
         capabilities = capabilities,
         on_attach = on_attach,
@@ -167,6 +164,11 @@ then
                 },
             },
         },
+    }
+
+    lspconfig.volar.setup {
+        capabilities = capabilities,
+        on_attach = on_attach
     }
     lspconfig.emmet_ls.setup {
         capabilities = capabilities,
@@ -217,7 +219,6 @@ else
         on_attach = on_attach,
         capabilities = capabilities
     }
-
 end
 
 -- lspconfig.tsserver.setup{

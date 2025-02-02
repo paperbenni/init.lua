@@ -1,3 +1,4 @@
+local mytheme = require('themes.catppuccin')
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
     vim.fn.system({
@@ -21,8 +22,29 @@ My_completion_engine = "myblink"
 
 
 require("lazy").setup({
+    {
+        "folke/snacks.nvim",
+        lazy = false,
+        priority = 1000,
+        ---@type snacks.Config
+        opts = {
+            indent = { enabled = true },
+            bigfile = { enabled = true },
+            dashboard = { enabled = true },
+            -- TODO: change easing
+            scroll =  { enabled = not potato },
+            input = { enabled = true },
+            scratch = { enabled = true },
+            quickfile = { enabled = true },
+            lazygit = { enabled = true },
+        },
+        keys = {
+                { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
+        --     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+        --     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+        }
+    },
 
-    "tpope/vim-commentary",
     {
 
         "ThePrimeagen/harpoon",
@@ -33,7 +55,8 @@ require("lazy").setup({
         enabled = not potato
     },
     "tpope/vim-fugitive",
-    { "Vigemus/iron.nvim",
+    {
+        "Vigemus/iron.nvim",
         cmd = "IronRepl",
         config = function()
             require("myiron")
@@ -42,10 +65,6 @@ require("lazy").setup({
     "tpope/vim-eunuch",
     "tpope/vim-surround",
     { "tpope/vim-repeat",   event = "VeryLazy" },
-
-    { "folke/zen-mode.nvim",   opts = {} },
-
-    "lukas-reineke/indent-blankline.nvim",
     -- { "mattn/emmet-vim" , event = "InsertEnter"},
     { "sbdchd/neoformat", cmd = "Neoformat" },
 
@@ -53,9 +72,9 @@ require("lazy").setup({
     { "kristijanhusak/vim-dadbod-ui", cmd = "DBUI" },
 
     {
-      "folke/trouble.nvim",
-      opts = {}, -- for default options, refer to the configuration section for custom setup.
-      cmd = "Trouble",
+        "folke/trouble.nvim",
+        opts = {}, -- for default options, refer to the configuration section for custom setup.
+        cmd = "Trouble",
     },
     {
         "vimwiki/vimwiki",
@@ -67,38 +86,18 @@ require("lazy").setup({
         end,
     },
     {
-        "vhyrro/luarocks.nvim",
-        priority = 1000,
-        config = true,
-    },
-    {
         "nvim-neorg/neorg",
-        dependencies = { "luarocks.nvim" },
         lazy = false,
         version = "*", -- Pin Neorg to the latest stable release
         config = true,
         enabled = not potato
     },
-    --{
-    --  "folke/flash.nvim",
-    --  event = "VeryLazy",
-    --  ---@type Flash.Config
-    --  opts = {},
-    --  -- stylua: ignore
-    --  keys = {
-    --    { "<c-s>", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    --    { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    --    { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    --    { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    --    { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    --  },
-    --},
     { "paperbenni/Calendar.vim", cmd = { "Calendar", "CalendarH", "CalendarT" } },
     { "michal-h21/vim-zettel", event = "BufRead *.md" },
 
     { "lervag/vimtex",         event = "BufRead *.tex" },
 
-    "mhinz/vim-startify",
+
 
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
@@ -143,21 +142,8 @@ require("lazy").setup({
             vim.o.timeout = true
             vim.o.timeoutlen = 300
         end,
-        opts = {
-            -- your configuration comes here
-            -- or leave it empty to use the default settings
-            -- refer to the configuration section below
-        },
+        opts = { },
     },
-    --{
-    --    'stevearc/oil.nvim',
-    --    ---@module 'oil'
-    --    ---@type oil.SetupOpts
-    --    opts = {},
-    --    enabled = oily,
-    --    -- Optional dependencies
-    --    dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    --},
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
@@ -180,8 +166,26 @@ require("lazy").setup({
             }
         },
     },
-    "akinsho/bufferline.nvim",
-    "hoob3rt/lualine.nvim",
+    {
+        'akinsho/bufferline.nvim',
+        version = "*",
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            require('bufferline').setup {}
+        end
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function()
+            require('lualine').setup {
+                options = {
+                    theme = mytheme.lualinetheme,
+                    icons_enabled = true
+                }
+            }
+        end
+    },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -189,7 +193,6 @@ require("lazy").setup({
         -- use opts = {} for passing setup options
         -- this is equivalent to setup({}) function
     },
-
     {
         "hrsh7th/nvim-cmp",
         enabled = (My_completion_engine == "mycmp"),
@@ -224,19 +227,19 @@ require("lazy").setup({
             keymap = {
                 preset = 'default',
                 ['<Tab>'] = {
-                  function(cmp)
-                    if cmp.snippet_active() then return cmp.accept()
-                    else return cmp.select_next() end
-                  end,
-                  'snippet_forward',
-                  'fallback'
+                    function(cmp)
+                        if cmp.snippet_active() then return cmp.accept()
+                        else return cmp.select_next() end
+                    end,
+                    'snippet_forward',
+                    'fallback'
                 },
                 -- ['<CR>'] = { 'accept', 'fallback' },
                 -- only enable CR if not on cmdline
                 ['<CR>'] = { 'accept', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
                 cmdline = {
-                    preset = 'default'
+                    preset = 'none'
                 }
             },
             appearance = {
@@ -244,42 +247,59 @@ require("lazy").setup({
                 nerd_font_variant = 'mono'
             },
             sources = {
+                cmdline = {},
                 default = { 'lsp', 'path', 'snippets', 'buffer' },
             },
             signature = { enabled = true },
         },
         opts_extend = { "sources.default" }
     },
-
-
-    -- {
-    --     "SmiteshP/nvim-navbuddy",
-    --     enabled = not potato,
-    --     dependencies = {
-    --         "neovim/nvim-lspconfig",
-    --         "SmiteshP/nvim-navic",
-    --         "MunifTanjim/nui.nvim",
-    --     },
-    -- },
-
-    -- { "github/copilot.vim",            enabled = not potato },
     {
-      "supermaven-inc/supermaven-nvim",
-      config = function()
-        require("supermaven-nvim").setup({
-            keymaps = {
-                accept_suggestion = "<C-j>",
-                clear_suggestion = "<C-e>",
-                accept_word = "<C-M-j>",
-            }
+        "supermaven-inc/supermaven-nvim",
+        config = function()
+            require("supermaven-nvim").setup({
+                condition = function()
+                    local file_path = vim.api.nvim_buf_get_name(0)
+                    local filename = vim.fn.expand("%:t")
+                    -- TODO: learn lua and do not copy if...return everywhere
 
-        })
-      end,
+                    if file_path:match("^/dev/shm/") then
+                        return true
+                    end
+
+                    local password_path = vim.fn.expand("~/.password-store")
+                    if file_path:match("^" .. vim.fn.escape(password_store_path, "%.") .. "/") then
+                        return true
+                    end
+                    -- Check if the file ends with gpg.txt
+                    if file_path:match("%.gpg%.txt$") then
+                        return true
+                    end
+                    -- Check if the file is an SSH key (common SSH key filenames)
+                    local ssh_key_patterns = {
+                        "id_rsa", "id_dsa", "id_ecdsa", "id_ed25519", "authorized_keys", "known_hosts"
+                    }
+                    for _, pattern in ipairs(ssh_key_patterns) do
+                        if filename == pattern then
+                            return true
+                        end
+                    end
+                    -- Check if the file is in the ~/.ssh directory
+                    local ssh_dir = vim.fn.expand("~/.ssh")
+                    if file_path:match("^" .. vim.fn.escape(ssh_dir, "%.") .. "/") then
+                        return true
+                    end
+                end,
+                keymaps = {
+                    accept_suggestion = "<C-j>",
+                    clear_suggestion = "<C-e>",
+                    accept_word = "<C-M-j>",
+                }
+            })
+        end,
     },
-
     { "xiyaowong/nvim-transparent" , event = "VeryLazy" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },
-    { "psliwka/vim-smoothie",          enabled = not potato },
     { "machakann/vim-highlightedyank", enabled = not potato },
     { "lewis6991/gitsigns.nvim",       enabled = not potato },
     { "ray-x/lsp_signature.nvim",      enabled = not potato },

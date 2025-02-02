@@ -1,8 +1,8 @@
+vim.g.mapleader = " "
 require('plugins')
 -- vim.loader.enable()
 
 local potato = require('mypotato')
-vim.g.mapleader = " "
 
 vim.api.nvim_create_user_command(
     'Debug',
@@ -37,9 +37,10 @@ noremap glk <Plug>VimwikiToggleListItem
 
 " additional mode switching
 
-inoremap <special> kj <ESC>
-inoremap <special> jk <ESC>:
-tnoremap <special> jk <C-\><C-n>
+"TODO: redo this
+"inoremap <special> kj <ESC>
+"inoremap <special> jk <ESC>:
+"tnoremap <special> jk <C-\><C-n>
 
 " move line up/down with alt j/k
 nnoremap <A-j> :m .+1<CR>==
@@ -62,7 +63,7 @@ let g:neovide_cursor_vfx_mode = "sonicboom"
 
 ]])
 
-vim.keymap.set( 'n', '<leader>a', ":Startify<CR>")
+vim.keymap.set('n', '<leader>a', ":Startify<CR>")
 vim.keymap.set('n', '<leader>f', ':w<CR>')
 vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>g', ':Gcd<CR>')
@@ -106,6 +107,8 @@ then
     require("which-key").setup()
     require("colorizer").setup()
     -- require 'mycopilot'
+    require 'myharpoon'
+
     -- this one is mostly annoying
     -- require "lsp_signature".setup()
 end
@@ -122,18 +125,7 @@ require 'myneovide'
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-require("nvim-autopairs").setup {}
-
-require 'bufferline'.setup {}
-
 local mytheme = require('themes.catppuccin')
-
-require('lualine').setup {
-    options = {
-        theme = mytheme.lualinetheme,
-        icons_enabled = true
-    }
-}
 
 vim.cmd("colorscheme " .. mytheme.vimtheme)
 
