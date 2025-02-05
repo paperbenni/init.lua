@@ -68,7 +68,7 @@ vim.keymap.set('n', '<leader>f', ':w<CR>')
 vim.keymap.set('n', '<leader>q', ':q<CR>')
 vim.keymap.set('n', '<leader>g', ':Gcd<CR>')
 vim.keymap.set('n', '<leader>n', ':tabnew<CR>')
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
+-- vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>T', ':Trouble diagnostics<CR>')
 
 local opt          = vim.opt
