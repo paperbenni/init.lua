@@ -54,7 +54,6 @@ require("lazy").setup({
         },
         enabled = not potato
     },
-    "tpope/vim-fugitive",
     {
         "Vigemus/iron.nvim",
         cmd = "IronRepl",
@@ -144,48 +143,55 @@ require("lazy").setup({
         end,
         opts = { },
     },
+    -- {
+    --     "nvim-tree/nvim-tree.lua",
+    --     version = "*",
+    --     -- enabled = true,
+    --     lazy = false,
+    --     dependencies = {
+    --         "nvim-tree/nvim-web-devicons",
+    --     },
+    --     opts = {
+    --         on_attach = require("mytree"),
+    --         update_focused_file = {
+    --             enable = true,
+    --             update_root = true,
+    --
+    --         },
+    --         renderer = {
+    --             indent_markers = {
+    --                 enable = true
+    --             }
+    --         }
+    --     },
+    -- },
     {
-        "nvim-tree/nvim-tree.lua",
-        version = "*",
-        -- enabled = true,
-        lazy = false,
-        dependencies = {
-            "nvim-tree/nvim-web-devicons",
-        },
-        opts = {
-            on_attach = require("mytree"),
-            update_focused_file = {
-                enable = true,
-                update_root = true,
-
-            },
-            renderer = {
-                indent_markers = {
-                    enable = true
-                }
-            }
-        },
-    },
-    {
-        'akinsho/bufferline.nvim',
-        version = "*",
-        dependencies = 'nvim-tree/nvim-web-devicons',
+        'echasnovski/mini.nvim',
+        version = '*',
         config = function()
-            require('bufferline').setup {}
+            require('mymini')
         end
     },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            require('lualine').setup {
-                options = {
-                    theme = mytheme.lualinetheme,
-                    icons_enabled = true
-                }
-            }
-        end
-    },
+    -- {
+    --     'akinsho/bufferline.nvim',
+    --     version = "*",
+    --     dependencies = 'nvim-tree/nvim-web-devicons',
+    --     config = function()
+    --         require('bufferline').setup {}
+    --     end
+    -- },
+    -- {
+    --     'nvim-lualine/lualine.nvim',
+    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
+    --     config = function()
+    --         require('lualine').setup {
+    --             options = {
+    --                 theme = mytheme.lualinetheme,
+    --                 icons_enabled = true
+    --             }
+    --         }
+    --     end
+    -- },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -202,7 +208,6 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
             "ray-x/cmp-treesitter",
             "rafamadriz/friendly-snippets",
-            { "L3MON4D3/LuaSnip", tag = "v1.2.1" },
             "saadparwaiz1/cmp_luasnip",
         },
     },
@@ -215,6 +220,14 @@ require("lazy").setup({
         },
     },
     {
+        'L3MON4D3/LuaSnip',
+        version = 'v2.*',
+        build = "make install_jsregexp",
+        config = function()
+            require("myluasnip")
+        end
+    },
+    {
         "saghen/blink.cmp",
         enabled = (My_completion_engine == "myblink"),
         dependencies = {
@@ -224,6 +237,7 @@ require("lazy").setup({
         --@module 'blink.cmp'
         --@type blink.cmp.config
         opts = {
+            snippets = { preset = 'luasnip' },
             keymap = {
                 preset = 'default',
                 ['<Tab>'] = {
