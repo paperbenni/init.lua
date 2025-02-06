@@ -295,6 +295,7 @@ require("lazy").setup({
                 command_palette = true, -- position the cmdline and popupmenu together
             }
         },
+        enabled = not potato,
         dependencies = {
             -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
             "MunifTanjim/nui.nvim",
