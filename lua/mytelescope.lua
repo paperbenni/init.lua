@@ -1,8 +1,9 @@
 local tactions = require("telescope.actions")
 local potato = require("mypotato")
+local telescope = require("telescope")
 
 
-require('telescope').setup({
+telescope.setup({
     extensions = {
         fzf = {
             fuzzy = true,               -- false will only do exact matching
@@ -21,14 +22,21 @@ require('telescope').setup({
     }
 })
 
-require('telescope').load_extension('fzf')
+telescope.load_extension('fzf')
 if not potato
 then
-    require('telescope').load_extension('zoxide')
+    telescope.load_extension('zoxide')
+    telescope.load_extension('frecency')
+    vim.cmd([[
+        nnoremap <leader><SPACE> <cmd>Telescope frecency<cr>
+    ]])
+else
+    vim.cmd([[
+        nnoremap <leader><SPACE> <cmd>Telescope find_files<cr>
+    ]])
 end
 
 vim.cmd([[
-nnoremap <leader><SPACE> <cmd>Telescope find_files<cr>
 nnoremap <leader>l <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>th <cmd>Telescope help_tags<cr>
@@ -39,3 +47,6 @@ nnoremap <leader>to <cmd>Telescope oldfiles<cr>
 nnoremap <leader>r <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
 nnoremap <leader>tq <cmd>Telescope quickfix<cr>
 ]])
+
+
+

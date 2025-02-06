@@ -32,28 +32,64 @@ require("lazy").setup({
             bigfile = { enabled = true },
             dashboard = { enabled = true },
             -- TODO: change easing
-            scroll =  { enabled = not potato },
+            scroll = { enabled = not potato },
+            picker = {
+                enabled = true,
+                matcher = {
+                    frecency = true,
+                }
+            },
             input = { enabled = true },
             scratch = { enabled = true },
             quickfile = { enabled = true },
             lazygit = { enabled = true },
         },
         keys = {
-                { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
-        --     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-        --     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
+            { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
+            {
+                "<leader>ts",
+                function()
+                    Snacks.picker.lsp_symbols(
+                        { layout = { preset = "vscode", preview = "main" } })
+                end,
+                desc = "LSP Symbols"
+            },
+            {
+                "<leader>tw",
+                function()
+                    Snacks.picker.lsp_workspace_symbols(
+                        { layout = { preset = "vscode", preview = "main" } })
+                end,
+                desc = "LSP Workspace Symbols"
+            },
+            {
+                "<leader><SPACE>",
+                function()
+                    Snacks.picker.files()
+                end,
+                desc = "Files"
+            },
+            {
+                "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers"
+            },
+            {
+                "<leader>l", function() Snacks.picker.grep() end, desc = "Grep"
+            }
+
+            --     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
+            --     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
         }
     },
 
-    {
-
-        "ThePrimeagen/harpoon",
-        branch = "harpoon2",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
-        enabled = not potato
-    },
+    -- {
+    --
+    --     "ThePrimeagen/harpoon",
+    --     branch = "harpoon2",
+    --     dependencies = {
+    --         "nvim-lua/plenary.nvim",
+    --     },
+    --     enabled = not potato
+    -- },
     {
         "Vigemus/iron.nvim",
         cmd = "IronRepl",
@@ -63,11 +99,11 @@ require("lazy").setup({
     },
     "tpope/vim-eunuch",
     "tpope/vim-surround",
-    { "tpope/vim-repeat",   event = "VeryLazy" },
+    { "tpope/vim-repeat",             event = "VeryLazy" },
     -- { "mattn/emmet-vim" , event = "InsertEnter"},
-    { "sbdchd/neoformat", cmd = "Neoformat" },
+    { "sbdchd/neoformat",             cmd = "Neoformat" },
 
-    { "tpope/vim-dadbod", cmd = { "DB", "DBUI" } },
+    { "tpope/vim-dadbod",             cmd = { "DB", "DBUI" } },
     { "kristijanhusak/vim-dadbod-ui", cmd = "DBUI" },
 
     {
@@ -92,9 +128,9 @@ require("lazy").setup({
         enabled = not potato
     },
     { "paperbenni/Calendar.vim", cmd = { "Calendar", "CalendarH", "CalendarT" } },
-    { "michal-h21/vim-zettel", event = "BufRead *.md" },
+    { "michal-h21/vim-zettel",   event = "BufRead *.md" },
 
-    { "lervag/vimtex",         event = "BufRead *.tex" },
+    { "lervag/vimtex",           event = "BufRead *.tex" },
 
 
 
@@ -118,53 +154,7 @@ require("lazy").setup({
 
     { "catppuccin/nvim",   name = "catppuccin" },
 
-    {
-        "nvim-telescope/telescope.nvim",
-        tag = "0.1.8",
-        -- or                              , branch = '0.1.x',
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                build = "make",
-            },
-            { "jvgrootveld/telescope-zoxide", enabled = not potato },
-        },
-    },
-
     { "j-hui/fidget.nvim", enabled = not potato },
-    {
-        "folke/which-key.nvim",
-        enabled = not potato,
-        event = "VeryLazy",
-        init = function()
-            vim.o.timeout = true
-            vim.o.timeoutlen = 300
-        end,
-        opts = { },
-    },
-    -- {
-    --     "nvim-tree/nvim-tree.lua",
-    --     version = "*",
-    --     -- enabled = true,
-    --     lazy = false,
-    --     dependencies = {
-    --         "nvim-tree/nvim-web-devicons",
-    --     },
-    --     opts = {
-    --         on_attach = require("mytree"),
-    --         update_focused_file = {
-    --             enable = true,
-    --             update_root = true,
-    --
-    --         },
-    --         renderer = {
-    --             indent_markers = {
-    --                 enable = true
-    --             }
-    --         }
-    --     },
-    -- },
     {
         'echasnovski/mini.nvim',
         version = '*',
@@ -172,26 +162,6 @@ require("lazy").setup({
             require('mymini')
         end
     },
-    -- {
-    --     'akinsho/bufferline.nvim',
-    --     version = "*",
-    --     dependencies = 'nvim-tree/nvim-web-devicons',
-    --     config = function()
-    --         require('bufferline').setup {}
-    --     end
-    -- },
-    -- {
-    --     'nvim-lualine/lualine.nvim',
-    --     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    --     config = function()
-    --         require('lualine').setup {
-    --             options = {
-    --                 theme = mytheme.lualinetheme,
-    --                 icons_enabled = true
-    --             }
-    --         }
-    --     end
-    -- },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -242,8 +212,11 @@ require("lazy").setup({
                 preset = 'default',
                 ['<Tab>'] = {
                     function(cmp)
-                        if cmp.snippet_active() then return cmp.accept()
-                        else return cmp.select_next() end
+                        if cmp.snippet_active() then
+                            return cmp.accept()
+                        else
+                            return cmp.select_next()
+                        end
                     end,
                     'snippet_forward',
                     'fallback'
@@ -312,11 +285,32 @@ require("lazy").setup({
             })
         end,
     },
-    { "xiyaowong/nvim-transparent" , event = "VeryLazy" },
+    -- lazy.nvim
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            presets = {
+                bottom_search = true,
+                command_palette = true, -- position the cmdline and popupmenu together
+            }
+        },
+        dependencies = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    },
+    { "xiyaowong/nvim-transparent",    event = "VeryLazy" },
     { "norcalli/nvim-colorizer.lua",   enabled = not potato },
     { "machakann/vim-highlightedyank", enabled = not potato },
+    --TODO: check if this can be replaced by mini or snacks
     { "lewis6991/gitsigns.nvim",       enabled = not potato },
-    { "ray-x/lsp_signature.nvim",      enabled = not potato },
+    -- TODO: check if this can be replaced by blink cmp
+    -- { "ray-x/lsp_signature.nvim",      enabled = not potato },
 
     { "mfussenegger/nvim-dap",         enabled = not potato },
     { "rcarriga/nvim-dap-ui",          enabled = not potato },

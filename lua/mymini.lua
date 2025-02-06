@@ -1,25 +1,27 @@
--- local potato = require("mypotato")
--- if not potato then
---     local miniclue = require("mini.clue")
---     miniclue.setup({
---         -- Leader triggers
---         triggers = {
---             { mode = 'n', keys = '<Leader>' },
---             { mode = 'x', keys = '<Leader>' },
---         },
---     })
--- end
-
+require("mini.sessions").setup({})
 require("mini.git").setup({})
 require("mini.tabline").setup({})
 require("mini.icons").setup({})
+
+local miniclue = require("mini.clue")
+-- local potato = require("mypotato")
+miniclue.setup({
+    triggers = {
+        { mode = 'n', keys = '<Leader>' },
+        { mode = 'x', keys = '<Leader>' },
+    },
+    clues = {
+        miniclue.gen_clues.builtin_completion(),
+    }
+})
+
 -- files
 local files = require("mini.files")
 
-files.setup({ })
+files.setup({})
 vim.keymap.set("n", "<leader>e", function()
     files.open()
-end)
+end, { desc = "File explorer"})
 
 
 local statusline = require("mini.statusline")
