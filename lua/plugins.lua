@@ -19,77 +19,15 @@ local potato = require("mypotato")
 My_completion_engine = "myblink"
 
 
-
-
 require("lazy").setup({
     {
         "folke/snacks.nvim",
         lazy = false,
         priority = 1000,
         ---@type snacks.Config
-        opts = {
-            indent = { enabled = true },
-            bigfile = { enabled = true },
-            dashboard = { enabled = true },
-            -- TODO: change easing
-            scroll = { enabled = not potato },
-            picker = {
-                enabled = true,
-                matcher = {
-                    frecency = true,
-                }
-            },
-            input = { enabled = true },
-            scratch = { enabled = true },
-            quickfile = { enabled = true },
-            lazygit = { enabled = true },
-        },
-        keys = {
-            { "<leader>G", function() Snacks.lazygit() end, desc = "Lazygit" },
-            {
-                "<leader>ts",
-                function()
-                    Snacks.picker.lsp_symbols(
-                        { layout = { preset = "vscode", preview = "main" } })
-                end,
-                desc = "LSP Symbols"
-            },
-            {
-                "<leader>tw",
-                function()
-                    Snacks.picker.lsp_workspace_symbols(
-                        { layout = { preset = "vscode", preview = "main" } })
-                end,
-                desc = "LSP Workspace Symbols"
-            },
-            {
-                "<leader><SPACE>",
-                function()
-                    Snacks.picker.files()
-                end,
-                desc = "Files"
-            },
-            {
-                "<leader>b", function() Snacks.picker.buffers() end, desc = "Buffers"
-            },
-            {
-                "<leader>l", function() Snacks.picker.grep() end, desc = "Grep"
-            }
-
-            --     { "<leader>.",  function() Snacks.scratch() end, desc = "Toggle Scratch Buffer" },
-            --     { "<leader>S",  function() Snacks.scratch.select() end, desc = "Select Scratch Buffer" },
-        }
+        opts = require("mysnacks").opts,
+        keys = require("mysnacks").keys,
     },
-
-    -- {
-    --
-    --     "ThePrimeagen/harpoon",
-    --     branch = "harpoon2",
-    --     dependencies = {
-    --         "nvim-lua/plenary.nvim",
-    --     },
-    --     enabled = not potato
-    -- },
     {
         "Vigemus/iron.nvim",
         cmd = "IronRepl",
@@ -102,7 +40,6 @@ require("lazy").setup({
     { "tpope/vim-repeat",             event = "VeryLazy" },
     -- { "mattn/emmet-vim" , event = "InsertEnter"},
     { "sbdchd/neoformat",             cmd = "Neoformat" },
-
     { "tpope/vim-dadbod",             cmd = { "DB", "DBUI" } },
     { "kristijanhusak/vim-dadbod-ui", cmd = "DBUI" },
 
@@ -113,12 +50,45 @@ require("lazy").setup({
     },
     {
         "vimwiki/vimwiki",
-        lazy = false,
+        lazy = true,
         branch = "dev",
         module = false,
         init = function()
             require("mywiki")
         end,
+        keys = {
+            {
+              "<leader>ww",
+              "<Plug>VimwikiIndex",
+              desc = "Open Vimwiki index"
+            },
+            {
+              "<leader>wt",
+              "<Plug>VimwikiTabIndex",
+              desc = "Open Vimwiki index in new tab"
+            },
+            {
+              "<leader>wi",
+              "<Plug>VimwikiDiaryIndex",
+              desc = "Open Vimwiki diary index"
+            },
+            {
+              "<leader>w<leader>w",
+              "<Plug>VimwikiMakeDiaryNote",
+              desc = "Make new diary note"
+            },
+            {
+              "<leader>w<leader>y",
+              "<Plug>VimwikiMakeYesterdayDiaryNote",
+              desc = "Make diary note for yesterday"
+            },
+            {
+              "<leader>w<leader>m",
+              "<Plug>VimwikiMakeTomorrowDiaryNote",
+              desc = "Make diary note for tomorrow"
+            }
+        }
+        
     },
     {
         "nvim-neorg/neorg",
@@ -129,6 +99,16 @@ require("lazy").setup({
     },
     { "paperbenni/Calendar.vim", cmd = { "Calendar", "CalendarH", "CalendarT" } },
     { "michal-h21/vim-zettel",   event = "BufRead *.md" },
+
+    {
+        "folke/lazydev.nvim",
+        ft = "lua",
+        opts = {
+            library = {
+                { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            }
+        }
+    },
 
     { "lervag/vimtex",           event = "BufRead *.tex" },
 
@@ -160,7 +140,14 @@ require("lazy").setup({
         version = '*',
         config = function()
             require('mymini')
-        end
+        end,
+        keys = {
+            {
+                "<leader>s",
+                function() MiniSessions.select() end,
+                desc = "Select session"
+            },
+        }
     },
     {
         'windwp/nvim-autopairs',
@@ -235,7 +222,29 @@ require("lazy").setup({
             },
             sources = {
                 cmdline = {},
-                default = { 'lsp', 'path', 'snippets', 'buffer' },
+                default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+                providers = {
+                    lsp = {
+                        name = "LSP",
+                        module = 'blink.cmp.sources.lsp',
+                        opts = {},
+                        enabled = true,
+                        async = false,
+                        timeout_ms = 500,
+                        transform_items = nil,
+                        should_show_items = true,
+                        max_items = 10,
+                        min_keyword_length = 1,
+                        score_offset = 0,
+                        fallbacks = {},
+                        override = nil,
+                    },
+                    lazydev = {
+                        name = "LazyDev",
+                        module = "lazydev.integrations.blink",
+                        score_offset = 100,
+                    }
+                }
             },
             signature = { enabled = true },
         },

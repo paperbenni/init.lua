@@ -1,13 +1,11 @@
 require("mason").setup()
 require("mason-lspconfig").setup()
--- local navbuddy
 
 local potato = require('mypotato')
 
 if not potato
 then
     require "fidget".setup {}
-    -- navbuddy = require("nvim-navbuddy")
 end
 
 local capabilities = require(My_completion_engine)
@@ -15,16 +13,8 @@ local capabilities = require(My_completion_engine)
 -- print(vim.inspect(capabilities))
 
 local on_attach = function(client, bufnr)
-    -- Enable completion triggered by <c-x><c-o>
-    vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-    -- if not potato
-    -- then
-    --     navbuddy.attach(client, bufnr)
-    -- end
     -- Mappings.
     -- See `:help vim.lsp.*` for documentation on any of the below functions
-    local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
     local function setkey(mode, key, func, description)
         vim.keymap.set(mode, key, func, { noremap = true, silent = true, buffer = bufnr, desc = description })
@@ -46,21 +36,35 @@ local on_attach = function(client, bufnr)
     setkey('n', '<leader>x', vim.lsp.buf.code_action, "Code Action")
     -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
     setkey('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, 'LSP Format buffer')
-    -- setkey('n', '<leader>N', require("nvim-navbuddy").open, 'Open NavBuddy')
 end
 local lspconfig = require 'lspconfig'
 
-
-
-lspconfig.clangd.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
+-- iterate over lsp servers
+local servers = {
+    lspconfig.clangd,
+    lspconfig.ts_ls,
+    lspconfig.bashls,
+    lspconfig.sqlls,
+    lspconfig.terraformls,
+    lspconfig.jdtls,
+    lspconfig.cssls,
+    lspconfig.svelte,
+    lspconfig.gopls,
+    lspconfig.texlab,
+    -- lspconfig.ltex,
+    lspconfig.rust_analyzer,
+    -- lspconfig.html,
+    -- lspconfig.astro,
 }
 
-lspconfig.ts_ls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-}
+for _, server in ipairs(servers) do
+    server.setup {
+        on_attach = on_attach,
+        capabilities = capabilities
+    }
+end
+
+
 
 lspconfig.pyright.setup {
     on_attach = on_attach,
@@ -68,32 +72,6 @@ lspconfig.pyright.setup {
     root_dir = function()
         return vim.fn.getcwd()
     end,
-}
-
-
-
--- lspconfig.pylsp.setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---     root_dir = function()
---         return vim.fn.getcwd()
---     end,
--- }
-
-
-lspconfig.bashls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
-}
-
-lspconfig.sqlls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
-}
-
-lspconfig.terraformls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
 }
 
 lspconfig.yamlls.setup {
@@ -106,11 +84,6 @@ lspconfig.yamlls.setup {
             }
         }
     }
-}
-
-lspconfig.jdtls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
 }
 
 -- lspconfig.tailwindcss.setup {
@@ -128,44 +101,9 @@ lspconfig.svelte.setup {
     on_attach = on_attach
 }
 
-lspconfig.gopls.setup {
-    capabilities = capabilities,
-    on_attach = on_attach
-}
-
-lspconfig.texlab.setup {
-    capabilities = capabilities,
-    on_attach = on_attach,
-}
-
 
 if not potato
 then
-    lspconfig.lua_ls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = {
-            Lua = {
-                runtime = {
-                    -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-                    version = 'LuaJIT',
-                },
-                diagnostics = {
-                    -- Get the language server to recognize the `vim` global
-                    globals = { 'vim' },
-                },
-                workspace = {
-                    -- Make the server aware of Neovim runtime files
-                    library = vim.api.nvim_get_runtime_file("", true),
-                },
-                -- Do not send telemetry data containing a randomized but unique identifier
-                telemetry = {
-                    enable = false,
-                },
-            },
-        },
-    }
-
     lspconfig.volar.setup {
         capabilities = capabilities,
         on_attach = on_attach
@@ -214,17 +152,7 @@ then
     --         },
     --     }
     -- }
-else
-    lspconfig.rust_analyzer.setup {
-        on_attach = on_attach,
-        capabilities = capabilities
-    }
 end
-
--- lspconfig.tsserver.setup{
---     capabilities = capabilities,
---     on_attach = on_attach
--- }
 
 -- lspconfig.html.setup{
 --     capabilities = capabilities,

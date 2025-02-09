@@ -1,7 +1,7 @@
 vim.g.mapleader = " "
 
+vim.loader.enable()
 require('plugins')
--- vim.loader.enable()
 
 local potato = require('mypotato')
 
@@ -58,23 +58,22 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-nnoremap <leader>ww <Plug>VimwikiIndex
-nnoremap <leader>wt <Plug>VimwikiTabIndex
-nnoremap <leader>wi <Plug>VimwikiDiaryIndex
-nnoremap <leader>w<leader>w <Plug>VimwikiMakeDiaryNote
-nnoremap <leader>w<leader>y <Plug>VimwikiMakeYesterdayDiaryNote
-nnoremap <leader>w<leader>m <Plug>VimwikiMakeTomorrowDiaryNote
-autocmd FileType markdown nnoremap <buffer> <C-Space> <Plug>VimwikiToggleListItem
+" TODO do this in lua and in mywiki
+"autocmd FileType markdown nnoremap <buffer> <C-Space> <Plug>VimwikiToggleListItem
 
 " let g:user_emmet_expandabbr_key = '<C-,>'
 
 ]])
 
-vim.keymap.set('n', '<leader>a', ":Startify<CR>")
+-- TODO: make this use the mini dashboard
+-- vim.keymap.set('n', '<leader>a', ":Startify<CR>")
 vim.keymap.set('n', '<leader>f', ':w<CR>', { desc = "Save file" })
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = "Quit" })
-vim.keymap.set('n', '<leader>g', ':Gcd<CR>')
-vim.keymap.set('n', '<leader>n', ':tabnew<CR>')
+
+-- TODO: make this work with mini or something
+-- vim.keymap.set('n', '<leader>g', ':Gcd<CR>')
+
+vim.keymap.set('n', '<leader>n', ':tabnew<CR>', { desc = "New tab" })
 -- vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 vim.keymap.set('n', '<leader>T', ':Trouble diagnostics<CR>')
 

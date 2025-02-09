@@ -6,16 +6,23 @@ require("mini.icons").setup({})
 local miniclue = require("mini.clue")
 local potato = require("mypotato")
 
-if not potato then
+-- if not potato then
     miniclue.setup({
         triggers = {
             { mode = 'n', keys = '<Leader>' },
             { mode = 'x', keys = '<Leader>' },
+            { mode = 'n', keys = 'g' },
+            { mode = 'x', keys = 'g' },
         },
         clues = {
             miniclue.gen_clues.builtin_completion(),
+            miniclue.gen_clues.g(),
         }
     })
+-- end
+
+if potato then
+    require("mini.notify").setup({})
 end
 
 -- files
