@@ -1,9 +1,18 @@
 local potato = require('mypotato')
 return {
+    config = function()
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "MiniFilesActionRename",
+            callback = function(event)
+                Snacks.rename.on_rename_file(event.data.from, event.data.to)
+            end,
+        })
+    end,
     opts = {
         indent = { enabled = true },
         bigfile = { enabled = true },
         dashboard = { enabled = true },
+        words = { enabled = not potato },
         scroll = {
             enabled = not potato,
             easing = "quadratic",
@@ -21,6 +30,16 @@ return {
     },
     keys = {
         {
+            "<leader>Z", 
+            function() Snacks.zen.zoom() end,
+            desc = "Zoom onto the current buffer"
+        },
+        {
+            "<leader>z", 
+            function() Snacks.zen.zen() end,
+            desc = "Zen Mode"
+        },
+        {
             "<leader>G", 
             function()
                 local git_dir = Snacks.git.get_root()
@@ -32,6 +51,14 @@ return {
             desc = "Cd into Git Root"
         },
         { "<leader>g", function() Snacks.lazygit() end, desc = "Lazygit" },
+        {
+            "<leader>tt",
+            function()
+                require("myterm")
+                Snacks.terminal.toggle()
+            end,
+            desc = "Toggle Terminal"
+        },
         {
             "<leader>ts",
             function()

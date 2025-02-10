@@ -36,7 +36,6 @@ require("lazy").setup({
         end
     },
     "tpope/vim-eunuch",
-    "tpope/vim-surround",
     { "tpope/vim-repeat",             event = "VeryLazy" },
     -- { "mattn/emmet-vim" , event = "InsertEnter"},
     { "sbdchd/neoformat",             cmd = "Neoformat" },
@@ -47,6 +46,9 @@ require("lazy").setup({
         "folke/trouble.nvim",
         opts = {}, -- for default options, refer to the configuration section for custom setup.
         cmd = "Trouble",
+        keys = {
+            { "<leader>T", "<cmd>Trouble diagnostics toggle", desc = "Trouble Diagnostics" }
+        }
     },
     {
         "vimwiki/vimwiki",
@@ -130,9 +132,30 @@ require("lazy").setup({
             require 'typst-preview'.setup {}
         end,
     },
-    "nvim-treesitter/nvim-treesitter",
+    {
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        event = { "BufReadPost", "BufNewFile" },
+        config = require("mytreesitter"),
+    },
 
-    { "catppuccin/nvim",   name = "catppuccin" },
+    {
+        "catppuccin/nvim",
+        name = "catppuccin",
+        config = function()
+            require("catppuccin").setup({
+                integrations = {
+                    treesitter = true,
+                    mini = true,
+                    blink_cmp = true,
+                    vimwiki = true,
+                    snacks = true,
+                    mason = false,
+                },
+            })
+            vim.cmd.colorscheme("catppuccin")
+        end,
+    },
 
     { "j-hui/fidget.nvim", enabled = not potato },
     {
@@ -141,6 +164,7 @@ require("lazy").setup({
         config = function()
             require('mymini')
         end,
+        lazy = false,
         keys = {
             {
                 "<leader>s",
@@ -148,13 +172,6 @@ require("lazy").setup({
                 desc = "Select session"
             },
         }
-    },
-    {
-        'windwp/nvim-autopairs',
-        event = "InsertEnter",
-        config = true
-        -- use opts = {} for passing setup options
-        -- this is equivalent to setup({}) function
     },
     {
         "hrsh7th/nvim-cmp",

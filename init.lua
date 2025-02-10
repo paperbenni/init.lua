@@ -75,7 +75,6 @@ vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = "Quit" })
 
 vim.keymap.set('n', '<leader>n', ':tabnew<CR>', { desc = "New tab" })
 -- vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
-vim.keymap.set('n', '<leader>T', ':Trouble diagnostics<CR>')
 
 local opt          = vim.opt
 
@@ -102,7 +101,6 @@ opt.foldexpr       = "nvim_treesitter#foldexpr()"
 -- }
 
 
-require 'nvim-treesitter.configs'.setup { highlight = { enable = true } }
 -- require("hardtime").setup()
 
 
@@ -122,15 +120,12 @@ require 'mylsp'
 
 require 'myneovide'
 
-
-
-
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local mytheme = require('themes.catppuccin')
-
-vim.cmd("colorscheme " .. mytheme.vimtheme)
+-- local mytheme = require('themes.catppuccin')
+--
+-- vim.cmd("colorscheme " .. mytheme.vimtheme)
 
 if My_completion_engine == "mycoq"
 then

@@ -28,6 +28,15 @@ end
 -- files
 local files = require("mini.files")
 
+require("mini.pairs").setup({})
+require("mini.surround").setup({
+    mappings = {
+        add = "S",
+        delete = "ds",
+        replace = "cs",
+    },
+})
+
 files.setup({})
 vim.keymap.set("n", "<leader>e", function()
     files.open()
