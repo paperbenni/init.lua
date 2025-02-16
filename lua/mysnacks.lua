@@ -91,6 +91,13 @@ return {
             desc = "Recent files"
         },
         {
+            "<leader>tp",
+            function()
+                Snacks.picker()
+            end,
+            desc = "View all pickers"
+        },
+        {
             "<leader><SPACE>",
             function()
                 Snacks.picker.smart()

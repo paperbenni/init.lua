@@ -207,13 +207,26 @@ require("lazy").setup({
         dependencies = {
             'rafamadriz/friendly-snippets',
         },
-        version = "*",
+        version = "v0.11.0",
         --@module 'blink.cmp'
         --@type blink.cmp.config
         opts = {
             snippets = { preset = 'luasnip' },
+            completion = {
+                list= {
+                    selection = { preselect = false, auto_insert = true },
+                }
+            },
+            -- TODO: enable when weird character error is fixed
+            -- cmdline = {
+            --     keymap = {
+            --         preset = 'none'
+            --     },
+            --     sources = {}
+            -- },
             keymap = {
-                preset = 'default',
+                cmdline = { preset = 'none' },
+                preset = 'super-tab',
                 ['<Tab>'] = {
                     function(cmp)
                         if cmp.snippet_active() then
@@ -225,20 +238,14 @@ require("lazy").setup({
                     'snippet_forward',
                     'fallback'
                 },
-                -- ['<CR>'] = { 'accept', 'fallback' },
-                -- only enable CR if not on cmdline
                 ['<CR>'] = { 'accept', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
-                cmdline = {
-                    preset = 'none'
-                }
             },
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = 'mono'
             },
             sources = {
-                cmdline = {},
                 default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
                     lsp = {

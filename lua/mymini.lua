@@ -9,14 +9,26 @@ local potato = require("mypotato")
 -- if not potato then
     miniclue.setup({
         triggers = {
+        -- leader
             { mode = 'n', keys = '<Leader>' },
             { mode = 'x', keys = '<Leader>' },
+            -- go
             { mode = 'n', keys = 'g' },
             { mode = 'x', keys = 'g' },
+            -- folding
+            { mode = 'n', keys = 'z' },
+            { mode = 'x', keys = 'z' },
+            -- marks
+            { mode = 'n', keys = "'" },
+            { mode = 'n', keys = '`' },
+            { mode = 'x', keys = "'" },
+            { mode = 'x', keys = '`' },
         },
         clues = {
             miniclue.gen_clues.builtin_completion(),
             miniclue.gen_clues.g(),
+            miniclue.gen_clues.z(),
+            miniclue.gen_clues.marks(),
         }
     })
 -- end

@@ -21,6 +21,7 @@ This is my new (mostly) lua based nvim config
     - [ ] Brackets are ugly, replace with color separation
     - [ ] Add color
 - [ ] Fix vim zettel and folding colliding
+- [ ] Fix Whichkey warning
 - [ ] better autocomplete select binding in vimwiki files
 
 
