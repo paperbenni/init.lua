@@ -13,7 +13,6 @@ if command -v termux-setup-storage; then
     sudo() {
         $@
     }
-
 fi
 
 checkcommand() {
@@ -47,9 +46,10 @@ check_nix_install() {
 install_providers() {
     echo "installing neovim providers"
     # TODO: install python3 neovim
+    # TODO: install python nvim arch package when on arch
     if ! command -v nvim; then
         if ! npm list -g | grep 'neovim'; then
-            sudo npm install -g neovim
+            npm install -g neovim
         fi
         # TODO check for gem existance
         if ! gem list | grep 'neovim'; then
@@ -66,6 +66,7 @@ check_dependencies() {
     checkcommand node
     if ! python3 -m venv --help &>/dev/null; then
         if command -v termux-setup-storage; then
+            # TOOD: is there a termux package for this?
             pip3 install --upgrade virtualenv
         elif command -v pacman &>/dev/null; then
             sudo pacman -S --noconfirm --needed python-virtualenv
@@ -74,18 +75,6 @@ check_dependencies() {
             echo "please install python venv"
         fi
         exit 1
-    fi
-    NODEVERSION="$(node --version | grep -o '^v[0-9]*\.' | grep -o '[0-9]*')"
-    if ! [ "$NODEVERSION" -eq "$NODEVERSION" ]; then
-        echo "could not determine node version"
-        exit 1
-    fi
-    if ! [ "$NODEVERSION" -gt 16 ]; then
-        echo "node version 16 or newer is required"
-        if command -v apt &>/dev/null; then
-            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&
-                sudo apt-get install -y nodejs
-        fi
     fi
 
 }
