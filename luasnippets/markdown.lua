@@ -14,22 +14,20 @@ local MATH_NODES = {
 }
 
 local TEXT_NODES = {
-  text_mode = true,
-  label_definition = true,
-  label_reference = true,
+  -- text_mode = true,
+  -- TODO: which one of these breaks when comments are present?
+  -- label_definition = true,
+  -- label_reference = true,
 }
 
 -- Function to check if cursor is inside a LaTeX math block in markdown
 local function in_latex_math_block()
-  local node = vim.treesitter.get_node({ ignore_injections = false })
-  while node do
-    if TEXT_NODES[node:type()] then
-      return false
-    elseif MATH_NODES[node:type()] then
-      return true
+    local captures = vim.treesitter.get_captures_at_cursor()
+    for _, capture in ipairs(captures) do
+      if capture == "markup.math" then
+        return true
+      end
     end
-    node = node:parent()
-  end
   return false
 end
 

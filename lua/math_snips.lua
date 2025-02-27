@@ -14,6 +14,8 @@ local function math_snippets(math_mode_condition)
     local snippets = {}
 
     local function mathletter(name, letter)
+        local capitalized = name:sub(1,1):upper() .. name:sub(2)
+        local upperletter = string.upper(letter)
         table.insert(snippets,
             s({
                 trig = name,
@@ -24,16 +26,37 @@ local function math_snippets(math_mode_condition)
                     t("\\" .. name)
             })
         )
+
+        table.insert(snippets,
+            s({
+                trig = capitalized,
+                snippetType = "autosnippet",
+                condition = math_mode_condition,
+            },
+            {
+                    t("\\" .. capitalized)
+            })
+        )
         if letter ~= nil
         then
             table.insert(snippets,
                 s({
-                    trig = "@" .. letter,
+                    trig = "@" .. upperletter,
                     snippetType = "autosnippet",
                     condition = math_mode_condition,
                 },
                 {
-                        t("\\" .. name)
+                        t("\\" .. capitalized)
+                })
+            )
+            table.insert(snippets,
+                s({
+                    trig = "@" .. upperletter,
+                    snippetType = "autosnippet",
+                    condition = math_mode_condition,
+                },
+                {
+                        t("\\" .. capitalized)
                 })
             )
             table.insert(snippets,
@@ -49,25 +72,40 @@ local function math_snippets(math_mode_condition)
         end
     end
 
-    local function msnip(trigger, replacement)
-        return s(
-            {
+    local function msnip(trigger, replacement, noWordTrig)
+        local trigtable = {
                 trig = trigger,
                 snippetType = "autosnippet",
                 condition = math_mode_condition,
-            },
+            }
+        if noWordTrig then
+            trigtable.wordTrig = false
+        end
+
+        return s(
+            trigtable,
             replacement
         )
     end
     
 
     local staticsnippets = {
-        msnip("sr", { t("^2") }),
-        msnip("cb", { t("^3") }),
-        msnip("rd", { t("^{"), i(1), t("}") }),
-        msnip("_", { t("_{"), i(1), t("}") }),
+
+        msnip("lr(", { t("\\left("), i(1), t("\\right)") }),
+
+        msnip("\\{", { t("\\{"), i(1), t("\\}") }),
+
+        msnip("sr", { t("^2") }, true),
+        msnip("cb", { t("^3") }, true),
+        msnip("invs", { t("^{-1}") }, true),
+        msnip("rd", { t("^{"), i(1), t("}") }, true),
+        msnip("_", { t("_{"), i(1), t("}") }, true),
+
+        msnip("sq", { t("\\sqrt{"), i(1), t("}") }),
+
 
         msnip("rm", { t("\\mathrm{"), i(1), t("}") }),
+        msnip("text", { t("\\text{"), i(1), t("}") }),
 
         msnip("cdot", { t("\\cdot") }),
         msnip("xor", { t("\\bigoplus") }),
@@ -76,6 +114,8 @@ local function math_snippets(math_mode_condition)
         msnip("Prod", { t("\\prod_{"), i(1), t("}^{"), i(2), t("}") }),
         msnip("sum", { t("\\sum") }),
         msnip("prod", { t("\\prod") }),
+
+        msnip("//", { t("\\frac{"), i(1), t("}{"), i(2), t("}") }),
 
         msnip("Int", {
                 t("\\int_{"),
@@ -86,14 +126,38 @@ local function math_snippets(math_mode_condition)
                 i(3)
             }
         ),
+
+        msnip("mop", {
+                t("\\mathop{"),
+                i(1),
+                t("}_{"),
+                i(2),
+                t("}"),
+                i(3)
+            }
+        ),
+
+        msnip("Par", {
+            t("\\frac{\\partial "),
+            i(1),
+            t("}{\\partial "),
+            i(2),
+            t("}"),
+            i(3)
+        }),
         
         msnip("MB", { t("\\mathbb{"), i(1), t("}") }),
+        msnip("MS", { t("\\mathscr{"), i(1), t("}") }),
+        msnip("MC", { t("\\mathcal{"), i(1), t("}") }),
+
 
         msnip("NN", { t("\\mathbb{N}") }),
 
-        msnip("arg", { t("\\arg{") }),
-        msnip("min", { t("\\min{") }),
-        msnip("max", { t("\\max{") }),
+        msnip("arg", { t("\\arg") }),
+        msnip("min", { t("\\min") }),
+        msnip("max", { t("\\max") }),
+
+        msnip("in", { t("\\in") }),
 
         msnip("sin", { t("\\sin") }),
         msnip("cos", { t("\\cos") }),
@@ -111,12 +175,23 @@ local function math_snippets(math_mode_condition)
 
         msnip("<->", { t("\\leftrightarrow ") }),
         msnip("->", { t("\\to") }),
+        msnip("<-", { t("\\leftarrow") }),
         msnip("!>", { t("\\mapsto") }),
         msnip("=>", { t("\\implies") }),
         msnip("=<", { t("\\impliedby") }),
 
         s({
-            trig = "([^ /$]+)hat",
+            trig = "([A-Za-z]+)tilde",
+            snippetType = "autosnippet",
+            regTrig = true,
+            condition = math_mode_condition
+        }, {
+                t("\\tilde{"),
+                f(function(_, snip) return snip.captures[1] end),
+                t("}")
+        }),
+        s({
+            trig = "([A-Za-z]+)hat",
             snippetType = "autosnippet",
             regTrig = true,
             condition = math_mode_condition
@@ -126,7 +201,7 @@ local function math_snippets(math_mode_condition)
                 t("}")
         }),
         s({
-            trig = "([^ /$]+)und",
+            trig = "([A-Za-z]+)und",
             snippetType = "autosnippet",
             regTrig = true,
             condition = math_mode_condition
@@ -171,10 +246,11 @@ local function math_snippets(math_mode_condition)
         }),
 
         s({
-            trig = "([^/$]+)/([^/]+)",
+            trig = "([^/ $]+)/([^/]+)",
             regTrig = true,
             snippetType = "autosnippet",
             wordTrig = false,
+            condition = math_mode_condition,
             desc = "Auto-convert a/b to fraction",
         }, {
             t("\\frac{"),

@@ -12,9 +12,6 @@ return {
         indent = { enabled = true },
         image = {
             enabled = true,
-            doc = {
-                conceal = true,
-            },
             math = {
                 enabled = true,
                 latex = {
@@ -23,6 +20,7 @@ return {
                         "amssymb",
                         "amsfonts",
                         "amscd",
+                        "mathrsfs",
                         "mathtools",
                         "dsfont"
                     },
