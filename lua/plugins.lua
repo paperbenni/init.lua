@@ -207,13 +207,25 @@ require("lazy").setup({
         dependencies = {
             'rafamadriz/friendly-snippets',
         },
-        version = "*",
+        version = "v0.13.0",
         --@module 'blink.cmp'
         --@type blink.cmp.config
         opts = {
             snippets = { preset = 'luasnip' },
+            completion = {
+                list= {
+                    selection = { preselect = false, auto_insert = true },
+                }
+            },
+            cmdline = {
+                keymap = {
+                    preset = 'none'
+                },
+                sources = {}
+            },
             keymap = {
-                preset = 'default',
+                -- cmdline = { preset = 'none' },
+                preset = 'super-tab',
                 ['<Tab>'] = {
                     function(cmp)
                         if cmp.snippet_active() then
@@ -225,20 +237,14 @@ require("lazy").setup({
                     'snippet_forward',
                     'fallback'
                 },
-                -- ['<CR>'] = { 'accept', 'fallback' },
-                -- only enable CR if not on cmdline
                 ['<CR>'] = { 'accept', 'fallback' },
                 ['<S-Tab>'] = { 'select_prev', 'snippet_backward', 'fallback' },
-                cmdline = {
-                    preset = 'none'
-                }
             },
             appearance = {
                 use_nvim_cmp_as_default = true,
                 nerd_font_variant = 'mono'
             },
             sources = {
-                cmdline = {},
                 default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
                 providers = {
                     lsp = {
@@ -332,7 +338,7 @@ require("lazy").setup({
         }
     },
     { "xiyaowong/nvim-transparent",    event = "VeryLazy" },
-    { "norcalli/nvim-colorizer.lua",   enabled = not potato },
+    { "norcalli/nvim-colorizer.lua" },
     { "machakann/vim-highlightedyank", enabled = not potato },
     --TODO: check if this can be replaced by mini or snacks
     { "lewis6991/gitsigns.nvim",       enabled = not potato },

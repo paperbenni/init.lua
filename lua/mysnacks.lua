@@ -10,6 +10,25 @@ return {
     end,
     opts = {
         indent = { enabled = true },
+        image = {
+            enabled = true,
+            doc = {
+                conceal = true,
+            },
+            math = {
+                enabled = true,
+                latex = {
+                    packages = {
+                        "amsmath",
+                        "amssymb",
+                        "amsfonts",
+                        "amscd",
+                        "mathtools",
+                        "dsfont"
+                    },
+                }
+            },
+        },
         bigfile = { enabled = true },
         dashboard = { enabled = true },
         words = { enabled = not potato },
@@ -89,6 +108,13 @@ return {
                 Snacks.picker.recent()
             end,
             desc = "Recent files"
+        },
+        {
+            "<leader>tp",
+            function()
+                Snacks.picker()
+            end,
+            desc = "View all pickers"
         },
         {
             "<leader><SPACE>",

@@ -34,12 +34,13 @@ return function ()
             "tsx",
             "typescript",
         },
-        ignore_install = { "markdown", "latex" },
+        -- ignore_install = { "markdown", "latex" },
+        ignore_install = { "latex" },
         sync_install = true,
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
-            disable = { "latex" , "markdown" },
+            disable = { "latex" },
         },
         indent = { enable = true },  
     })
