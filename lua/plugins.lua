@@ -224,7 +224,7 @@ require("lazy").setup({
                 sources = {}
             },
             keymap = {
-                cmdline = { preset = 'none' },
+                -- cmdline = { preset = 'none' },
                 preset = 'super-tab',
                 ['<Tab>'] = {
                     function(cmp)
