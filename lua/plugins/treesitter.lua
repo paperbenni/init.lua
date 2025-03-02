@@ -1,6 +1,8 @@
-return function () 
-    local configs = require("nvim-treesitter.configs")
-    configs.setup({
+return {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    event = { "VeryLazy", "BufReadPost", "BufWritePost", "BufNewFile" },
+    opts = {
         ensure_installed = {
             "bash",
             "c",
@@ -29,12 +31,13 @@ return function ()
             "norg",
             "python",
             "rust",
+            "markdown",
+            "markdown_inline",
             "svelte",
             "toml",
             "tsx",
             "typescript",
         },
-        -- ignore_install = { "markdown", "latex" },
         ignore_install = { "latex" },
         sync_install = true,
         highlight = {
@@ -43,5 +46,8 @@ return function ()
             disable = { "latex" },
         },
         indent = { enable = true },  
-    })
-end
+    },
+    config = function(_, opts)
+        require("nvim-treesitter.configs").setup(opts)
+    end
+}

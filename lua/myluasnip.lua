@@ -20,21 +20,3 @@ local untrigger = function()
 end
 
 
-vim.keymap.set({ "i", "s" }, "<c-x>", function()
-  if require("luasnip").in_snippet() then
-    untrigger()
-    require("luasnip").unlink_current()
-  end
-end, {
-  desc = "Undo a snippet",
-})
-
-luasnip.config.set_config({
-    enable_autosnippets = true,
-})
-
-
--- port "evesdropper/luasnip-latex-snippets.nvim" to here
-require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/luasnippets"})
-
-

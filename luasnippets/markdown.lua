@@ -6,19 +6,6 @@ local f = ls.function_node
 local extras = require("luasnip.extras")
 local conds = require("luasnip.extras.expand_conditions")
 
-local MATH_NODES = {
-  displayed_equation = true,
-  inline_formula = true,
-  math_environment = true,
-  latex_block = true,
-}
-
-local TEXT_NODES = {
-  -- text_mode = true,
-  -- TODO: which one of these breaks when comments are present?
-  -- label_definition = true,
-  -- label_reference = true,
-}
 
 -- Function to check if cursor is inside a LaTeX math block in markdown
 local function in_latex_math_block()
@@ -31,5 +18,32 @@ local function in_latex_math_block()
   return false
 end
 
--- Create the snippet
-return require("math_snips")(in_latex_math_block)
+local snippets = require("math_snips")(in_latex_math_block)
+
+-- TODO: condition for not math mode or within anything special
+local function blockenv(name)
+    return s({
+        trig = "^" .. name .. " ",
+        snippetType = "autosnippet",
+        regTrig = true,
+    }, {
+        t({ "```" .. name, "" }),
+        i(1),
+        t({ "", "```" }),
+        }
+    )
+end
+
+
+local staticmdsnippets = {
+    -- TODO: more envs
+    blockenv("bash"),
+    blockenv("txt"),
+    blockenv("python"),
+}
+
+for _, snippet in ipairs(staticmdsnippets) do
+    table.insert(snippets, snippet)
+end
+
+return snippets

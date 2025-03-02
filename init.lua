@@ -1,9 +1,48 @@
 vim.g.mapleader = " "
 
 vim.loader.enable()
-require('plugins')
 
-local potato = require('mypotato')
+if vim.env.PROF then
+  -- example for lazy.nvim
+  -- change this to the correct path for your plugin manager
+  local snacks = vim.fn.stdpath("data") .. "/lazy/snacks.nvim"
+  vim.opt.rtp:append(snacks)
+  require("snacks.profiler").startup({
+    startup = {
+      event = "VimEnter", -- stop profiler on this event. Defaults to `VimEnter`
+      -- event = "UIEnter",
+      -- event = "VeryLazy",
+    },
+  })
+end
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+
+local potato = require("mypotato")
+
+-- My_completion_engine = "mycoq"
+-- My_completion_engine = "mycmp"
+My_completion_engine = "myblink"
+
+
+require("lazy").setup({
+    spec = {
+        { import = "plugins" }
+    },
+    checker = { enabled = true },
+})
+
 
 vim.api.nvim_create_user_command(
     'Debug',
@@ -84,6 +123,8 @@ opt.relativenumber = true
 opt.ignorecase     = true
 opt.smartcase      = true
 
+opt.conceallevel = 2
+
 opt.hidden         = true
 
 opt.inccommand     = "split"
@@ -115,10 +156,8 @@ then
     -- require "lsp_signature".setup()
 end
 
-
-require 'mylsp'
-
-require 'myneovide'
+--
+-- require 'myneovide'
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
