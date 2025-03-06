@@ -5,7 +5,7 @@ return {
     dependencies = {
         'rafamadriz/friendly-snippets',
     },
-    version = "v0.13.0",
+    version = "v0.13.1",
     --@module 'blink.cmp'
     --@type blink.cmp.config
     opts = {
