@@ -2,7 +2,7 @@ local potato = require('mypotato')
 return {
         "folke/snacks.nvim",
         lazy = false,
-        version = "*",
+        -- version = "*",
         priority = 1000,
         ---@type snacks.Config
         -- config = function()
@@ -16,6 +16,16 @@ return {
         opts = {
             indent = { enabled = true },
             image = {
+                doc = {
+                  max_width = 160,
+                  max_height = 40,
+                  ---@param lang string tree-sitter language
+                  ---@param type snacks.image.Type image type
+                  conceal = function(lang, type)
+                    -- only conceal math expressions
+                    return type == "math"
+                  end,
+                },
                 enabled = true,
                 math = {
                     enabled = true,
@@ -29,6 +39,15 @@ return {
                             "mathrsfs",
                             "mathtools",
                         },
+                        tpl = [[
+                          \documentclass[preview,border=0pt,varwidth,12pt,varwidth=150mm]{standalone}
+                          \usepackage{${packages}}
+                          \begin{document}
+                          ${header}
+                          { \${font_size} \selectfont
+                            \color[HTML]{${color}}
+                          ${content}}
+                          \end{document}]],
                     }
                 },
             },

@@ -266,6 +266,7 @@ local function math_snippets(math_mode_condition)
         msnip("!>", { t("\\mapsto") }),
         msnip("=>", { t("\\implies") }),
         msnip("=<", { t("\\impliedby") }),
+        msnip(":=", { t("\\coloneqq") }),
 
         s({
             trig = "([A-Za-z]+)tilde",
@@ -356,10 +357,13 @@ local function math_snippets(math_mode_condition)
 	mathletter("delta",  "d") 
 	mathletter("epsilon","e") 
 	mathletter("zeta",   "z") 
+	mathletter("eta",   "h") 
 	mathletter("theta",  "t") 
 	mathletter("iota",   "i") 
 	mathletter("kappa",  "k") 
 	mathletter("lambda", "l") 
+	mathletter("mu", "m") 
+	mathletter("psi",    "p") 
 	mathletter("sigma",  "s") 
 	mathletter("upsilon","u") 
 	mathletter("omega",  "o") 
