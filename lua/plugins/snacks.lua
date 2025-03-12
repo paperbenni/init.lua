@@ -31,17 +31,18 @@ return {
                     enabled = true,
                     latex = {
                         packages = {
-                            "amsmath",
                             "unicode-math",
-                            "amssymb",
-                            "amsfonts",
-                            "amscd",
-                            "mathrsfs",
+                            -- "amsmath",
+                            -- "amssymb",
+                            -- "amsfonts",
+                            -- "amscd",
+                            -- "mathrsfs",
                             "mathtools",
                         },
                         tpl = [[
                           \documentclass[preview,border=0pt,varwidth,12pt,varwidth=150mm]{standalone}
                           \usepackage{${packages}}
+                          \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
                           \begin{document}
                           ${header}
                           { \${font_size} \selectfont

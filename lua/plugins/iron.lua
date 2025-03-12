@@ -1,6 +1,15 @@
 return {
     "Vigemus/iron.nvim",
-    cmd = "IronRepl",
+    cmd = { "IronRepl", "Iron" },
+    keys = {
+        {
+            "<leader>I", 
+            ft = { "sh", "python" },
+            function() vim.cmd("Iron") end,
+            desc = "Activate Iron Repl"
+        },
+    },
+
     config = function()
         local iron = require("iron.core")
         local view = require("iron.view")
@@ -32,7 +41,7 @@ return {
               -- return "iron"
             end,
             repl_open_cmd = {
-                view.split.vertical.rightbelow("%40"), -- cmd_1: open a repl to the right
+                view.split.vertical.rightbelow("%20"), -- cmd_1: open a repl to the right
                 view.split.rightbelow("%25")  -- cmd_2: open a repl below
             }
             -- How the repl window will be displayed
@@ -66,5 +75,41 @@ return {
           },
           ignore_blank_lines = true, -- ignore blank lines when sending visual select lines
         }
+        -- Create user command 'Iron' that starts REPL and configures mappings
+        vim.api.nvim_create_user_command('Iron', function()
+          -- Set up terminal initialization handler
+          vim.api.nvim_create_autocmd('TermOpen', {
+            pattern = '*',
+            once = true,
+            callback = function(args)
+              -- Configure terminal escape mapping
+              vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {
+                buffer = args.buf,
+                noremap = true,
+                desc = 'Exit terminal mode'
+              })
+            end
+          })
+
+          -- Launch Iron REPL
+          vim.cmd("IronRepl")
+
+
+          -- Configure F5 motion mapping
+          vim.keymap.set({'n', 'x'}, '<F5>', function()
+            require("iron.core").run_motion("send_motion")
+          end, {
+            noremap = true,
+            desc = 'Send code to REPL'
+          })
+
+          vim.keymap.set({'n', 'x'}, '<F6>', function()
+            require("iron.core").send_line()
+            vim.cmd("normal! j")
+          end, {
+            noremap = true,
+            desc = 'Send code to REPL'
+          })
+        end, {})
     end
 }

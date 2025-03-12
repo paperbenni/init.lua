@@ -45,7 +45,7 @@ return {
         -- files
         local files = require("mini.files")
 
-        require("mini.pairs").setup({})
+        -- require("mini.pairs").setup({})
         require("mini.surround").setup({
             mappings = {
                 add = "S",
@@ -59,6 +59,12 @@ return {
             files.open()
         end, { desc = "File explorer" })
 
+        vim.api.nvim_create_autocmd("User", {
+            pattern = "MiniFilesActionRename",
+            callback = function(event)
+                Snacks.rename.on_rename_file(event.data.from, event.data.to)
+            end,
+        })
 
         local statusline = require("mini.statusline")
         statusline.setup()

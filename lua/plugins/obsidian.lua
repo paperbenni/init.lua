@@ -29,6 +29,9 @@ return {
     "nvim-lua/plenary.nvim",
   },
   opts = {
+    follow_url_func = function(url)
+        vim.ui.open(url) -- need Neovim 0.10.0+
+    end,
     workspaces = {
       {
         name = "uni",

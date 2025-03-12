@@ -109,29 +109,54 @@ local function math_snippets(math_mode_condition)
                     t(name)
                 }
             )
-            -- fmta([[
-            --         \begin{<name>}
-            --             <content>
-            --         \end{<name>}
-            --     ]],
-            --     {
-            --         name = name,
-            --         content = i(1)
-            --     },
-            -- )
+        )
+    end
+
+    local function mathsuffix(name)
+        return s({
+                trig = "([A-Za-z]+)" .. name,
+                snippetType = "autosnippet",
+                regTrig = true,
+                condition = math_mode_condition
+            }, {
+                    t("\\" .. name .. "{"),
+                    f(function(_, snip) return snip.captures[1] end),
+                    t("}")
+            }
         )
     end
 
     local staticsnippets = {
 
+        msnip("(", { t("("), i(1), t(")") }, true),
+
         msnip("lr(", { t("\\left("), i(1), t("\\right)") }),
         msnip("lr[", { t("\\left["), i(1), t("\\right]") }),
         msnip("lr{", { t("\\left\\{"), i(1), t("\\right\\}") }),
 
-        msnip("begin", { t("\\begin{"), i(1), t("}", ""), i(2), t("","\\end{"), rep(1), t("}") }),
+        s(
+            {
+                trig = "begin",
+                snippetType = "autosnippet",
+                condition = math_mode_condition,
+            },
+            fmta([[
+                    \begin{<>}
+                        <>
+                    \end{<>}
+                ]],
+                {
+                    i(1),
+                    i(2),
+                    rep(1)
+                }
+            )
+        ),
 
         --TODO more envs
         envsnip("align"),
+        envsnip("pmatrix"),
+        envsnip("cases"),
 
         --newline
         msnip("nwl", fmta([[
@@ -160,17 +185,19 @@ local function math_snippets(math_mode_condition)
         msnip("rm", { t("\\mathrm{"), i(1), t("}") }),
         msnip("text", { t("\\text{"), i(1), t("}") }),
         msnip("   ", { t(" \\quad "), i(1), t(" \\quad ") }),
+        msnip("quad", { t(" \\quad ") }),
 
         msnip("xx", { t("\\times") }),
         msnip("cdot", { t("\\cdot") }),
-        msnip("**", { t("\\cdot") }),
+        msnip("**", { t(" \\cdot ") }),
 
         msnip("xor", { t("\\bigoplus") }),
 
         msnip("land", { t("\\land") }),
         msnip("lnot", { t("\\lnot") }),
         msnip("lor", { t("\\lor") }),
-        msnip("forall", { t("\\forall") }),
+        msnip("forall", { t("\\forall ") }),
+        msnip("all", { t("\\forall ") }),
         msnip("exists", { t("\\exists") }),
 
         msnip("Sum", { t("\\sum_{"), i(1), t("}^{"), i(2), t("}") }),
@@ -192,6 +219,7 @@ local function math_snippets(math_mode_condition)
         msnip("+-", { t("\\pm") }),
         msnip("-+", { t("\\mp") }),
         msnip("...", { t("\\dots") }),
+        msnip("vdots", { t("\\vdots ") }),
 
         msnip("Int", {
                 t("\\int_{"),
@@ -221,9 +249,10 @@ local function math_snippets(math_mode_condition)
             t("}"),
             i(3)
         }),
-        msnip("par", { t("\\partial") }),
+        msnip("par", { t("\\partial ") }),
 
-        msnip("grad", { t("\\nabla") }),
+        msnip("grad", { t("\\nabla ") }),
+        msnip("nabl", { t("\\nabla ") }),
         
         msnip("MB", { t("\\mathbb{"), i(1), t("}") }),
         msnip("MD", { t("\\mathds{"), i(1), t("}") }),
@@ -232,9 +261,11 @@ local function math_snippets(math_mode_condition)
 
 
         msnip("NN", { t("\\mathbb{N}") }),
+        msnip("RR", { t("\\mathbb{N}") }),
 
         msnip("arg", { t("\\arg ") }),
         msnip("min", { t("\\min ") }),
+        msnip("inf", { t("\\inf ") }),
         msnip("max", { t("\\max ") }),
 
         msnip("inn", { t("\\in ") }),
@@ -250,15 +281,19 @@ local function math_snippets(math_mode_condition)
         msnip("exp", { t("\\exp("), i(1), t(")") }),
 
 
-        msnip("ooo", { t("\\infty") }),
+        msnip("tau", { t("\\tau ") }),
+
+        msnip("ooo", { t("\\infty ") }),
 
         msnip("===", { t("\\equiv") }),
         msnip("!=", { t("\\neq") }),
 
-        msnip(">=", { t("\\geq") }),
+        msnip(">=", { t("\\geq ") }),
         msnip("<=", { t("\\leq") }),
         msnip(">>", { t("\\gg") }),
         msnip("<<", { t("\\ll") }),
+
+        msnip("~~", { t("\\approx ") }),
 
         msnip("<->", { t("\\leftrightarrow ") }),
         msnip("->", { t("\\to") }),
@@ -268,46 +303,11 @@ local function math_snippets(math_mode_condition)
         msnip("=<", { t("\\impliedby") }),
         msnip(":=", { t("\\coloneqq") }),
 
-        s({
-            trig = "([A-Za-z]+)tilde",
-            snippetType = "autosnippet",
-            regTrig = true,
-            condition = math_mode_condition
-        }, {
-                t("\\tilde{"),
-                f(function(_, snip) return snip.captures[1] end),
-                t("}")
-        }),
-        s({
-            trig = "([A-Za-z]+)hat",
-            snippetType = "autosnippet",
-            regTrig = true,
-            condition = math_mode_condition
-        }, {
-                t("\\hat{"),
-                f(function(_, snip) return snip.captures[1] end),
-                t("}")
-        }),
-        s({
-            trig = "([A-Za-z]+)und",
-            snippetType = "autosnippet",
-            regTrig = true,
-            condition = math_mode_condition
-        }, {
-                t("\\und{"),
-                f(function(_, snip) return snip.captures[1] end),
-                t("}")
-        }),
-        s({
-            trig = "([A-Za-z]+)bar",
-            snippetType = "autosnippet",
-            regTrig = true,
-            condition = math_mode_condition
-        }, {
-                t("\\bar{"),
-                f(function(_, snip) return snip.captures[1] end),
-                t("}")
-        }),
+        mathsuffix("tilde"),
+        mathsuffix("bar"),
+        mathsuffix("und"),
+        mathsuffix("vec"),
+        mathsuffix("hat"),
 
         s({
             trig = "mk",
