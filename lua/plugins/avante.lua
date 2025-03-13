@@ -1,5 +1,7 @@
 return {
     "yetone/avante.nvim",
+    -- enabled = true,
+    version = false,
     enabled = false,
     event = "VeryLazy",
     dependencies = {
@@ -8,14 +10,14 @@ return {
             "nvim-lua/plenary.nvim",
     },
     build = "make",
-    config = function()
-        vim.opt.laststatus = 3
-    end,
+    -- config = function()
+    --     vim.opt.laststatus = 3
+    --     require(avante).set
+    -- end,
     opts = {
         provider = "ollama",
         ollama = {
-            endpoint = "http://127.0.0.1:11434",
-            model = "qwen2.5-coder:0.5b",
+          model = "smollm2:135m",
         }
     }
 }

@@ -14,7 +14,17 @@ return {
         --     })
         -- end,
         opts = {
-            indent = { enabled = true },
+            indent = {
+                enabled = true,
+                -- filter for buffers to enable indent guides
+                filter = function(buf)
+                    local is_markdown = vim.bo[buf].filetype == "markdown"
+                    return vim.g.snacks_indent ~= false and 
+                        vim.b[buf].snacks_indent ~= false and
+                        vim.bo[buf].buftype == ""
+                        and not is_markdown
+                end
+            },
             image = {
                 doc = {
                   max_width = 160,
@@ -55,6 +65,22 @@ return {
             bigfile = { enabled = true },
             quickfile = { enabled = true },
             dashboard = { enabled = true },
+            zen = {
+                toggles = {
+                    dim = false,
+                    git_signs = false,
+                    mini_diff_signs = true,
+                },
+                show = {
+                    statusline = true,
+                    tabline = true,
+                },
+                win = {
+                    backdrop = {
+                        transparent = false,
+                    },
+                }
+            },
             words = { enabled = not potato },
             scroll = {
                 enabled = not potato,

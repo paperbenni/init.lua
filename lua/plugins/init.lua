@@ -35,7 +35,6 @@ return {
         }
     },
 
-    { "lervag/vimtex",           event = "BufRead *.tex" },
 
     {
         'kevinhwang91/nvim-ufo',

@@ -148,27 +148,11 @@ install_plugins() {
     echo "installing lazy plugins"
     $NVIMCMD --headless "+Lazy! install" +qa
     PLUGINDIR="$HOME"/.local/share/nvim/lazy
-    echo "installing all treesitter plugins, this may take a long time"
-    $NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
 
     # compile telescope fzf
     if ! [ -e "$PLUGINDIR"/telescope-fzf-native.nvim/build/libfzf.so ]; then
         cd "$PLUGINDIR"/telescope-fzf-native.nvim || exit 1
         make
-    fi
-    if is_potato; then
-        for _ in /home/benjamin/.virtualenvs/debugpy/lib/python3.*/site-packages/debugpy; do
-            echo "debugpy already installed"
-            export DEBUGPYINSTALLED="true"
-            break
-        done
-        if [ -n "$DEBUGPYINSTALLED" ]; then
-            echo "installing debugpy"
-            mkdir ~/.virtualenvs
-            cd ~/.virtualenvs || exit 1
-            python -m venv debugpy
-            debugpy/bin/python -m pip install debugpy
-        fi
     fi
 
     # install coq deps

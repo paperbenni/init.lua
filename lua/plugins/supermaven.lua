@@ -1,5 +1,6 @@
 return {
     enabled = true,
+    -- enabled = false,
     "supermaven-inc/supermaven-nvim",
     event = "VeryLazy",
     config = function()

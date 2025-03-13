@@ -13,6 +13,14 @@ local rep = require("luasnip.extras").rep
 local function math_snippets(math_mode_condition)
     local snippets = {}
 
+    local get_visual = function(args, parent)
+        if (#parent.snippet.env.LS_SELECT_RAW > 0) then
+            return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
+        else  -- If LS_SELECT_RAW is empty, return a blank insert node
+            return sn(nil, i(1))
+        end
+    end
+
     --TODO: add condition for not being within a command name
     local function mathletter(name, letter)
         local capitalized = name:sub(1,1):upper() .. name:sub(2)
@@ -231,9 +239,30 @@ local function math_snippets(math_mode_condition)
             }
         ),
 
+
         msnip("mop", {
                 t("\\mathop{"),
-                i(1),
+                d(1, get_visual),
+                t("}_{"),
+                i(2),
+                t("}"),
+                i(3)
+            }
+        ),
+
+        msnip("ubr", {
+                t("\\underbrace{"),
+                d(1, get_visual),
+                t("}_{"),
+                i(2),
+                t("}"),
+                i(3)
+            }
+        ),
+
+        msnip("obr", {
+                t("\\overbrace{"),
+                d(1, get_visual),
                 t("}_{"),
                 i(2),
                 t("}"),
