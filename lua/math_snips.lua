@@ -137,10 +137,14 @@ local function math_snippets(math_mode_condition)
     local staticsnippets = {
 
         msnip("(", { t("("), i(1), t(")") }, true),
+        msnip("{", { t("{"), i(1), t("}") }, true),
+        -- msnip("\\{", { t("\\{"), i(1), t("\\}") }, true),
+        msnip("brc", { t("\\{"), i(1), t("\\}") }),
 
         msnip("lr(", { t("\\left("), i(1), t("\\right)") }),
         msnip("lr[", { t("\\left["), i(1), t("\\right]") }),
         msnip("lr{", { t("\\left\\{"), i(1), t("\\right\\}") }),
+        msnip("ll{", { t("\\left."), i(1), t("\\right\\}") }),
 
         s(
             {
@@ -163,7 +167,13 @@ local function math_snippets(math_mode_condition)
 
         --TODO more envs
         envsnip("align"),
+
         envsnip("pmatrix"),
+        envsnip("bmatrix"),
+        envsnip("Bmatrix"),
+        envsnip("vmatrix"),
+        envsnip("Vmatrix"),
+
         envsnip("cases"),
 
         --newline
@@ -172,11 +182,12 @@ local function math_snippets(math_mode_condition)
             <>
         ]], { i(1) })),
 
-        msnip("brc", { t("\\{"), i(1), t("\\}") }),
 
 
         -- norm
         msnip("norm", { t("\\lvert "), i(1), t(" \\rvert "), i(2) }),
+        msnip("||", { t("\\| "), i(1), t(" \\| "), i(2) }),
+
 
         msnip("ceil", { t("\\lceil "), i(1), t("\\rceil "), i(2) }),
         msnip("floor", { t("\\lfloor "), i(1), t("\\rfloor "), i(2) }),
@@ -226,8 +237,11 @@ local function math_snippets(math_mode_condition)
 
         msnip("+-", { t("\\pm") }),
         msnip("-+", { t("\\mp") }),
-        msnip("...", { t("\\dots") }),
+        msnip("...", { t("\\dots ") }),
         msnip("vdots", { t("\\vdots ") }),
+        msnip("v..", { t("\\vdots ") }),
+        msnip("ddots", { t("\\ddots ") }),
+        msnip("d..", { t("\\ddots ") }),
 
         msnip("Int", {
                 t("\\int_{"),
@@ -263,12 +277,13 @@ local function math_snippets(math_mode_condition)
         msnip("obr", {
                 t("\\overbrace{"),
                 d(1, get_visual),
-                t("}_{"),
+                t("}^{"),
                 i(2),
                 t("}"),
                 i(3)
             }
         ),
+
 
         msnip("Par", {
             t("\\frac{\\partial "),
@@ -290,7 +305,7 @@ local function math_snippets(math_mode_condition)
 
 
         msnip("NN", { t("\\mathbb{N}") }),
-        msnip("RR", { t("\\mathbb{N}") }),
+        msnip("RR", { t("\\mathbb{R}") }),
 
         msnip("arg", { t("\\arg ") }),
         msnip("min", { t("\\min ") }),
@@ -324,11 +339,12 @@ local function math_snippets(math_mode_condition)
 
         msnip("~~", { t("\\approx ") }),
 
+        msnip("\\leq>", { t("\\Leftrightarrow ") }),
         msnip("<->", { t("\\leftrightarrow ") }),
-        msnip("->", { t("\\to") }),
-        msnip("<-", { t("\\leftarrow") }),
+        msnip("->", { t("\\to ") }),
+        msnip("<-", { t("\\leftarrow ") }),
         msnip("!>", { t("\\mapsto") }),
-        msnip("=>", { t("\\implies") }),
+        msnip("=>", { t("\\implies ") }),
         msnip("=<", { t("\\impliedby") }),
         msnip(":=", { t("\\coloneqq") }),
 
@@ -359,7 +375,10 @@ local function math_snippets(math_mode_condition)
         }),
 
         msnip("rm", {
-            t("\\mathrm{"), i(1), t("}")
+            t("\\mathrm{"), d(1, get_visual), t("}")
+        }),
+        msnip("overl", {
+            t("\\overline{"), d(1, get_visual), t("}")
         }),
 
         s({
@@ -396,6 +415,7 @@ local function math_snippets(math_mode_condition)
 	mathletter("sigma",  "s") 
 	mathletter("upsilon","u") 
 	mathletter("omega",  "o") 
+	mathletter("xi",  "x") 
 
     for _, snippet in ipairs(staticsnippets) do
         table.insert(snippets, snippet)

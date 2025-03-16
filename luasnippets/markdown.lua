@@ -20,6 +20,22 @@ end
 
 local snippets = require("math_snips")(in_latex_math_block)
 
+local function in_anki_file()
+    return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t") == "anki.md"
+end
+
+local function ankisnip(trigger, replacement, extras)
+    return s(vim.tbl_extend("force", 
+        {
+            snippetType = "autosnippet",
+            trig = trigger,
+            condition = in_anki_file,
+        }, extras
+        ),
+        replacement
+    )
+end
+
 -- TODO: condition for not math mode or within anything special
 local function blockenv(name)
     return s({
@@ -40,6 +56,35 @@ local staticmdsnippets = {
     blockenv("bash"),
     blockenv("txt"),
     blockenv("python"),
+    ankisnip("^QA", fmta([[Q: <>
+A: <>
+
+
+        ]],
+        {
+            i(1),
+            i(2)
+        }
+        ), {
+            regTrig = true,
+        }
+    ),
+    ankisnip("^MQ", fmta([[Q: <>
+A: .
+$$
+<>
+$$
+
+
+        ]],
+        {
+            i(1),
+            i(2)
+        }
+        ), {
+            regTrig = true,
+        }
+    )
 }
 
 for _, snippet in ipairs(staticmdsnippets) do
