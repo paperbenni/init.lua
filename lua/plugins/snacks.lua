@@ -50,7 +50,7 @@ return {
                             "mathtools",
                         },
                         tpl = [[
-                          \documentclass[preview,border=0pt,varwidth,12pt,varwidth=150mm]{standalone}
+                          \documentclass[preview,border=0pt,varwidth,12pt,varwidth=180mm]{standalone}
                           \usepackage{${packages}}
                           \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
                           \begin{document}
