@@ -78,8 +78,6 @@ return {
     -- TODO: check if this can be replaced by blink cmp
     -- { "ray-x/lsp_signature.nvim",      enabled = not potato },
 
-    { "mfussenegger/nvim-dap",         enabled = not potato },
-    { "rcarriga/nvim-dap-ui",          enabled = not potato },
     {
         "simrat39/rust-tools.nvim",
         enabled = not potato,
