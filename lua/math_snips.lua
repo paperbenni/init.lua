@@ -22,6 +22,7 @@ local function math_snippets(math_mode_condition)
     end
 
     --TODO: add condition for not being within a command name
+    -- TODO: add hasvar option to disable var version if not existing
     local function mathletter(name, letter)
         local capitalized = name:sub(1,1):upper() .. name:sub(2)
         local upperletter = string.upper(letter)
@@ -165,9 +166,23 @@ local function math_snippets(math_mode_condition)
             )
         ),
 
+        s(
+            {
+                trig = "tabular",
+                snippetType = "autosnippet",
+                condition = math_mode_condition,
+            }, fmta([[
+                    \begin{tabular}{<>}
+                        <>
+                    \end{tabular}
+            ]], {
+                    i(1, "l | l"),
+                    i(2)
+            })
+        ),
+
         --TODO more envs
         envsnip("align"),
-
         envsnip("pmatrix"),
         envsnip("bmatrix"),
         envsnip("Bmatrix"),
@@ -218,6 +233,8 @@ local function math_snippets(math_mode_condition)
         msnip("forall", { t("\\forall ") }),
         msnip("all", { t("\\forall ") }),
         msnip("exists", { t("\\exists") }),
+
+        msnip("s.t.", { t("\\mathrm{s.t.} \\quad ") }),
 
         msnip("Sum", { t("\\sum_{"), i(1), t("}^{"), i(2), t("}") }),
         msnip("Prod", { t("\\prod_{"), i(1), t("}^{"), i(2), t("}") }),
@@ -345,8 +362,8 @@ local function math_snippets(math_mode_condition)
         msnip("<-", { t("\\leftarrow ") }),
         msnip("!>", { t("\\mapsto") }),
         msnip("=>", { t("\\implies ") }),
-        msnip("=<", { t("\\impliedby") }),
-        msnip(":=", { t("\\coloneqq") }),
+        msnip("=<", { t("\\impliedby ") }),
+        msnip(":=", { t("\\coloneqq ") }),
 
         mathsuffix("tilde"),
         mathsuffix("bar"),

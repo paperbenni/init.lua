@@ -1,6 +1,5 @@
 return {
     "yetone/avante.nvim",
-    -- enabled = true,
     version = false,
     enabled = false,
     event = "VeryLazy",
@@ -10,14 +9,23 @@ return {
             "nvim-lua/plenary.nvim",
     },
     build = "make",
-    -- config = function()
-    --     vim.opt.laststatus = 3
-    --     require(avante).set
-    -- end,
+    config = function(_, opts)
+        vim.opt.laststatus = 3
+        require('avante').setup(opts)
+    end,
     opts = {
-        provider = "ollama",
+        provider = "openrouter",
         ollama = {
           model = "smollm2:135m",
-        }
+        },
+        vendors = {
+          openrouter = {
+            __inherited_from = 'openai',
+            endpoint = 'https://openrouter.ai/api/v1',
+            api_key_name = 'OPENROUTER_API_KEY',
+            model = 'deepseek/deepseek-chat-v3-0324:free',
+            disable_tools = true, -- disable tools!
+          },
+        },
     }
 }

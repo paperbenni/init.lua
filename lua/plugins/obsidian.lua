@@ -1,5 +1,5 @@
 return {
-  "epwalsh/obsidian.nvim",
+  "obsidian-nvim/obsidian.nvim",
   version = "*",  -- recommended, use latest release instead of latest commit
   lazy = true,
   -- ft = "markdown",
@@ -9,11 +9,6 @@ return {
           "<leader>ww",
           "<cmd>ObsidianQuickSwitch<CR>",
           desc = "Open obsidian file"
-        },
-        {
-          "<leader>ws",
-          "<cmd>ObsidianWorkspace<CR>",
-          desc = "switch obsidian workspace"
         },
     },
   -- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
@@ -33,10 +28,6 @@ return {
         vim.ui.open(url) -- need Neovim 0.10.0+
     end,
     workspaces = {
-      {
-        name = "uni",
-        path = "~/txxwiki/uni",
-      },
       {
         name = "wiki",
         path = "~/wiki/vimwiki",

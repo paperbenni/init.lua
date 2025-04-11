@@ -1,7 +1,7 @@
 return {
     "vimwiki/vimwiki",
     lazy = true,
-    enabled = false,
+    -- enabled = false,
     branch = "dev",
     module = false,
     init = function()
@@ -82,37 +82,45 @@ return {
             end,
         })
     end,
-    keys = {
-        {
-          "<leader>ww",
-          "<Plug>VimwikiIndex",
-          desc = "Open Vimwiki index"
-        },
-        {
-          "<leader>wt",
-          "<Plug>VimwikiTabIndex",
-          desc = "Open Vimwiki index in new tab"
-        },
-        {
-          "<leader>wi",
-          "<Plug>VimwikiDiaryIndex",
-          desc = "Open Vimwiki diary index"
-        },
-        {
-          "<leader>w<leader>w",
-          "<Plug>VimwikiMakeDiaryNote",
-          desc = "Make new diary note"
-        },
-        {
-          "<leader>w<leader>y",
-          "<Plug>VimwikiMakeYesterdayDiaryNote",
-          desc = "Make diary note for yesterday"
-        },
-        {
-          "<leader>w<leader>m",
-          "<Plug>VimwikiMakeTomorrowDiaryNote",
-          desc = "Make diary note for tomorrow"
-        }
-    }
+    -- keys = {
+    --     {
+    --       "<leader>ww",
+    --       "<Plug>VimwikiIndex",
+    --       desc = "Open Vimwiki index"
+    --     },
+    --     {
+    --       "<leader>wt",
+    --       "<Plug>VimwikiTabIndex",
+    --       desc = "Open Vimwiki index in new tab"
+    --     },
+    --     {
+    --       "<leader>wi",
+    --       "<Plug>VimwikiDiaryIndex",
+    --       desc = "Open Vimwiki diary index"
+    --     },
+    --     {
+    --       "<leader>w<leader>w",
+    --       "<Plug>VimwikiMakeDiaryNote",
+    --       desc = "Make new diary note"
+    --     },
+    --     {
+    --       "<leader>w<leader>y",
+    --       "<Plug>VimwikiMakeYesterdayDiaryNote",
+    --       desc = "Make diary note for yesterday"
+    --     },
+    --     {
+    --       "<leader>w<leader>m",
+    --       "<Plug>VimwikiMakeTomorrowDiaryNote",
+    --       desc = "Make diary note for tomorrow"
+    --     }
+    -- }
+    cmd = {
+        "VimwikiIndex",
+        "VimwikiTabIndex",
+        "VimwikiDiaryIndex",
+        "VimwikiMakeDiaryNote",
+        "VimwikiMakeYesterdayDiaryNote",
+        "VimwikiMakeTomorrowDiaryNote",
+    },
 
 }
