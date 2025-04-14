@@ -4,3 +4,4 @@ lua/.luarc.json
 lazy-lock.json
 Makefile
 tags
+repomix-output.xml

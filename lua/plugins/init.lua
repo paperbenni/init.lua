@@ -3,7 +3,6 @@ return {
     { "tpope/vim-eunuch",             event = "VeryLazy" },
     { "tpope/vim-repeat",             event = "VeryLazy" },
     -- { "mattn/emmet-vim" , event = "InsertEnter"},
-    { "sbdchd/neoformat",             cmd = "Neoformat" },
     { "tpope/vim-dadbod",             cmd = { "DB", "DBUI" } },
     { "kristijanhusak/vim-dadbod-ui", cmd = "DBUI" },
 
@@ -74,7 +73,7 @@ return {
     { "norcalli/nvim-colorizer.lua", event = "VeryLazy" },
     { "machakann/vim-highlightedyank", enabled = not potato },
     --TODO: check if this can be replaced by mini or snacks
-    { "lewis6991/gitsigns.nvim",       enabled = not potato },
+    -- { "lewis6991/gitsigns.nvim",       enabled = not potato },
     -- TODO: check if this can be replaced by blink cmp
     -- { "ray-x/lsp_signature.nvim",      enabled = not potato },
 

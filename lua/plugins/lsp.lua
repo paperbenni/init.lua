@@ -31,7 +31,7 @@ return {
             setkey('n', '<leader><F2>', vim.lsp.buf.rename, "Rename")
             setkey('n', '<leader>x', vim.lsp.buf.code_action, "Code Action")
             -- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-            setkey('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, 'LSP Format buffer')
+            -- setkey('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, 'LSP Format buffer')
             vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
         end
         local lspconfig = require 'lspconfig'
