@@ -121,9 +121,9 @@ local function math_snippets(math_mode_condition)
         )
     end
 
-    local function mathsuffix(name)
+    local function mathsuffix(name, trigger)
         return s({
-                trig = "([A-Za-z]+)" .. name,
+                trig = "([A-Za-z]+)" .. (trigger or name),
                 snippetType = "autosnippet",
                 regTrig = true,
                 condition = math_mode_condition
@@ -314,7 +314,7 @@ local function math_snippets(math_mode_condition)
 
         msnip("grad", { t("\\nabla ") }),
         msnip("nabl", { t("\\nabla ") }),
-        
+
         msnip("MB", { t("\\mathbb{"), i(1), t("}") }),
         msnip("MD", { t("\\mathds{"), i(1), t("}") }),
         msnip("MS", { t("\\mathscr{"), i(1), t("}") }),
@@ -370,6 +370,7 @@ local function math_snippets(math_mode_condition)
         mathsuffix("und"),
         mathsuffix("vec"),
         mathsuffix("hat"),
+        mathsuffix("dot", "Dot"),
 
         s({
             trig = "mk",
