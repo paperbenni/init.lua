@@ -2,6 +2,9 @@ return {
     "olimorris/codecompanion.nvim",
     -- enabled = false,
     opts = {},
+    -- config = function ()
+    --     vim.opt.laststatus = 3
+    -- end,
     cmd = {
         "CodeCompanion",
         "CodeCompanionChat",
