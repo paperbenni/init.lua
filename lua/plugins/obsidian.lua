@@ -1,5 +1,6 @@
 return {
-	"obsidian-nvim/obsidian.nvim",
+	"paperbenni/obsidian.nvim",
+    branch = "pdf",
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = true,
 	-- ft = "markdown",
@@ -27,6 +28,9 @@ return {
 		follow_url_func = function(url)
 			vim.ui.open(url) -- need Neovim 0.10.0+
 		end,
+        follow_pdf_func = function(pdf)
+			vim.ui.open(pdf) -- need Neovim 0.10.0+
+        end,
 		completion = {
 			blink = true,
 			nvim_cmp = false,
