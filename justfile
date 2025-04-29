@@ -5,6 +5,7 @@ fetch:
     rsync -av --exclude='justfile' ~/.config/nvim/ ./
 
 dependencies:
+    #!/usr/bin/env bash
     if command -v yay &> /dev/null; then
         yay -S --needed --noconfirm lua-language-server node npm neovim stylua
     elif command -v apt &> /dev/null; then
