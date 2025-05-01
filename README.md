@@ -2,6 +2,11 @@
 
 ## installation
 
+```bash
+git clone https://github.com/paperbenni/init.lua.git ~/.config/nvim
+```
+
+## usage
 
 This is my new (mostly) lua based nvim config
 
