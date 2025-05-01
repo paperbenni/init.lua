@@ -95,10 +95,10 @@ local function math_snippets(math_mode_condition)
     end
 
     -- TODO: only trigger on empty line
-    local function envsnip(name)
+    local function envsnip(name, alias)
         return s(
             {
-                trig = name,
+                trig = alias or name,
                 snippetType = "autosnippet",
                 condition = math_mode_condition,
             },
@@ -184,7 +184,7 @@ local function math_snippets(math_mode_condition)
         ),
 
         --TODO more envs
-        envsnip("align"),
+        envsnip("aligned", "align"),
         envsnip("pmatrix"),
         envsnip("bmatrix"),
         envsnip("Bmatrix"),
@@ -344,12 +344,14 @@ local function math_snippets(math_mode_condition)
         msnip("notin", { t("\\not\\in") }),
         msnip("orr", { t("\\cup") }),
         msnip("Orr", { t("\\bigcup_{"), i(1), t("}^{"), i(2), t("}") }),
-        msnip("and", { t("\\cap") }),
+        msnip("and", { t("\\cap ") }),
 
         msnip("setm", { t("\\setminus ") }),
         msnip("\\\\\\", { t("\\setminus ") }),
         msnip("sub", { t("\\subset ") }),
         msnip("sup", { t("\\supset ") }),
+        msnip("eset", { t("\\emptyset ") }),
+        msnip("0//", { t("\\emptyset ") }),
 
         msnip("sin", { t("\\sin") }),
         msnip("cos", { t("\\cos") }),
