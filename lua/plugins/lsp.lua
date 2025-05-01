@@ -1,9 +1,9 @@
 return {
     "neovim/nvim-lspconfig",
-    dependencies = {
-        "williamboman/mason-lspconfig.nvim",
-        "williamboman/mason.nvim",
-    },
+    -- dependencies = {
+    --     "williamboman/mason-lspconfig.nvim",
+    --     "williamboman/mason.nvim",
+    -- },
     event = { "VeryLazy", "BufReadPost", "BufWritePost", "BufNewFile" },
     config = function()
         local potato = require('mypotato')

@@ -6,7 +6,7 @@ return {
         require("mini.git").setup({})
         require("mini.tabline").setup({})
         require("mini.icons").setup({})
-        require("mini.diff").setup({})
+        -- require("mini.diff").setup({})
 
         local miniclue = require("mini.clue")
         local potato = require("mypotato")
