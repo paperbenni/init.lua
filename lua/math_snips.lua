@@ -345,6 +345,7 @@ local function math_snippets(math_mode_condition)
         msnip("orr", { t("\\cup") }),
         msnip("Orr", { t("\\bigcup_{"), i(1), t("}^{"), i(2), t("}") }),
         msnip("and", { t("\\cap ") }),
+        msnip("And", { t("\\bigcap_{"), i(1), t("}^{"), i(2), t("}") }),
 
         msnip("setm", { t("\\setminus ") }),
         msnip("\\\\\\", { t("\\setminus ") }),

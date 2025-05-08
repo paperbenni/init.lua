@@ -57,6 +57,7 @@ return {
                           ${header}
                           { \${font_size} \selectfont
                             \color[HTML]{${color}}
+                            \renewcommand{\setminus}{\mathbin{\backslash}}
                           ${content}}
                           \end{document}]],
                     }
