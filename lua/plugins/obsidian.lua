@@ -5,10 +5,11 @@ return {
 	lazy = true,
 	-- ft = "markdown",
 	-- enabled = false,
+    cmd = { "Obsidian"},
 	keys = {
 		{
 			"<leader>ww",
-			"<cmd>ObsidianQuickSwitch<CR>",
+			"<cmd>Obsidian quick_switch<CR>",
 			desc = "Open obsidian file",
 		},
 	},
