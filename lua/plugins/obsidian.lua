@@ -5,12 +5,16 @@ return {
 	lazy = true,
 	-- ft = "markdown",
 	-- enabled = false,
-    cmd = { "Obsidian"},
 	keys = {
 		{
 			"<leader>ww",
 			"<cmd>Obsidian quick_switch<CR>",
 			desc = "Open obsidian file",
+		},
+		{
+			"<leader>w<leader>w",
+			"<cmd>Obsidian today<CR>",
+			desc = "Open obsidian daily note",
 		},
 	},
 	-- Replace the above line with this if you only want to load obsidian.nvim for markdown files in your vault:
@@ -27,10 +31,10 @@ return {
 	},
 	opts = {
 		follow_url_func = function(url)
-			vim.ui.open(url) -- need Neovim 0.10.0+
+			vim.ui.open(url)
 		end,
         follow_pdf_func = function(pdf)
-			vim.ui.open(pdf) -- need Neovim 0.10.0+
+			vim.ui.open(pdf)
         end,
 		completion = {
 			blink = true,
