@@ -8,7 +8,7 @@ return {
             blink_cmp = true,
             vimwiki = true,
             snacks = true,
-            mason = false,
+            mason = true,
         },
     },
     config = function()
