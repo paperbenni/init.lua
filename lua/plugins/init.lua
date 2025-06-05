@@ -39,13 +39,6 @@ return {
         'kevinhwang91/nvim-ufo',
         dependencies = { 'kevinhwang91/promise-async' }
     },
-    {
-        'chomosuke/typst-preview.nvim',
-        ft = 'typst',
-        version = '1.*',
-        opts = {}
-    },
-
 
     { "j-hui/fidget.nvim", enabled = not potato },
     {

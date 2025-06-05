@@ -23,7 +23,6 @@ return {
             "sql",
             "sway",
             "terraform",
-            "typst",
             "udev",
             "zathurarc",
             "zig",
