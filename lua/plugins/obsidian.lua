@@ -5,6 +5,7 @@ return {
 	lazy = true,
 	-- ft = "markdown",
 	-- enabled = false,
+    cmd = { "Obsidian" },
 	keys = {
 		{
 			"<leader>ww",
@@ -50,5 +51,8 @@ return {
 			folder = "diary",
 			date_format = "%Y-%m-%d",
 		},
+        picker = {
+            name = "snacks.pick"
+        }
 	},
 }

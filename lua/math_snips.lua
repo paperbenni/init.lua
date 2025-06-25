@@ -220,7 +220,6 @@ local function math_snippets(math_mode_condition)
 
         msnip("sq", { t("\\sqrt{"), i(1), t("}") }),
 
-        msnip("rm", { t("\\mathrm{"), i(1), t("}") }),
         msnip("text", { t("\\text{"), i(1), t("}") }),
         msnip("   ", { t(" \\quad "), i(1), t(" \\quad ") }),
         msnip("quad", { t(" \\quad ") }),
@@ -283,8 +282,10 @@ local function math_snippets(math_mode_condition)
             i(1),
             t("}^{"),
             i(2),
-            t("} \\mathrm{d}"),
+            t("}"),
             i(3),
+            t("\\mathrm{d}"),
+            i(4),
         }),
 
         msnip("mop", {

@@ -153,7 +153,7 @@ return {
                 desc = "LSP Workspace Symbols"
             },
             {
-                "<leader>tf",
+                "<leader>to",
                 function()
                     Snacks.picker.recent()
                 end,
