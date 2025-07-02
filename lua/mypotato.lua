@@ -1,4 +1,4 @@
-local ispotato = inserthere
+local ispotato = true
 return ispotato
 
 

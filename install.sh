@@ -13,7 +13,6 @@ if command -v termux-setup-storage; then
     sudo() {
         $@
     }
-
 fi
 
 checkcommand() {
@@ -33,9 +32,6 @@ backup_config() {
 check_nix_install() {
     if ! command -v nix-env; then return 1; fi
 
-    if ! command -v pip2 && ! python2 -c "import neovim"; then
-        nix-env -i -E 'f: with import <nixpkgs> { }; (python2.withPackages(ps: [ ps.pynvim ] ))'
-    fi
     if ! command -v pip3 && ! python3 -c "import neovim"; then
         nix-env -i -E 'f: with import <nixpkgs> { }; (python3.withPackages(ps: [ ps.pynvim ] ))'
     fi
@@ -49,14 +45,11 @@ check_nix_install() {
 
 install_providers() {
     echo "installing neovim providers"
-    for x in 2 3; do
-        if ! python$x -c "import neovim"; then
-            sudo pip$x install neovim pynvim
-        fi
-    done
+    # TODO: install python3 neovim
+    # TODO: install python nvim arch package when on arch
     if ! command -v nvim; then
         if ! npm list -g | grep 'neovim'; then
-            sudo npm install -g neovim
+            npm install -g neovim
         fi
         # TODO check for gem existance
         if ! gem list | grep 'neovim'; then
@@ -67,13 +60,13 @@ install_providers() {
 
 check_dependencies() {
     checkcommand npm
-    checkcommand cmake
     checkcommand pip
     checkcommand luarocks
     checkcommand sqlite3
     checkcommand node
     if ! python3 -m venv --help &>/dev/null; then
         if command -v termux-setup-storage; then
+            # TOOD: is there a termux package for this?
             pip3 install --upgrade virtualenv
         elif command -v pacman &>/dev/null; then
             sudo pacman -S --noconfirm --needed python-virtualenv
@@ -82,18 +75,6 @@ check_dependencies() {
             echo "please install python venv"
         fi
         exit 1
-    fi
-    NODEVERSION="$(node --version | grep -o '^v[0-9]*\.' | grep -o '[0-9]*')"
-    if ! [ "$NODEVERSION" -eq "$NODEVERSION" ]; then
-        echo "could not determine node version"
-        exit 1
-    fi
-    if ! [ "$NODEVERSION" -gt 16 ]; then
-        echo "node version 16 or newer is required"
-        if command -v apt &>/dev/null; then
-            curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&
-                sudo apt-get install -y nodejs
-        fi
     fi
 
 }
@@ -167,27 +148,11 @@ install_plugins() {
     echo "installing lazy plugins"
     $NVIMCMD --headless "+Lazy! install" +qa
     PLUGINDIR="$HOME"/.local/share/nvim/lazy
-    echo "installing all treesitter plugins, this may take a long time"
-    $NVIMCMD +'silent! TSInstallSync all' +qall &>/dev/null
 
     # compile telescope fzf
     if ! [ -e "$PLUGINDIR"/telescope-fzf-native.nvim/build/libfzf.so ]; then
         cd "$PLUGINDIR"/telescope-fzf-native.nvim || exit 1
         make
-    fi
-    if is_potato; then
-        for _ in /home/benjamin/.virtualenvs/debugpy/lib/python3.*/site-packages/debugpy; do
-            echo "debugpy already installed"
-            export DEBUGPYINSTALLED="true"
-            break
-        done
-        if [ -n "$DEBUGPYINSTALLED" ]; then
-            echo "installing debugpy"
-            mkdir ~/.virtualenvs
-            cd ~/.virtualenvs || exit 1
-            python -m venv debugpy
-            debugpy/bin/python -m pip install debugpy
-        fi
     fi
 
     # install coq deps
@@ -205,14 +170,12 @@ install_dependencies() {
         instantinstall npm
         instantinstall python-pip
         instantinstall luarocks
-        instantinstall cmake
         instantinstall sqlite3
         instantinstall python-virtualenv
     fi
 
     if ismacos; then
         brew install python
-        brew install cmake
         brew install luarocks
         brew install sqlite
         pip install virtualenv
