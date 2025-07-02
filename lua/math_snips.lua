@@ -340,6 +340,7 @@ local function math_snippets(math_mode_condition)
         msnip("min", { t("\\min ") }),
         msnip("inf", { t("\\inf ") }),
         msnip("max", { t("\\max ") }),
+        msnip("det", { t("\\det ") }),
 
         msnip("inn", { t("\\in ") }),
         msnip("notin", { t("\\not\\in") }),
