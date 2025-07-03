@@ -140,6 +140,7 @@ local function math_snippets(math_mode_condition)
         msnip("brc", { t("\\{"), i(1), t("\\}") }),
 
         msnip("lr(", { t("\\left("), i(1), t("\\right)") }),
+        msnip("lrp", { t("\\left("), d(1, get_visual), t("\\right)") }),
         msnip("lr[", { t("\\left["), i(1), t("\\right]") }),
         msnip("lr{", { t("\\left\\{"), i(1), t("\\right\\}") }),
         msnip("ll{", { t("\\left."), i(1), t("\\right\\}") }),
