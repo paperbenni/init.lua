@@ -261,6 +261,7 @@ local function math_snippets(math_mode_condition)
 
         msnip("binom", { t(" { "), i(1), t(" \\choose "), i(2), t(" } ") }),
 
+
         msnip("lim", {
             t("\\lim_{"),
             i(1, "n"),
