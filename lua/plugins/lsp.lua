@@ -18,7 +18,8 @@ return {
 			},
 		})
 		local capabilities = require("blink.cmp").get_lsp_capabilities()
-		local on_attach = function(client, bufnr)
+
+		local on_attach = function(_, bufnr)
 			-- Mappings.
 			-- See `:help vim.lsp.*` for documentation on any of the below functions
 
@@ -39,12 +40,21 @@ return {
 			-- vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
 
 			setkey("n", "<leader><F2>", vim.lsp.buf.rename, "Rename")
-			setkey("n", "<leader>x", vim.lsp.buf.code_action, "Code Action")
+			setkey("n", "<leader>.", vim.lsp.buf.code_action, "Code Action")
 			-- vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 			-- setkey('n', '<leader>F', function() vim.lsp.buf.format { async = true } end, 'LSP Format buffer')
-			vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
+			-- vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
 		end
 		local lspconfig = require("lspconfig")
+
+		vim.api.nvim_create_autocmd("LspAttach", {
+			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
+			callback = function(args)
+				local client = vim.lsp.get_client_by_id(args.data.client_id)
+				local bufnr = args.buf
+				on_attach(client, bufnr)
+			end,
+		})
 
 		lspconfig.yamlls.setup({
 			capabilities = capabilities,
