@@ -21,7 +21,8 @@ end
 local snippets = require("math_snips")(in_latex_math_block)
 
 local function in_anki_file()
-    return vim.fn.fnamemodify(vim.api.nvim_buf_get_name(0), ":t") == "anki.md"
+    local file_path = vim.api.nvim_buf_get_name(0)
+    return string.find(file_path, "anki") and string.match(file_path, "%.md$")
 end
 
 local function ankisnip(trigger, replacement, extras)

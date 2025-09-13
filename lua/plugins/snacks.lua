@@ -15,7 +15,7 @@ return {
         -- end,
         opts = {
             indent = {
-                enabled = true,
+                enabled = not potato,
                 -- filter for buffers to enable indent guides
                 filter = function(buf)
                     local is_markdown = vim.bo[buf].filetype == "markdown"
@@ -36,7 +36,7 @@ return {
                     return type == "math"
                   end,
                 },
-                enabled = true,
+                enabled = not potato,
                 math = {
                     enabled = true,
                     latex = {
