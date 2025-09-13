@@ -43,40 +43,10 @@ check_nix_install() {
     fi
 }
 
-install_providers() {
-    echo "installing neovim providers"
-    # TODO: install python3 neovim
-    # TODO: install python nvim arch package when on arch
-    if ! command -v nvim; then
-        if ! npm list -g | grep 'neovim'; then
-            npm install -g neovim
-        fi
-        # TODO check for gem existance
-        if ! gem list | grep 'neovim'; then
-            sudo gem install neovim
-        fi
-    fi
-}
 
 check_dependencies() {
-    checkcommand npm
-    checkcommand pip
     checkcommand luarocks
     checkcommand sqlite3
-    checkcommand node
-    if ! python3 -m venv --help &>/dev/null; then
-        if command -v termux-setup-storage; then
-            # TOOD: is there a termux package for this?
-            pip3 install --upgrade virtualenv
-        elif command -v pacman &>/dev/null; then
-            sudo pacman -S --noconfirm --needed python-virtualenv
-        fi
-        if ! python3 -m venv --help &>/dev/null; then
-            echo "please install python venv"
-        fi
-        exit 1
-    fi
-
 }
 
 ensure_repo() {
@@ -155,11 +125,6 @@ install_plugins() {
         make
     fi
 
-    # install coq deps
-    if ! [ -e "$PLUGINDIR"/coq_nvim/.vars ]; then
-        $NVIMCMD -c "COQdeps"
-    fi
-
 }
 
 install_dependencies() {
@@ -167,18 +132,14 @@ install_dependencies() {
     # automatically install required
     # packages when on instantOS
     if command -v instantinstall; then
-        instantinstall npm
-        instantinstall python-pip
         instantinstall luarocks
         instantinstall sqlite3
-        instantinstall python-virtualenv
     fi
 
     if ismacos; then
         brew install python
         brew install luarocks
         brew install sqlite
-        pip install virtualenv
     fi
 
 }
@@ -200,6 +161,5 @@ if [ "$0" = "$BASH_SOURCE" ]; then
     check_nix_install
     install_dependencies
     check_dependencies
-    install_providers
     main "$@"
 fi

@@ -15,3 +15,6 @@ dependencies:
         echo "Error: Unsupported package manager. Please install dependencies manually." >&2
         exit 1
     fi
+
+install:
+	bash ./local.sh
