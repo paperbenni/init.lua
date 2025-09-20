@@ -1,4 +1,4 @@
 return {
-    'paperbenni/live-preview.nvim',
-    cmd = { "LivePreview" },
+	"paperbenni/live-preview.nvim",
+	cmd = { "LivePreview" },
 }

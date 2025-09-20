@@ -1,11 +1,11 @@
 return {
 	"paperbenni/obsidian.nvim",
-    branch = "external",
+	branch = "external",
 	version = "*", -- recommended, use latest release instead of latest commit
 	lazy = true,
 	-- ft = "markdown",
 	-- enabled = false,
-    cmd = { "Obsidian" },
+	cmd = { "Obsidian" },
 	keys = {
 		{
 			"<leader>ww",
@@ -34,9 +34,9 @@ return {
 		follow_url_func = function(url)
 			vim.ui.open(url)
 		end,
-        follow_pdf_func = function(pdf)
+		follow_pdf_func = function(pdf)
 			vim.ui.open(pdf)
-        end,
+		end,
 		completion = {
 			blink = true,
 			nvim_cmp = false,
@@ -51,8 +51,8 @@ return {
 			folder = "diary",
 			date_format = "%Y-%m-%d",
 		},
-        picker = {
-            name = "snacks.pick"
-        }
+		picker = {
+			name = "snacks.pick",
+		},
 	},
 }

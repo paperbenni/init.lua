@@ -1,7 +1,7 @@
 return {
 	"NotAShelf/syntax-gaslighting.nvim",
-    lazy = true,
-    cmd = "GasLight",
+	lazy = true,
+	cmd = "GasLight",
 	opts = {
 		-- Set the chance of gaslighting per line (1-100%)
 		gaslighting_chance = 5, -- Default is 5%

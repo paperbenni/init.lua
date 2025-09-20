@@ -1,8 +1,8 @@
 return {
-    "lervag/vimtex",
-    event = "BufRead *.tex",
-    config = function()
-        vim.cmd([[
+	"lervag/vimtex",
+	event = "BufRead *.tex",
+	config = function()
+		vim.cmd([[
         let g:vimtex_compiler_latexmk_engines = {
             \ '_'                : '-lualatex',
             \ 'pdflatex'         : '-pdf',
@@ -16,5 +16,5 @@ return {
 
         let g:tex_flavor = 'latex'
         ]])
-    end
+	end,
 }

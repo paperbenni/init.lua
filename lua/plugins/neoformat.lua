@@ -1,5 +1,5 @@
 return {
-    "sbdchd/neoformat",
-    cmd = "Neoformat",
-    enabled = false,
+	"sbdchd/neoformat",
+	cmd = "Neoformat",
+	enabled = false,
 }
