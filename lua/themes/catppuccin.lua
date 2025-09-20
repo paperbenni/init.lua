@@ -1,4 +1,4 @@
 return {
-    vimtheme = 'catppuccin-macchiato',
-    lualinetheme = 'catppuccin'
+	vimtheme = "catppuccin-macchiato",
+	lualinetheme = "catppuccin",
 }

@@ -3,29 +3,29 @@ vim.g.mapleader = " "
 vim.loader.enable()
 
 if vim.env.PROF then
-  -- example for lazy.nvim
-  -- change this to the correct path for your plugin manager
-  local snacks = vim.fn.stdpath("data") .. "/lazy/snacks.nvim"
-  vim.opt.rtp:append(snacks)
-  require("snacks.profiler").startup({
-    startup = {
-      event = "VimEnter", -- stop profiler on this event. Defaults to `VimEnter`
-      -- event = "UIEnter",
-      -- event = "VeryLazy",
-    },
-  })
+	-- example for lazy.nvim
+	-- change this to the correct path for your plugin manager
+	local snacks = vim.fn.stdpath("data") .. "/lazy/snacks.nvim"
+	vim.opt.rtp:append(snacks)
+	require("snacks.profiler").startup({
+		startup = {
+			event = "VimEnter", -- stop profiler on this event. Defaults to `VimEnter`
+			-- event = "UIEnter",
+			-- event = "VeryLazy",
+		},
+	})
 end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
@@ -35,25 +35,19 @@ local potato = require("mypotato")
 -- My_completion_engine = "mycmp"
 My_completion_engine = "myblink"
 
-
 require("lazy").setup({
-    spec = {
-        { import = "plugins" }
-    },
-    checker = { enabled = false },
+	spec = {
+		{ import = "plugins" },
+	},
+	checker = { enabled = false },
 })
 
+vim.api.nvim_create_user_command("Debug", ":lua require'mydap'", { nargs = 0 })
 
-vim.api.nvim_create_user_command(
-    'Debug',
-    ":lua require'mydap'",
-    { nargs = 0 }
-)
-
-vim.diagnostic.config { virtual_lines = true }
+vim.diagnostic.config({ virtual_lines = true })
 
 if vim.fn.has("termguicolors") == 1 then
-    vim.opt.termguicolors = true
+	vim.opt.termguicolors = true
 end
 
 vim.opt.tabstop = 4
@@ -65,9 +59,9 @@ vim.opt.colorcolumn = "80"
 vim.g.neovide_cursor_vfx_mode = "sonicboom"
 
 -- Custom commands
-vim.api.nvim_create_user_command('Lighttheme', function()
-    vim.cmd.colorscheme('catppuccin-latte')
-    vim.opt.background = 'light'
+vim.api.nvim_create_user_command("Lighttheme", function()
+	vim.cmd.colorscheme("catppuccin-latte")
+	vim.opt.background = "light"
 end, {})
 
 vim.cmd([[
@@ -106,34 +100,34 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 
 -- TODO: make this use the mini dashboard
 -- vim.keymap.set('n', '<leader>a', ":Startify<CR>")
-vim.keymap.set('n', '<leader>f', ':w<CR>', { desc = "Save file" })
-vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = "Quit" })
+vim.keymap.set("n", "<leader>f", ":w<CR>", { desc = "Save file" })
+vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Quit" })
 
 -- TODO: make this work with mini or something
 -- vim.keymap.set('n', '<leader>g', ':Gcd<CR>')
 
-vim.keymap.set('n', '<leader>n', ':tabnew<CR>', { desc = "New tab" })
+vim.keymap.set("n", "<leader>n", ":tabnew<CR>", { desc = "New tab" })
 -- vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>')
 
-local opt          = vim.opt
+local opt = vim.opt
 
-opt.number         = true
-opt.cursorline     = true
+opt.number = true
+opt.cursorline = true
 opt.relativenumber = true
-opt.ignorecase     = true
-opt.smartcase      = true
+opt.ignorecase = true
+opt.smartcase = true
 
 opt.conceallevel = 2
 
-opt.hidden         = true
+opt.hidden = true
 
-opt.inccommand     = "split"
-opt.mouse          = "a"
-opt.scrolloff      = 6
-opt.foldenable     = false
+opt.inccommand = "split"
+opt.mouse = "a"
+opt.scrolloff = 6
+opt.foldenable = false
 
-opt.foldmethod     = "expr"
-opt.foldexpr       = "nvim_treesitter#foldexpr()"
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- require("indent_blankline").setup {
 --     -- for example, context is off by default, use this to turn it on
@@ -141,19 +135,16 @@ opt.foldexpr       = "nvim_treesitter#foldexpr()"
 --     show_current_context_start = true,
 -- }
 
-
 -- require("hardtime").setup()
 
+if not potato then
+	require("gitsigns").setup()
+	require("colorizer").setup()
+	-- require 'mycopilot'
+	-- require 'myharpoon'
 
-if not potato
-then
-    require('gitsigns').setup()
-    require("colorizer").setup()
-    -- require 'mycopilot'
-    -- require 'myharpoon'
-
-    -- this one is mostly annoying
-    -- require "lsp_signature".setup()
+	-- this one is mostly annoying
+	-- require "lsp_signature".setup()
 end
 
 --
@@ -166,7 +157,6 @@ vim.g.loaded_netrwPlugin = 1
 --
 -- vim.cmd("colorscheme " .. mytheme.vimtheme)
 
-if My_completion_engine == "mycoq"
-then
-    vim.cmd "COQnow --shut-up"
+if My_completion_engine == "mycoq" then
+	vim.cmd("COQnow --shut-up")
 end

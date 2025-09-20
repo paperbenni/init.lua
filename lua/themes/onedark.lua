@@ -1,4 +1,4 @@
 return {
-    vimtheme = 'onedark',
-    lualinetheme = 'onedark'
+	vimtheme = "onedark",
+	lualinetheme = "onedark",
 }
