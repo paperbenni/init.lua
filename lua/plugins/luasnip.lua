@@ -30,7 +30,7 @@ return {
 
 		luasnip.config.set_config({
 			enable_autosnippets = true,
-			store_selection_keys = "<Tab>",
+			store_selection_keys = "<S-Tab>",
 		})
 
 		-- port "evesdropper/luasnip-latex-snippets.nvim" to here
