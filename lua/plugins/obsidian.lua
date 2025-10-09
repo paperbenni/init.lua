@@ -12,6 +12,11 @@ return {
 			desc = "Open obsidian file",
 		},
 		{
+			"<leader>ws",
+			"<cmd>Obsidian search<CR>",
+			desc = "Search obsidian vault",
+		},
+		{
 			"<leader>w<leader>w",
 			"<cmd>Obsidian today<CR>",
 			desc = "Open obsidian daily note",
@@ -30,6 +35,7 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	opts = {
+		legacy_commands = false,
 		follow_url_func = function(url)
 			vim.ui.open(url)
 		end,
