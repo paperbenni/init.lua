@@ -2,6 +2,9 @@ return {
     "folke/sidekick.nvim",
     opts = {
         cli = {
+            prompts = {
+                spellcheck = "search for simple typos in {file} and fix them"
+            },
             mux = {
                 backend = "tmux",
                 enabled = true

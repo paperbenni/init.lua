@@ -30,6 +30,7 @@ return {
 		"nvim-lua/plenary.nvim",
 	},
 	opts = {
+		legacy_commands = false,
 		follow_url_func = function(url)
 			vim.ui.open(url)
 		end,
