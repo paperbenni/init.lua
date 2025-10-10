@@ -12,6 +12,16 @@ return {
 			desc = "Open obsidian file",
 		},
 		{
+			"<leader>ws",
+			"<cmd>Obsidian search<CR>",
+			desc = "Search obsidian vault",
+		},
+		{
+			"<leader>wt",
+			"<cmd>Obsidian dailies -14 14<CR>",
+			desc = "Pick obsidian note in last and next 14 days",
+		},
+		{
 			"<leader>w<leader>w",
 			"<cmd>Obsidian today<CR>",
 			desc = "Open obsidian daily note",
