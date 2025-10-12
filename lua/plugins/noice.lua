@@ -3,6 +3,11 @@ return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
 	opts = {
+		lsp = {
+			progress = {
+				enabled = false, -- disable LSP progress notifications
+			},
+		},
 		presets = {
 			bottom_search = true,
 			command_palette = true, -- position the cmdline and popupmenu together
