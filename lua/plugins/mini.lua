@@ -38,9 +38,9 @@ return {
 		})
 		-- end
 
-		if potato then
-			require("mini.notify").setup({})
-		end
+		-- if potato then
+		-- 	require("mini.notify").setup({})
+		-- end
 
 		-- files
 		local files = require("mini.files")

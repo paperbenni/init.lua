@@ -3,10 +3,8 @@ return {
 	"folke/noice.nvim",
 	event = "VeryLazy",
 	opts = {
-		lsp = {
-			progress = {
-				enabled = false, -- disable LSP progress notifications
-			},
+		notify = {
+			enabled = false,
 		},
 		presets = {
 			bottom_search = true,
