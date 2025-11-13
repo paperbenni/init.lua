@@ -8,7 +8,9 @@ return {
 	event = { "VeryLazy", "BufReadPost", "BufWritePost", "BufNewFile" },
 	config = function()
 		-- local potato = require("mypotato")
-		vim.lsp.inline_completion.enable(true)
+		if vim.fn.has("nvim-0.12") == 1 then
+			vim.lsp.inline_completion.enable(true)
+		end
 		require("mason").setup()
 		require("mason-lspconfig").setup({
 			automatic_enable = {
