@@ -95,7 +95,7 @@ install_cfg_files() {
     ensure_repo
     [ -e ~/.config/nvim ] || mkdir -p ~/.config/nvim
 
-    cp -r ./* ~/.config/nvim/
+    rsync -av --exclude='justfile' --exclude='.git' ./ ~/.config/nvim/ --exclude='justfile'
     POTATOFILE="$HOME"/.config/nvim/lua/mypotato.lua
 
     if ismacos
