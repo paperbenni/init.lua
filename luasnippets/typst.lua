@@ -21,12 +21,14 @@ local math_mode_condition = in_latex_math_block
 
 -- Function to generate simple hash from URL
 local function hash_url(url)
-	local hash = 0
+	local hash1 = 0
+	local hash2 = 0
 	for i = 1, #url do
 		local char = string.byte(url, i)
-		hash = (hash * 31 + char) % 2147483647
+		hash1 = (hash1 * 31 + char) % 2147483647
+		hash2 = (hash2 * 37 + char) % 2147483647
 	end
-	return string.format("%x", hash)
+	return string.format("%x%x", hash1, hash2)
 end
 
 
