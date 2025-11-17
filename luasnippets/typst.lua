@@ -19,6 +19,17 @@ end
 
 local math_mode_condition = in_latex_math_block
 
+-- Function to generate simple hash from URL
+local function hash_url(url)
+	local hash = 0
+	for i = 1, #url do
+		local char = string.byte(url, i)
+		hash = (hash * 31 + char) % 2147483647
+	end
+	return string.format("%x", hash)
+end
+
+
 local function msnip(trigger, replacement, noWordTrig)
 	local trigtable = {
 		trig = trigger,
@@ -93,6 +104,25 @@ local staticsnippets = {
 		i(2),
 		t(")"),
 		i(3),
+	}),
+	s({
+		trig = "^prq",
+		regTrig = true,
+		snippetType = "autosnippet",
+	}, {
+		t('#prequery.image("'),
+		i(1),
+		t('", "preq/'),
+		f(function(args, snip)
+			local url = args[1][1] or ""
+			if url == "" then
+				return "hash"
+			else
+				return hash_url(url)
+			end
+		end, { 1 }),
+		t('")'),
+		i(0),
 	}),
 }
 
