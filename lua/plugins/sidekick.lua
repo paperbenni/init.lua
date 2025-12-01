@@ -15,8 +15,10 @@ return {
 		{
 			"<tab>",
 			function()
-				if require("sidekick").nes_jump_or_apply() then
-					return
+				if vim.fn.has("nvim-0.12") == 1 then
+					if require("sidekick").nes_jump_or_apply() then
+						return
+					end
 				end
 				return "<tab>"
 			end,

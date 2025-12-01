@@ -31,7 +31,6 @@ local function hash_url(url)
 	return string.format("%x%x", hash1, hash2)
 end
 
-
 local function msnip(trigger, replacement, noWordTrig)
 	local trigtable = {
 		trig = trigger,
