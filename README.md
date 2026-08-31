@@ -1,5 +1,7 @@
 # init.lua
 
+# ARCHIVED, MOVED TO https://github.com/instantOS/dotfiles/tree/main/dots/.config/nvim
+
 ## installation
 
 ```bash
